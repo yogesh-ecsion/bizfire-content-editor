@@ -1,2 +1,6 @@
 /* Scoped Layer 2 styles for plumbing-hvac-cross-sell */
-.plumbing-hvac-section { background:#f8fafc; }
+.plumbing-hvac-section { background:#f8fafc; padding: 40px 0; }
+.plumbing-hvac-section .plumbing-card-icon { width: 56px; height: 56px; border-radius: 50%; background: rgba(169, 31, 56, 0.08); display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+.plumbing-hvac-section .card-body-center:hover .plumbing-card-icon { background: #A01922; }
+.plumbing-hvac-section .plumbing-card-icon i { font-size: 24px; color: #A01922; transition: 0.2s; }
+.plumbing-hvac-section .card-body-center:hover .plumbing-card-icon i { color: #fff; }

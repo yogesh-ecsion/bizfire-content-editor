@@ -1,17 +1,18 @@
 <section class="cta-banner-section">
   <div class="container">
-    <div class="row g-4">
-      <div class="col-md-6">
-        <div class="cta-banner-box" style="background:#172033; color:#fff; padding:32px; border-radius:14px; text-align:center;">
-          <h3 style="color:#fff; font-size:22px; margin-bottom:12px;">{{phoneTitle}}</h3>
-          <a href="tel:{{phoneText}}" class="btn-outline-phone" style="border:1px solid #fff; color:#fff; padding:12px 24px; border-radius:30px; display:inline-block; font-weight:700;">{{phoneText}}</a>
-        </div>
+    <div class="cta-banner">
+      <div class="cta-banner-left">
+        <span class="cta-phone-icon" aria-hidden="true">
+          <i class="fas fa-phone"></i>
+        </span>
+        <a href="tel:{{phone}}" class="cta-phone-number">{{phone}}</a>
+        <span class="cta-phone-text">{{phoneText}}</span>
       </div>
-      <div class="col-md-6">
-        <div class="cta-banner-box" style="background:#A01922; color:#fff; padding:32px; border-radius:14px; text-align:center;">
-          <h3 style="color:#fff; font-size:22px; margin-bottom:12px;">{{chatTitle}}</h3>
-          <a href="#chat" onclick="openQuotePopup()" class="btn-filled-chat" style="background:#fff; color:#A01922; padding:12px 24px; border-radius:30px; display:inline-block; font-weight:700;">{{chatButtonText}}</a>
-        </div>
+      <div class="cta-banner-right">
+        <span class="cta-question">Questions?</span>
+        <a onclick="openQuotePopup()" class="cta-chat-btn">
+          <i class="fa-solid fa-message"></i> {{chatText}}
+        </a>
       </div>
     </div>
   </div>

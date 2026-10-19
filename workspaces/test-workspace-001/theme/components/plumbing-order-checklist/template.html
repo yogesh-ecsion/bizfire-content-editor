@@ -11,20 +11,42 @@
       </div>
       <div class="col-lg-6 col-12">
         <div class="plumbing-stats-card">
-          {{#each stats}}
           <div class="plumbing-stat-item">
             <div class="plumbing-stat-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                <polyline points="9 12 11 14 15 10" />
-              </svg>
+              <i class="fa-solid fa-shield-halved" style="color:#fff; font-size:20px;"></i>
             </div>
             <div class="plumbing-stat-content">
-              <span class="plumbing-stat-number">{{this.number}}</span>
-              <span class="plumbing-stat-label">{{this.label}}</span>
+              <span class="plumbing-stat-number">50+</span>
+              <span class="plumbing-stat-label">Years in Business</span>
             </div>
           </div>
-          {{/each}}
+          <div class="plumbing-stat-item">
+            <div class="plumbing-stat-icon">
+              <i class="fa-solid fa-users" style="color:#fff; font-size:20px;"></i>
+            </div>
+            <div class="plumbing-stat-content">
+              <span class="plumbing-stat-number">700</span>
+              <span class="plumbing-stat-label">Skilled Employees</span>
+            </div>
+          </div>
+          <div class="plumbing-stat-item">
+            <div class="plumbing-stat-icon">
+              <i class="fa-solid fa-clock" style="color:#fff; font-size:20px;"></i>
+            </div>
+            <div class="plumbing-stat-content">
+              <span class="plumbing-stat-number">24/7</span>
+              <span class="plumbing-stat-label">Emergency Service</span>
+            </div>
+          </div>
+          <div class="plumbing-stat-item">
+            <div class="plumbing-stat-icon">
+              <i class="fa-solid fa-truck" style="color:#fff; font-size:20px;"></i>
+            </div>
+            <div class="plumbing-stat-content">
+              <span class="plumbing-stat-number">500</span>
+              <span class="plumbing-stat-label">Trucks on the Road</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

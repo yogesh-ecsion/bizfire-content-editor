@@ -1,38 +1,12 @@
 {
-  "name": "Promotional Coupons Grid",
-  "category": "Promotions",
-  "fields": {
-    "heading": {
-      "type": "text",
-      "label": "Section Heading",
-      "default": "Plumbing Specials & Discounts"
-    },
-    "coupons": {
-      "type": "array",
-      "label": "Coupons",
-      "itemLabel": "Coupon",
-      "itemSchema": {
-        "discount": {
-          "type": "text",
-          "label": "Discount Amount",
-          "default": "$50 OFF"
-        },
-        "title": {
-          "type": "text",
-          "label": "Service Offer",
-          "default": "Water Heater Installation"
-        },
-        "terms": {
-          "type": "text",
-          "label": "Terms & Conditions",
-          "default": "Valid on complete system replacement. Cannot combine."
-        },
-        "expiry": {
-          "type": "text",
-          "label": "Expiration Text",
-          "default": "Expires 11/30/2026"
-        }
-      }
-    }
+  "heading": {
+    "type": "text",
+    "label": "Section Heading",
+    "default": "Plumbing Specials & Discounts"
+  },
+  "subtitle": {
+    "type": "text",
+    "label": "Subtitle",
+    "default": "Take advantage of our current offers & coupons!"
   }
 }

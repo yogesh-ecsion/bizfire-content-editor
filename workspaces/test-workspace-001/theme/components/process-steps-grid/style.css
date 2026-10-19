@@ -1,2 +1,7 @@
 /* Scoped Layer 2 styles for process-steps-grid */
 .steps-section { background-color: #f8fafc; }
+.card-body-flex { display: flex; align-items: flex-start; gap: 20px; background: #fff; padding: 24px; border-radius: 12px; margin-bottom: 16px; border: 1px solid #e2e8f0; }
+.step-circle { width: 44px; height: 44px; min-width: 44px; border-radius: 50%; background: #A01922; color: #fff; font-size: 20px; font-weight: 800; display: flex; align-items: center; justify-content: center; font-family: Outfit, sans-serif; }
+.step-title { font-size: 18px; font-weight: 700; color: #172033; margin: 0 0 8px; font-family: Outfit, sans-serif; }
+.step-text { font-size: 14px; color: #5b6472; line-height: 1.5; margin: 0; }
+.step-image { width: 100%; height: auto; border-radius: 16px; object-fit: cover; }

@@ -1,41 +1,15 @@
 {
-  "name": "Home Comfort Club Perks",
-  "category": "Features",
-  "fields": {
-    "title": {
-      "type": "text",
-      "label": "Title",
-      "default": "Year-Round Confidence With the Home Comfort Club"
-    },
-    "badge": {
-      "type": "text",
-      "label": "Badge Text",
-      "default": "THE HOME COMFORT CLUB"
-    },
-    "desc": {
-      "type": "textarea",
-      "label": "Description",
-      "default": "Regular maintenance protects your plumbing investments and avoids high-cost emergency dispatch fees."
-    },
-    "perks": {
-      "type": "array",
-      "label": "Club Perks",
-      "itemLabel": "Perk Item",
-      "itemSchema": {
-        "text": {
-          "type": "text",
-          "label": "Perk Title",
-          "default": "Priority Emergency Dispatch"
-        }
-      }
-    },
-    "image": {
-      "type": "image",
-      "label": "Side Image",
-      "default": {
-        "src": "/assets/img/the-home-comfort-club-new.webp",
-        "alt": "Home Comfort Club"
-      }
+  "title": {
+    "type": "text",
+    "label": "Title",
+    "default": "Year-Round Confidence<br /><span class=\"comfort-club-heading-sub\">With the Home Comfort Club</span>"
+  },
+  "image": {
+    "type": "image",
+    "label": "Technician Image",
+    "default": {
+      "src": "/assets/img/5-year-round.webp",
+      "alt": "Home Comfort Club Technician"
     }
   }
 }

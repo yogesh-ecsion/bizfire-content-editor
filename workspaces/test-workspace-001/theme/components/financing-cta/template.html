@@ -1,13 +1,13 @@
-<section class="financing-cta-section bg-light-gray" style="padding:48px 0;">
+<section class="financing-cta-section bg-light-gray">
   <div class="container">
-    <div style="background:#172033; color:#fff; border-radius:16px; padding:40px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px;">
-      <div style="max-width:650px;">
-        <h2 style="color:#fff; font-size:28px; margin:0 0 10px;">{{title}}</h2>
-        <p style="color:#94a3b8; margin:0; font-size:16px;">{{desc}}</p>
+    <div class="financing-cta-banner d-flex flex-wrap justify-content-between align-items-center">
+      <div class="financing-cta-left d-flex align-items-center gap-3">
+        <i class="bi bi-credit-card financing-cta-icon" aria-hidden="true"></i>
+        <h2 class="financing-cta-heading">{{heading}}</h2>
       </div>
-      <div>
-        <a href="#financing" onclick="openQuotePopup()" class="btn-filled-chat" style="background:#A01922; color:#fff; padding:14px 28px; border-radius:30px; font-weight:700; text-decoration:none; display:inline-block;">{{buttonText}}</a>
-      </div>
+      <a onclick="openQuotePopup()" class="financing-cta-btn d-inline-flex align-items-center gap-2">
+        <i class="bi bi-arrow-right-circle" aria-hidden="true"></i> {{buttonText}}
+      </a>
     </div>
   </div>
 </section>

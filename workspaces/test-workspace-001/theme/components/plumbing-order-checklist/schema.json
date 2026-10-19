@@ -1,43 +1,22 @@
 {
-  "name": "Plumbing Order & Guarantee",
-  "category": "Features",
-  "fields": {
-    "sectionTitle": {
-      "type": "text",
-      "label": "Section Title",
-      "default": "When Plumbing Disrupts Your Home, We Restore Order"
-    },
-    "headline": {
-      "type": "text",
-      "label": "Left Headline",
-      "default": "Your plumbing works in the background until the minute it stops."
-    },
-    "desc1": {
-      "type": "textarea",
-      "label": "Description 1",
-      "default": "You turn a handle expecting water. You flush expecting nothing else to happen. When one of those automatic assumptions stops holding, the rest of the household adjusts around it."
-    },
-    "desc2": {
-      "type": "textarea",
-      "label": "Description 2",
-      "default": "Princeton Air's licensed plumbers walk into that moment with a plan. Five decades of serving New Jersey homeowners has taught us that the plumbing call that earns the next one is the one that's done properly the first time."
-    },
-    "stats": {
-      "type": "array",
-      "label": "Stats & Badges",
-      "itemLabel": "Stat Item",
-      "itemSchema": {
-        "number": {
-          "type": "text",
-          "label": "Number/Stat",
-          "default": "50+"
-        },
-        "label": {
-          "type": "text",
-          "label": "Label",
-          "default": "Years in Business"
-        }
-      }
-    }
+  "sectionTitle": {
+    "type": "text",
+    "label": "Section Title",
+    "default": "When Plumbing Disrupts<br />Your Home, We Restore Order"
+  },
+  "headline": {
+    "type": "text",
+    "label": "Headline",
+    "default": "Your plumbing works in the background until the minute it stops."
+  },
+  "desc1": {
+    "type": "textarea",
+    "label": "Paragraph 1",
+    "default": "You turn a handle expecting water. You flush expecting nothing else to happen. You walk past the laundry room without thinking about what's under the sink. When one of those automatic assumptions stops holding, the rest of the household adjusts around it, and you start running a quiet inventory of what else might be about to go wrong."
+  },
+  "desc2": {
+    "type": "textarea",
+    "label": "Paragraph 2",
+    "default": "Princeton Air's licensed plumbers walk into that moment with a plan. We evaluate the whole system, not just the obvious failure, name the cause accurately, and put forward a scope that makes sense for your household and your budget. We pull the permits, follow the code, and leave the work area the way we found it. Five decades of serving New Jersey homeowners has taught us that the plumbing call that earns the next one is the one that's done properly the first time."
   }
 }

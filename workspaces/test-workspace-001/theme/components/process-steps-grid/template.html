@@ -1,29 +1,52 @@
 <section class="steps-section bg-light-gray section-padding py-lg-6">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-lg-10 text-center mb-5">
-        <h2 class="section-title">{{title}}</h2>
+      <div class="col-lg-10 col-xl-9 text-center">
+        <h2 class="section-title">{{heading}}</h2>
+        <p class="section-subtitle">{{subheading}}</p>
+        <p class="section-desc">{{desc}}</p>
       </div>
     </div>
-    <div class="row align-items-center">
-      <div class="col-lg-7">
-        <div class="steps-list">
-          {{#each steps}}
-          <div class="step-card mb-4" style="background:#fff; padding:24px; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.04); display:flex; gap:20px;">
-            <div class="step-num" style="font-size:32px; font-weight:800; color:#A01922; line-height:1;">{{this.number}}</div>
-            <div>
-              <h3 style="font-size:20px; font-weight:700; margin:0 0 8px;">{{this.title}}</h3>
-              <p style="margin:0; color:#5b6472; font-size:15px;">{{this.desc}}</p>
+    <div class="row align-items-stretch gx-4 gy-4">
+      <div class="col-lg-6 col-12">
+        <div class="steps-cards-wrapper">
+          <div class="card-body card-body-flex">
+            <div class="step-circle">1</div>
+            <div class="step-content">
+              <h3 class="step-title">Contact Princeton Air</h3>
+              <p class="step-text">Call or schedule through our online booking system. We confirm the details, answer initial questions, and send a licensed plumber prepared for your home.</p>
             </div>
           </div>
-          {{/each}}
+          <div class="card-body card-body-flex">
+            <div class="step-circle">2</div>
+            <div class="step-content">
+              <h3 class="step-title">Receive Clear Answers</h3>
+              <p class="step-text">Your plumber arrives on time, protects your space before any work begins, and carefully evaluates the situation. We explain our findings in plain language and walk through your options without pressure.</p>
+            </div>
+          </div>
+          <div class="card-body card-body-flex">
+            <div class="step-circle">3</div>
+            <div class="step-content">
+              <h3 class="step-title">Precise Work, Completed with Care</h3>
+              <p class="step-text">Once approved, we complete the work thoroughly and to current code standards. We test everything carefully, clean the work area, and review the results with you before we leave.</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-lg-5">
-        <div class="steps-image" style="border-radius:16px; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,0.08);">
-          <img src="{{image.src}}" alt="{{image.alt}}" style="width:100%; height:auto; display:block;">
+      <div class="col-lg-6 col-12 step-image-card-home">
+        <div class="step-image-card-home">
+          <img src="{{image.src}}" alt="{{image.alt}}" class="step-image" width="700" height="900" loading="lazy">
         </div>
       </div>
+    </div>
+    <br>
+    <div class="button-group justify-content-start">
+      <a href="tel:{{phone}}" class="btn-outline-phone">
+        <i class="fa-solid fa-phone"></i> {{phone}}
+      </a>
+      <a onclick="openQuotePopup()" class="btn-filled-chat">
+        <i class="fa-solid fa-message"></i> Chat with us
+      </a>
     </div>
   </div>
 </section>

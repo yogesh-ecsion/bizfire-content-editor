@@ -1,27 +1,7 @@
 {
-  "title": "Year-Round Confidence With the Home Comfort Club",
-  "badge": "THE HOME COMFORT CLUB",
-  "desc": "Regular maintenance protects your plumbing investments, maintains manufacturer warranties, and avoids high-cost emergency dispatch fees.",
-  "perks": [
-    {
-      "_id": "p-1",
-      "text": "15% Discount on all plumbing and drain service repairs"
-    },
-    {
-      "_id": "p-2",
-      "text": "Priority scheduling ahead of non-members during peak freezes"
-    },
-    {
-      "_id": "p-3",
-      "text": "Comprehensive annual whole-house plumbing inspection"
-    },
-    {
-      "_id": "p-4",
-      "text": "Waived emergency overtime diagnostic charges"
-    }
-  ],
+  "title": "Year-Round Confidence<br /><span class=\"comfort-club-heading-sub\">With the Home Comfort Club</span>",
   "image": {
-    "src": "/assets/img/the-home-comfort-club-new.webp",
-    "alt": "Home Comfort Club"
+    "src": "/assets/img/5-year-round.webp",
+    "alt": "Home Comfort Club Technician"
   }
 }

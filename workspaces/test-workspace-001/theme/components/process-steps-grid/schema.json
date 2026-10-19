@@ -1,41 +1,30 @@
 {
-  "name": "Process Steps Grid",
-  "category": "Process",
-  "fields": {
-    "title": {
-      "type": "text",
-      "label": "Section Heading",
-      "default": "Three Simple Steps to Reliable Plumbing"
-    },
-    "steps": {
-      "type": "array",
-      "label": "Steps",
-      "itemLabel": "Step",
-      "itemSchema": {
-        "number": {
-          "type": "text",
-          "label": "Step Number",
-          "default": "01"
-        },
-        "title": {
-          "type": "text",
-          "label": "Step Title",
-          "default": "Contact Princeton Air"
-        },
-        "desc": {
-          "type": "textarea",
-          "label": "Step Description",
-          "default": "Reach out by phone or online. Speak directly with a local dispatch coordinator."
-        }
-      }
-    },
-    "image": {
-      "type": "image",
-      "label": "Side Image",
-      "default": {
-        "src": "/assets/img/4-three-simple-steps.webp",
-        "alt": "Three Simple Steps"
-      }
+  "heading": {
+    "type": "text",
+    "label": "Heading",
+    "default": "Three Simple Steps to Reliable Plumbing"
+  },
+  "subheading": {
+    "type": "text",
+    "label": "Subheading",
+    "default": "Scheduling plumbing service with Princeton Air should take minutes and follow a clear path from the first call to the final walkthrough."
+  },
+  "desc": {
+    "type": "text",
+    "label": "Supporting Text",
+    "default": "Your experience with Princeton Air is clear, structured, and centered on your schedule."
+  },
+  "image": {
+    "type": "image",
+    "label": "Step Image",
+    "default": {
+      "src": "/assets/img/4-three-simple-steps.webp",
+      "alt": "Professional plumber at work"
     }
+  },
+  "phone": {
+    "type": "text",
+    "label": "Phone",
+    "default": "(123) 456-7890"
   }
 }

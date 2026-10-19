@@ -1,0 +1,169 @@
+{
+  "postId": null,
+  "slug": "plumb-landing",
+  "title": "plumb landing",
+  "templateId": "demo-plumbing",
+  "lastSavedAt": "2026-10-19T05:30:21.145Z",
+  "lastPublishedAt": null,
+  "sections": [
+    {
+      "type": "plumbing-hero-split",
+      "content": {
+        "title": "New Jersey Plumbing<br />Services",
+        "intro": "The quiet of a household depends on plumbing that works without being thought about.",
+        "paragraph1": "Water pooling where it shouldn't. A shower that runs cold before the morning is over. A toilet that runs and runs at 2 a.m. These are the moments that pull a household off schedule.",
+        "paragraph2": "Princeton Air's licensed plumbers arrive prepared, diagnose the actual cause, and complete the repair with careful attention to your finished spaces. Call or book online to schedule plumbing service in New Jersey.",
+        "image": {
+          "src": "/assets/img/1-index-hero-img.webp",
+          "alt": "Professional Plumber"
+        }
+      }
+    },
+    {
+      "type": "cta-strip",
+      "content": {
+        "text": "Ready to talk to a home services specialist?",
+        "buttonText": "Schedule Services",
+        "buttonUrl": "#quote"
+      }
+    },
+    {
+      "type": "plumbing-order-checklist",
+      "content": {
+        "sectionTitle": "When Plumbing Disrupts<br />Your Home, We Restore Order",
+        "headline": "Your plumbing works in the background until the minute it stops.",
+        "desc1": "You turn a handle expecting water. You flush expecting nothing else to happen. You walk past the laundry room without thinking about what's under the sink. When one of those automatic assumptions stops holding, the rest of the household adjusts around it, and you start running a quiet inventory of what else might be about to go wrong.",
+        "desc2": "Princeton Air's licensed plumbers walk into that moment with a plan. We evaluate the whole system, not just the obvious failure, name the cause accurately, and put forward a scope that makes sense for your household and your budget. We pull the permits, follow the code, and leave the work area the way we found it. Five decades of serving New Jersey homeowners has taught us that the plumbing call that earns the next one is the one that's done properly the first time."
+      }
+    },
+    {
+      "type": "plumbing-services-grid",
+      "content": {}
+    },
+    {
+      "type": "plumbing-care-video",
+      "content": {
+        "heading": "Plumbing Care That Matches<br class=\"d-none d-sm-block\" /> the Character of Your Home",
+        "subheading": "The right plumbing approach depends on what's already there.",
+        "image": {
+          "src": "/assets/img/2-plumbing-care.webp",
+          "alt": "Plumbing service video placeholder"
+        },
+        "phone": "(123) 456-7890"
+      }
+    },
+    {
+      "type": "trust-bar",
+      "content": {
+        "rating": "4.7",
+        "reviewsCount": "6634"
+      }
+    },
+    {
+      "type": "accordion-map-section",
+      "content": {
+        "heading": "New Jersey Chooses Princeton Air"
+      }
+    },
+    {
+      "type": "process-steps-grid",
+      "content": {
+        "heading": "Three Simple Steps to Reliable Plumbing",
+        "subheading": "Scheduling plumbing service with Princeton Air should take minutes and follow a clear path from the first call to the final walkthrough.",
+        "desc": "Your experience with Princeton Air is clear, structured, and centered on your schedule.",
+        "image": {
+          "src": "/assets/img/4-three-simple-steps.webp",
+          "alt": "Professional plumber at work"
+        },
+        "phone": "(123) 456-7890"
+      }
+    },
+    {
+      "type": "cta-banner-dual",
+      "content": {
+        "phone": "(123) 456-7890",
+        "phoneText": "to schedule plumbing services.",
+        "chatText": "Chat with us"
+      }
+    },
+    {
+      "type": "testimonial-carousel",
+      "content": {
+        "title": "What Our Customers Are Saying",
+        "subtitle": "100% Satisfaction Guarantee"
+      }
+    },
+    {
+      "type": "coupon-grid",
+      "content": {
+        "heading": "Plumbing Specials &amp; Discounts",
+        "subtitle": "Take advantage of our current offers &amp; coupons!"
+      }
+    },
+    {
+      "type": "financing-cta",
+      "content": {
+        "heading": "Get Pre-Approved Financing",
+        "buttonText": "Financing Options"
+      }
+    },
+    {
+      "type": "comfort-club-perks",
+      "content": {
+        "title": "Year-Round Confidence<br /><span class=\"comfort-club-heading-sub\">With the Home Comfort Club</span>",
+        "image": {
+          "src": "/assets/img/5-year-round.webp",
+          "alt": "Home Comfort Club Technician"
+        }
+      }
+    },
+    {
+      "type": "plumbing-spotlight-hero",
+      "content": {
+        "title": "Our New Jersey Plumbing<br />Services",
+        "image": {
+          "src": "/assets/img/6-plumbing-services.webp",
+          "alt": "Our New Jersey Plumbing Services"
+        }
+      }
+    },
+    {
+      "type": "plumbing-services-grid",
+      "content": {}
+    },
+    {
+      "type": "services-detailed-grid",
+      "content": {
+        "title": "Services"
+      }
+    },
+    {
+      "type": "cta-banner-dual",
+      "content": {
+        "phone": "(123) 456-7890",
+        "phoneText": "to schedule plumbing services.",
+        "chatText": "Chat with us"
+      }
+    },
+    {
+      "type": "plumbing-hvac-cross-sell",
+      "content": {}
+    },
+    {
+      "type": "comfort-closing-cta",
+      "content": {
+        "title": "Restore Your Comfort.<br> Call Princeton Air Today.",
+        "subtitle": "Quality, Friendly Service in Central New Jersey Since 1971.",
+        "image": {
+          "src": "/assets/img/7-restore-your.webp",
+          "alt": "Restore Your Comfort"
+        },
+        "phone": "(123) 456-7890"
+      }
+    },
+    {
+      "type": "certifications-marquee",
+      "content": {}
+    }
+  ]
+}

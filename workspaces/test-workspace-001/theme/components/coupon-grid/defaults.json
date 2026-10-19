@@ -1,26 +1,4 @@
 {
-  "heading": "Plumbing Specials & Discounts",
-  "coupons": [
-    {
-      "_id": "c-1",
-      "discount": "$50 OFF",
-      "title": "Sink/Shower Unclog (Branch Line)",
-      "terms": "Cannot be combined with other offers.",
-      "expiry": "Expires 11/30/2026"
-    },
-    {
-      "_id": "c-2",
-      "discount": "$75 OFF",
-      "title": "Drain Cleaning Service",
-      "terms": "Valid for standard residential lines.",
-      "expiry": "Expires 11/30/2026"
-    },
-    {
-      "_id": "c-3",
-      "discount": "$250 OFF",
-      "title": "Water Heater Installation",
-      "terms": "Applies to tankless or hybrid units.",
-      "expiry": "Expires 11/30/2026"
-    }
-  ]
+  "heading": "Plumbing Specials &amp; Discounts",
+  "subtitle": "Take advantage of our current offers &amp; coupons!"
 }

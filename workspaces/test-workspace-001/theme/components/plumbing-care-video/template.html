@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-10 col-xl-9 text-center">
-        <h2 class="plumbing-care-heading section-title">{{heading}}</h2>
+        <h2 class="plumbing-care-heading section-title">{{{heading}}}</h2>
         <p class="plumbing-care-subheading section-subtitle">{{subheading}}</p>
         <div class="spacer-50"></div>
       </div>
@@ -13,9 +13,7 @@
           <img src="{{image.src}}" alt="{{image.alt}}" class="video-card-img" width="1280" height="720" loading="lazy">
           <div class="play-button-wrapper">
             <button class="play-button" aria-label="Play video" onclick="openQuotePopup()">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <polygon points="6,3 20,12 6,21" />
-              </svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21" /></svg>
             </button>
           </div>
         </div>
@@ -24,11 +22,19 @@
     <div class="row justify-content-center">
       <div class="col-lg-10 col-xl-9 text-center">
         <div class="spacer-40"></div>
-        {{#if desc1}}<p class="plumbing-care-text">{{desc1}}</p>{{/if}}
-        {{#if desc2}}<p class="plumbing-care-text">{{desc2}}</p>{{/if}}
-        <div class="button-group justify-content-center mt-4">
-          <a href="tel:{{phone}}" class="btn-outline-phone">{{phone}}</a>
-          <a href="#chat" onclick="openQuotePopup()" class="btn-filled-chat">{{chatText}}</a>
+        <p class="plumbing-care-text">
+          Older homes in Princeton and surrounding towns carry plumbing systems installed across decades, where cast iron meets copper and original layouts require thoughtful integration rather than generic replacement.
+        </p>
+        <p class="plumbing-care-text">
+          Princeton Air plumbers assess each home's plumbing with respect for its character and build quality, tailoring solutions to preserve what works and reliably upgrade what doesn't.
+        </p>
+        <div class="button-group justify-content-start">
+          <a href="tel:{{phone}}" class="btn-outline-phone">
+            <i class="fa-solid fa-phone"></i> {{phone}}
+          </a>
+          <a onclick="openQuotePopup()" class="btn-filled-chat">
+            <i class="fa-solid fa-message"></i> Chat with us
+          </a>
         </div>
       </div>
     </div>

@@ -1,12 +1,9 @@
 {
-  "heading": "Plumbing Care That Matches the Character of Your Home",
+  "heading": "Plumbing Care That Matches<br class=\"d-none d-sm-block\" /> the Character of Your Home",
   "subheading": "The right plumbing approach depends on what's already there.",
   "image": {
     "src": "/assets/img/2-plumbing-care.webp",
     "alt": "Plumbing service video placeholder"
   },
-  "desc1": "Every home has its own story, its own age, and its own plumbing system characteristics. We diagnose issues with careful attention to finished spaces.",
-  "desc2": "Whether it's modern fixtures or historic pipes, our master technicians know how to preserve your home while restoring optimal water flow and reliability.",
-  "phone": "(123) 456-7890",
-  "chatText": "Chat with us"
+  "phone": "(123) 456-7890"
 }

@@ -1,34 +1,30 @@
 {
-  "name": "Plumbing Hero Split",
-  "category": "Hero",
-  "fields": {
-    "title": {
-      "type": "text",
-      "label": "Main Title",
-      "default": "New Jersey Plumbing Services"
-    },
-    "intro": {
-      "type": "textarea",
-      "label": "Intro Text",
-      "default": "The quiet of a household depends on plumbing that works without being thought about."
-    },
-    "paragraph1": {
-      "type": "textarea",
-      "label": "Paragraph 1",
-      "default": "Water pooling where it shouldn't. A shower that runs cold before the morning is over. A toilet that runs and runs at 2 a.m. These are the moments that pull a household off schedule."
-    },
-    "paragraph2": {
-      "type": "textarea",
-      "label": "Paragraph 2",
-      "default": "Princeton Air's licensed plumbers arrive prepared, diagnose the actual cause, and complete the repair with careful attention to your finished spaces. Call or book online to schedule plumbing service in New Jersey."
-    },
-    "image": {
-      "type": "image",
-      "label": "Hero Image",
-      "default": {
-        "src": "/assets/img/1-index-hero-img.webp",
-        "alt": "Professional Plumber"
-      }
+  "title": {
+    "type": "text",
+    "label": "Main Title",
+    "default": "New Jersey Plumbing Services"
+  },
+  "intro": {
+    "type": "textarea",
+    "label": "Intro Text",
+    "default": "The quiet of a household depends on plumbing that works without being thought about."
+  },
+  "paragraph1": {
+    "type": "textarea",
+    "label": "Paragraph 1",
+    "default": "Water pooling where it shouldn't. A shower that runs cold before the morning is over. A toilet that runs and runs at 2 a.m. These are the moments that pull a household off schedule."
+  },
+  "paragraph2": {
+    "type": "textarea",
+    "label": "Paragraph 2",
+    "default": "Princeton Air's licensed plumbers arrive prepared, diagnose the actual cause, and complete the repair with careful attention to your finished spaces. Call or book online to schedule plumbing service in New Jersey."
+  },
+  "image": {
+    "type": "image",
+    "label": "Hero Image",
+    "default": {
+      "src": "/assets/img/1-index-hero-img.webp",
+      "alt": "Professional Plumber"
     }
   }
 }

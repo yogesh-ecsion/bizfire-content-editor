@@ -1,8 +1,7 @@
 {
-  "title": "Our New Jersey Plumbing Services",
-  "desc": "From precision leak detection to whole-home repiping and high-efficiency water heater conversions, our master technicians ensure lasting comfort.",
+  "title": "Our New Jersey Plumbing<br />Services",
   "image": {
-    "src": "/assets/img/plumbing-hero.webp",
-    "alt": "New Jersey Plumbing"
+    "src": "/assets/img/6-plumbing-services.webp",
+    "alt": "Our New Jersey Plumbing Services"
   }
 }

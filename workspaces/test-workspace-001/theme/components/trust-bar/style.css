@@ -1,7 +1,10 @@
 /* Scoped Layer 2 styles for trust-bar */
 .trust-bar { background: #fff; border-bottom: 1px solid #ECECEC; padding: 18px 0; }
 .trust-left { display: flex; align-items: center; gap: 14px; }
-.trust-rating { font-size: 24px; font-weight: 800; color: #172033; }
+.trust-rating { font-size: 24px; font-weight: 800; color: #172033; font-family: Outfit, sans-serif; }
+.trust-stars { color: #f59e0b; display: flex; gap: 3px; font-size: 16px; }
 .trust-review { font-size: 14px; color: #5b6472; }
+.google-highlight { color: #4285F4; font-weight: 600; }
 .trust-right { display: flex; gap: 10px; }
-.trust-icon-btn { width: 36px; height: 36px; border-radius: 50%; background: #f8fafc; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; color: #475569; text-decoration: none; }
+.trust-icon-btn { width: 36px; height: 36px; border-radius: 50%; background: #f8fafc; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; color: #475569; text-decoration: none; transition: 0.2s; }
+.trust-icon-btn:hover { background: #A01922; color: #fff; border-color: #A01922; }

@@ -1,27 +1,10 @@
 {
-  "title": "Three Simple Steps to Reliable Plumbing",
-  "steps": [
-    {
-      "_id": "step-1",
-      "number": "01",
-      "title": "Contact Princeton Air",
-      "desc": "Reach out by phone or book online. You speak directly with our team — no runaround, no endless menus."
-    },
-    {
-      "_id": "step-2",
-      "number": "02",
-      "title": "Receive Clear Answers",
-      "desc": "Our licensed plumber arrives on schedule, thoroughly inspects the issue, and provides flat-rate pricing before starting."
-    },
-    {
-      "_id": "step-3",
-      "number": "03",
-      "title": "Precise Work Completed",
-      "desc": "We complete the repair or installation according to state plumbing code, verify operation, and leave your home spotless."
-    }
-  ],
+  "heading": "Three Simple Steps to Reliable Plumbing",
+  "subheading": "Scheduling plumbing service with Princeton Air should take minutes and follow a clear path from the first call to the final walkthrough.",
+  "desc": "Your experience with Princeton Air is clear, structured, and centered on your schedule.",
   "image": {
     "src": "/assets/img/4-three-simple-steps.webp",
-    "alt": "Three Simple Steps"
-  }
+    "alt": "Professional plumber at work"
+  },
+  "phone": "(123) 456-7890"
 }

@@ -2,6 +2,5 @@
 .plumbing-stats-card { background: #fff; padding: 32px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .plumbing-stat-item { display: flex; align-items: center; gap: 16px; }
 .plumbing-stat-icon { width: 44px; height: 44px; background: #A01922; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-.plumbing-stat-icon svg { width: 22px; height: 22px; }
-.plumbing-stat-number { font-size: 28px; font-weight: 800; color: #172033; display: block; line-height: 1.1; }
+.plumbing-stat-number { font-size: 28px; font-weight: 800; color: #172033; display: block; line-height: 1.1; font-family: Outfit, sans-serif; }
 .plumbing-stat-label { font-size: 13px; color: #5b6472; font-weight: 500; }

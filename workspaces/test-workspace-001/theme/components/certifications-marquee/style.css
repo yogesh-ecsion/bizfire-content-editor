@@ -1,2 +1,7 @@
 /* Scoped Layer 2 styles for certifications-marquee */
 .gallery-slider-wrapper { background: #fff; padding: 36px 0; border-top: 1px solid #ECECEC; }
+.gallery-slider-track { display: flex; align-items: center; gap: 40px; width: max-content; animation: marqueeScroll 25s linear infinite; }
+.gallery-slider-card { flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.gallery-slider-card img { max-height: 55px; width: auto; object-fit: contain; filter: grayscale(100%); opacity: 0.7; transition: 0.3s; }
+.gallery-slider-card img:hover { filter: grayscale(0%); opacity: 1; }
+@keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }

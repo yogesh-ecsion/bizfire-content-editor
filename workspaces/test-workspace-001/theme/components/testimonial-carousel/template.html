@@ -1,25 +1,124 @@
 <section class="testimonial-section bg-light-gray section-padding" aria-label="Customer testimonials">
   <div class="container">
-    <div class="testimonial-header text-center mb-5">
+    <div class="testimonial-header">
       <h2 class="testimonial-heading section-title">{{title}}</h2>
       <p class="testimonial-subtitle section-subtitle">{{subtitle}}</p>
     </div>
     <div class="carousel-wrapper" id="testimonialCarousel">
-      <div class="carousel-track" id="carouselTrack" style="display:flex; overflow-x:auto; gap:24px; padding-bottom:16px;">
-        {{#each slides}}
-        <div class="carousel-slide" style="flex:0 0 100%; display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
-          <div class="card-body" style="background:#fff; padding:24px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
-            <div style="font-weight:700; font-size:16px; margin-bottom:8px;">{{this.reviewer1_name}}</div>
-            <div style="color:#f59e0b; margin-bottom:12px;">★★★★★</div>
-            <p style="color:#475569; font-size:14px; margin:0;">{{this.reviewer1_text}}</p>
+      <div class="carousel-track" id="carouselTrack">
+        <!-- SLIDE 1 -->
+        <div class="carousel-slide">
+          <div class="card-body">
+            <div class="testimonial-top">
+              <div class="testimonial-avatar" style="background: #B51F33;">S</div>
+              <div class="testimonial-info">
+                <span class="testimonial-name">Steven Raffuel</span>
+                <span class="testimonial-time">17h ago</span>
+              </div>
+            </div>
+            <div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="testimonial-review">A/C went down unexpectedly in the middle of humid New Jersey summer. Princeton Air was out in less than 24 hours and found the problem.</p>
           </div>
-          <div class="card-body" style="background:#fff; padding:24px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
-            <div style="font-weight:700; font-size:16px; margin-bottom:8px;">{{this.reviewer2_name}}</div>
-            <div style="color:#f59e0b; margin-bottom:12px;">★★★★★</div>
-            <p style="color:#475569; font-size:14px; margin:0;">{{this.reviewer2_text}}</p>
+          <div class="card-body">
+            <div class="testimonial-top">
+              <div class="testimonial-avatar" style="background: #1EA7A8;">J</div>
+              <div class="testimonial-info">
+                <span class="testimonial-name">JRM</span>
+                <span class="testimonial-time">a day ago</span>
+              </div>
+            </div>
+            <div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="testimonial-review">A/C went down unexpectedly in the middle of humid New Jersey summer. Princeton Air was out in less than 24 hours and found the problem.</p>
+          </div>
+          <div class="card-body">
+            <div class="testimonial-top">
+              <div class="testimonial-avatar" style="background: #3047B8;">G</div>
+              <div class="testimonial-info">
+                <span class="testimonial-name">Janet Grisi</span>
+                <span class="testimonial-time">17h ago</span>
+              </div>
+            </div>
+            <div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="testimonial-review">A/C went down unexpectedly in the middle of humid New Jersey summer. Princeton Air was out in less than 24 hours and found the problem.</p>
           </div>
         </div>
-        {{/each}}
+        <!-- SLIDE 2 -->
+        <div class="carousel-slide">
+          <div class="card-body">
+            <div class="testimonial-top">
+              <div class="testimonial-avatar" style="background: #F59E0B;">M</div>
+              <div class="testimonial-info">
+                <span class="testimonial-name">Michael Torres</span>
+                <span class="testimonial-time">2 days ago</span>
+              </div>
+            </div>
+            <div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="testimonial-review">Our water heater failed on a Sunday morning. Called Princeton Air and they had a technician at our door within 3 hours. Professional, courteous, and got our hot water back fast.</p>
+          </div>
+          <div class="card-body">
+            <div class="testimonial-top">
+              <div class="testimonial-avatar" style="background: #4F46E5;">K</div>
+              <div class="testimonial-info">
+                <span class="testimonial-name">Karen Chen</span>
+                <span class="testimonial-time">Yesterday</span>
+              </div>
+            </div>
+            <div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="testimonial-review">Princeton Air installed a new HVAC system for our home. The team was professional, respectful of our space, and walked us through every step. Our energy bills have already dropped!</p>
+          </div>
+          <div class="card-body">
+            <div class="testimonial-top">
+              <div class="testimonial-avatar" style="background: #16A34A;">D</div>
+              <div class="testimonial-info">
+                <span class="testimonial-name">David O'Brien</span>
+                <span class="testimonial-time">3 weeks ago</span>
+              </div>
+            </div>
+            <div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="testimonial-review">Had a plumbing emergency with a burst pipe in our basement. Princeton Air responded immediately, contained the damage, and replaced the section same day. Amazing service.</p>
+          </div>
+        </div>
+        <!-- SLIDE 3 -->
+        <div class="carousel-slide">
+          <div class="card-body">
+            <div class="testimonial-top">
+              <div class="testimonial-avatar" style="background: #B51F33;">L</div>
+              <div class="testimonial-info">
+                <span class="testimonial-name">Linda Patterson</span>
+                <span class="testimonial-time">5 days ago</span>
+              </div>
+            </div>
+            <div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="testimonial-review">From the first call to the final walkthrough, Princeton Air delivered exceptional service. They installed our new water heater and even showed us how to maintain it. Highly recommend!</p>
+          </div>
+          <div class="card-body">
+            <div class="testimonial-top">
+              <div class="testimonial-avatar" style="background: #1EA7A8;">R</div>
+              <div class="testimonial-info">
+                <span class="testimonial-name">Robert Kim</span>
+                <span class="testimonial-time">1 week ago</span>
+              </div>
+            </div>
+            <div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="testimonial-review">Our AC unit stopped cooling during the hottest week of July. Princeton Air came out same day, diagnosed the issue, and had it repaired by evening. Absolute lifesaver.</p>
+          </div>
+          <div class="card-body">
+            <div class="testimonial-top">
+              <div class="testimonial-avatar" style="background: #3047B8;">S</div>
+              <div class="testimonial-info">
+                <span class="testimonial-name">Sarah Mitchell</span>
+                <span class="testimonial-time">2 weeks ago</span>
+              </div>
+            </div>
+            <div class="testimonial-stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <p class="testimonial-review">Princeton Air handled our whole-home plumbing inspection. They were thorough, explained everything clearly, and didn't try to upsell us on anything we didn't need. Honest and reliable.</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-indicators" id="indicators">
+        <button class="active" data-index="0" aria-label="Slide 1"></button>
+        <button data-index="1" aria-label="Slide 2"></button>
+        <button data-index="2" aria-label="Slide 3"></button>
       </div>
     </div>
   </div>

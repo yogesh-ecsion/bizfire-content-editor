@@ -1,33 +1,7 @@
 {
-  "name": "NJ Service Areas & Accordion",
-  "category": "Locations",
-  "fields": {
-    "heading": {
-      "type": "text",
-      "label": "Section Heading",
-      "default": "New Jersey Chooses Princeton Air"
-    },
-    "items": {
-      "type": "array",
-      "label": "Feature Accordion Items",
-      "itemLabel": "Accordion Item",
-      "itemSchema": {
-        "number": {
-          "type": "text",
-          "label": "Item Number",
-          "default": "1."
-        },
-        "title": {
-          "type": "text",
-          "label": "Item Title",
-          "default": "One Trusted Team for the Entire Home"
-        }
-      }
-    },
-    "buttonText": {
-      "type": "text",
-      "label": "Map Button Text",
-      "default": "New Jersey Locations"
-    }
+  "heading": {
+    "type": "text",
+    "label": "Section Heading",
+    "default": "New Jersey Chooses Princeton Air"
   }
 }

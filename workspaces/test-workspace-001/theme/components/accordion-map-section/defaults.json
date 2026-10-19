@@ -1,36 +1,3 @@
 {
-  "heading": "New Jersey Chooses Princeton Air",
-  "items": [
-    {
-      "_id": "nj-1",
-      "number": "1.",
-      "title": "One Trusted Team for the Entire Home"
-    },
-    {
-      "_id": "nj-2",
-      "number": "2.",
-      "title": "Thorough, Code-Compliant Work"
-    },
-    {
-      "_id": "nj-3",
-      "number": "3.",
-      "title": "Flexible Financing Options"
-    },
-    {
-      "_id": "nj-4",
-      "number": "4.",
-      "title": "Solutions Made to Last"
-    },
-    {
-      "_id": "nj-5",
-      "number": "5.",
-      "title": "Respect for Your Home & Privacy"
-    },
-    {
-      "_id": "nj-6",
-      "number": "6.",
-      "title": "Responsive Emergency Plumbing Service"
-    }
-  ],
-  "buttonText": "New Jersey Locations"
+  "heading": "New Jersey Chooses Princeton Air"
 }

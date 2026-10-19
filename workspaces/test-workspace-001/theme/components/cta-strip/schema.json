@@ -1,21 +1,17 @@
 {
-  "name": "CTA Urgency Strip",
-  "category": "Call to Action",
-  "fields": {
-    "text": {
-      "type": "text",
-      "label": "Callout Text",
-      "default": "Ready to talk to a home services specialist?"
-    },
-    "buttonText": {
-      "type": "text",
-      "label": "Button Label",
-      "default": "Schedule Services"
-    },
-    "buttonUrl": {
-      "type": "text",
-      "label": "Button URL",
-      "default": "#quote"
-    }
+  "text": {
+    "type": "text",
+    "label": "Callout Text",
+    "default": "Ready to talk to a home services specialist?"
+  },
+  "buttonText": {
+    "type": "text",
+    "label": "Button Label",
+    "default": "Schedule Services"
+  },
+  "buttonUrl": {
+    "type": "text",
+    "label": "Button URL",
+    "default": "#quote"
   }
 }

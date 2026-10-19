@@ -1,13 +1,4 @@
 {
   "title": "What Our Customers Are Saying",
-  "subtitle": "100% Satisfaction Guarantee",
-  "slides": [
-    {
-      "_id": "sl-1",
-      "reviewer1_name": "Steven Raffuel",
-      "reviewer1_text": "A/C went down unexpectedly in the middle of humid New Jersey summer. Princeton Air was out in less than 24 hours and solved the problem with zero stress.",
-      "reviewer2_name": "Janet Grisi",
-      "reviewer2_text": "Fast, professional, and very thorough. They explained every detail before doing the work and left our home clean."
-    }
-  ]
+  "subtitle": "100% Satisfaction Guarantee"
 }

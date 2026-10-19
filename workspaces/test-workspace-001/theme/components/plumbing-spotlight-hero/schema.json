@@ -1,24 +1,15 @@
 {
-  "name": "Plumbing Spotlight Banner",
-  "category": "Hero",
-  "fields": {
-    "title": {
-      "type": "text",
-      "label": "Spotlight Title",
-      "default": "Our New Jersey Plumbing Services"
-    },
-    "desc": {
-      "type": "textarea",
-      "label": "Description",
-      "default": "From precision leak detection to whole-home repiping and high-efficiency water heater conversions, our master technicians ensure lasting comfort."
-    },
-    "image": {
-      "type": "image",
-      "label": "Image",
-      "default": {
-        "src": "/assets/img/plumbing-hero.webp",
-        "alt": "New Jersey Plumbing"
-      }
+  "title": {
+    "type": "text",
+    "label": "Spotlight Title",
+    "default": "Our New Jersey Plumbing Services"
+  },
+  "image": {
+    "type": "image",
+    "label": "Image",
+    "default": {
+      "src": "/assets/img/6-plumbing-services.webp",
+      "alt": "Our New Jersey Plumbing Services"
     }
   }
 }

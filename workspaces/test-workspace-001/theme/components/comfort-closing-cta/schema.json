@@ -1,21 +1,25 @@
 {
-  "name": "Closing Guarantee & Callout",
-  "category": "Call to Action",
-  "fields": {
-    "title": {
-      "type": "text",
-      "label": "Closing Heading",
-      "default": "Restore Your Comfort. Call Princeton Air Today."
-    },
-    "subtitle": {
-      "type": "text",
-      "label": "Subheading",
-      "default": "Quality, Friendly Service in Central New Jersey Since 1971."
-    },
-    "phone": {
-      "type": "text",
-      "label": "Phone",
-      "default": "(123) 456-7890"
+  "title": {
+    "type": "text",
+    "label": "Title",
+    "default": "Restore Your Comfort.<br> Call Princeton Air Today."
+  },
+  "subtitle": {
+    "type": "text",
+    "label": "Subtitle",
+    "default": "Quality, Friendly Service in Central New Jersey Since 1971."
+  },
+  "image": {
+    "type": "image",
+    "label": "Image",
+    "default": {
+      "src": "/assets/img/7-restore-your.webp",
+      "alt": "Restore Your Comfort"
     }
+  },
+  "phone": {
+    "type": "text",
+    "label": "Phone",
+    "default": "(123) 456-7890"
   }
 }

@@ -1,28 +1,41 @@
 <section class="nj-section section-padding py-lg-6">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-lg-10 text-center mb-4">
+      <div class="col-lg-10 text-center mb-2">
         <h2 class="nj-heading section-title">{{heading}}</h2>
       </div>
     </div>
     <div class="row align-items-center gx-5">
-      <div class="col-lg-8">
-        <ul class="nj-list" style="list-style:none; padding:0; display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
-          {{#each items}}
-          <li style="background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:16px 20px;">
-            <a href="#" class="nj-list-item" style="display:flex; align-items:center; justify-content:space-between; text-decoration:none; color:#172033; font-weight:600;">
-              <span><span class="nj-number" style="color:#A01922; margin-right:8px;">{{this.number}}</span> {{this.title}}</span>
-              <span style="color:#A01922; font-size:18px;">+</span>
-            </a>
-          </li>
-          {{/each}}
+      <div class="col-lg-4 col-12">
+        <ul class="nj-list">
+          <li><a href="#" class="nj-list-item"><span class="nj-number">1.</span><span class="nj-title">One Trusted Team for the Entire Home</span><i class="bi bi-plus-circle nj-icon"></i></a></li>
+          <li><a href="#" class="nj-list-item"><span class="nj-number">2.</span><span class="nj-title">Thorough, Code-Compliant Work</span><i class="bi bi-plus-circle nj-icon"></i></a></li>
+          <li><a href="#" onclick="openQuotePopup()" class="nj-list-item"><span class="nj-number">3.</span><span class="nj-title">Financing Options</span><i class="bi bi-plus-circle nj-icon"></i></a></li>
+          <li><a href="#" class="nj-list-item"><span class="nj-number">4.</span><span class="nj-title">Solutions Made to Last</span><i class="bi bi-plus-circle nj-icon"></i></a></li>
+          <li><a href="#" class="nj-list-item"><span class="nj-number">5.</span><span class="nj-title">Respect for Your Home and Privacy</span><i class="bi bi-plus-circle nj-icon"></i></a></li>
         </ul>
       </div>
-      <div class="col-lg-4 text-center">
-        <div class="nj-card" style="background:#172033; color:#fff; padding:32px 24px; border-radius:14px;">
-          <h3 style="color:#fff; font-size:20px; margin-bottom:16px;">Service Area Coverage</h3>
-          <p style="font-size:14px; color:#cbd5e1; margin-bottom:24px;">Proudly serving Mercer, Middlesex, Somerset, and surrounding Central NJ communities.</p>
-          <a href="#locations" onclick="openQuotePopup()" class="btn-filled-chat location-popup" style="background:#A01922; color:#fff; padding:12px 24px; border-radius:30px; display:inline-block; font-weight:700;">{{buttonText}}</a>
+      <div class="col-lg-4 col-12 mb-4">
+        <ul class="nj-list">
+          <li><a href="#" class="nj-list-item"><span class="nj-number">6.</span><span class="nj-title">Responsive Emergency Plumbing Service</span><i class="bi bi-plus-circle nj-icon"></i></a></li>
+          <li><a href="#" class="nj-list-item"><span class="nj-number">7.</span><span class="nj-title">Transparent Pricing</span><i class="bi bi-plus-circle nj-icon"></i></a></li>
+          <li><a href="#" class="nj-list-item"><span class="nj-number">8.</span><span class="nj-title">Over 50 Years Serving New Jersey</span><i class="bi bi-plus-circle nj-icon"></i></a></li>
+          <li><a href="#" class="nj-list-item"><span class="nj-number">9.</span><span class="nj-title">New Jersey Locations</span><i class="bi bi-plus-circle nj-icon"></i></a></li>
+          <li><a href="#" class="nj-list-item"><span class="nj-number">10.</span><span class="nj-title">Over 50 Years Serving New Jersey</span><i class="bi bi-plus-circle nj-icon"></i></a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4 col-12 w-100">
+        <div class="nj-card">
+          <main class="map-page">
+            <h1 class="visually-hidden">New Jersey Service Areas</h1>
+            <div id="map-container" class="map-container" aria-label="Interactive map of New Jersey service areas">
+              <img src="/assets/img/map.webp" alt="Map of New Jersey service areas by county" width="360" height="500" class="img-fluid" style="max-height: 380px; object-fit: contain;">
+            </div>
+            <div id="map-tooltip" class="map-tooltip" role="status" aria-hidden="true"></div>
+          </main>
+          <a href="#" onclick="openQuotePopup()" class="btn-filled-chat location-popup">
+            <i class="bi bi-plus-circle"></i> New Jersey Locations
+          </a>
         </div>
       </div>
     </div>

@@ -1,2 +1,8 @@
 /* Scoped Layer 2 styles for coupon-grid */
 .coupon-section { background: #fafafa; padding: 48px 0; }
+.coupon-badge { display: inline-block; background: #A01922; color: #fff; font-weight: 800; font-size: 18px; padding: 6px 14px; border-radius: 6px; margin-bottom: 14px; font-family: Outfit, sans-serif; }
+.coupon-title { font-size: 20px; font-weight: 700; color: #172033; margin-bottom: 8px; font-family: Outfit, sans-serif; }
+.coupon-expiry { font-size: 13px; color: #94a3b8; margin-bottom: 20px; }
+.coupon-btn { display: inline-flex; align-items: center; gap: 8px; background: #A01922; color: #fff; padding: 10px 22px; border-radius: 30px; font-weight: 700; text-decoration: none; cursor: pointer; transition: 0.2s; }
+.coupon-btn:hover { background: #7d1118; color: #fff; }
+.coupon-link { display: block; margin-top: 10px; color: #5b6472; font-size: 14px; text-decoration: underline; }

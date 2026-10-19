@@ -1,11 +1,1 @@
-{
-  "name": "Multi-Trade Cross-Sell Bar",
-  "category": "Services",
-  "fields": {
-    "heading": {
-      "type": "text",
-      "label": "Section Heading",
-      "default": "Total Home Comfort Under One Roof"
-    }
-  }
-}
+{}

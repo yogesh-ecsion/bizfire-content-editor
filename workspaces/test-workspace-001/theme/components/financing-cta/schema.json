@@ -1,21 +1,12 @@
 {
-  "name": "Financing Pre-Approval Banner",
-  "category": "Call to Action",
-  "fields": {
-    "title": {
-      "type": "text",
-      "label": "Banner Title",
-      "default": "Get Pre-Approved Financing"
-    },
-    "desc": {
-      "type": "textarea",
-      "label": "Details",
-      "default": "Affordable monthly payment plans with zero penalty for early payoff. Quick, secure online application."
-    },
-    "buttonText": {
-      "type": "text",
-      "label": "Button Label",
-      "default": "Apply For Financing"
-    }
+  "heading": {
+    "type": "text",
+    "label": "Heading",
+    "default": "Get Pre-Approved Financing"
+  },
+  "buttonText": {
+    "type": "text",
+    "label": "Button Label",
+    "default": "Financing Options"
   }
 }

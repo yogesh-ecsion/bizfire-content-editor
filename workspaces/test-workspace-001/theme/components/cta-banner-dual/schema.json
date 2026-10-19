@@ -1,26 +1,17 @@
 {
-  "name": "Dual CTA Contact Banner",
-  "category": "Call to Action",
-  "fields": {
-    "phoneTitle": {
-      "type": "text",
-      "label": "Phone Card Title",
-      "default": "Ready to talk to a home services specialist?"
-    },
-    "phoneText": {
-      "type": "text",
-      "label": "Phone Number",
-      "default": "(123) 456-7890"
-    },
-    "chatTitle": {
-      "type": "text",
-      "label": "Chat Card Title",
-      "default": "Need Immediate Help?"
-    },
-    "chatButtonText": {
-      "type": "text",
-      "label": "Chat Button Text",
-      "default": "Chat with us"
-    }
+  "phone": {
+    "type": "text",
+    "label": "Phone Number",
+    "default": "(123) 456-7890"
+  },
+  "phoneText": {
+    "type": "text",
+    "label": "Phone Text",
+    "default": "to schedule plumbing services."
+  },
+  "chatText": {
+    "type": "text",
+    "label": "Chat Button Text",
+    "default": "Chat with us"
   }
 }

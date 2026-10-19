@@ -1,2 +1,3 @@
 /* Scoped Layer 2 styles for plumbing-spotlight-hero */
-.plumbing-hero { background:#f8fafc; }
+.plumbing-hero { background:#f8fafc; padding: 48px 0; }
+.hero-image img { width: 100%; height: auto; border-radius: 16px; object-fit: cover; }

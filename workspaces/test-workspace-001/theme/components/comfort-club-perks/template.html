@@ -1,23 +1,33 @@
 <section class="comfort-club-section section-padding py-lg-6">
   <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-6">
-        <div style="font-size:12px; font-weight:800; color:#A01922; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px;">{{badge}}</div>
-        <h2 class="section-title mb-3">{{title}}</h2>
-        <p style="color:#5b6472; font-size:16px; margin-bottom:24px;">{{desc}}</p>
-        <ul style="list-style:none; padding:0; margin:0 0 32px;">
-          {{#each perks}}
-          <li style="display:flex; align-items:center; gap:12px; margin-bottom:12px; font-weight:500;">
-            <span style="color:#10b981; font-weight:800;">✓</span>
-            <span>{{this.text}}</span>
-          </li>
-          {{/each}}
-        </ul>
-        <a href="#join-club" onclick="openQuotePopup()" class="btn-filled-chat" style="background:#A01922; color:#fff; padding:12px 28px; border-radius:30px; font-weight:700; text-decoration:none;">Join The Club</a>
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-xl-9 text-center mb-5">
+        <h2 class="section-title">{{{title}}}</h2>
+        <p class="section-subtitle">
+          Plumbing benefits from the same scheduled attention that protects your other essential systems. The Princeton Air Home Comfort Club puts that attention on a calendar so the quiet problems get caught on a planned visit instead of surfacing as emergency calls. Membership turns reactive service into predictable upkeep.
+        </p>
       </div>
-      <div class="col-lg-6">
-        <div style="border-radius:16px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.08);">
-          <img src="{{image.src}}" alt="{{image.alt}}" style="width:100%; height:auto; display:block;">
+    </div>
+    <div class="row align-items-center gx-5 gy-5">
+      <div class="col-lg-5">
+        <div class="comfort-club-image-wrap">
+          <img src="{{image.src}}" alt="{{image.alt}}" class="comfort-club-image" width="700" height="900" loading="lazy">
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <ul class="comfort-club-list">
+          <li><a href="#" class="comfort-club-item"><span class="comfort-club-number">1.</span><span class="comfort-club-title">Pre-Planned Routine Maintenance</span><i class="bi bi-plus-circle comfort-club-icon"></i></a></li>
+          <li><a href="#" class="comfort-club-item"><span class="comfort-club-number">2.</span><span class="comfort-club-title">Priority Scheduling and Faster Response</span><i class="bi bi-plus-circle comfort-club-icon"></i></a></li>
+          <li><a href="#" class="comfort-club-item"><span class="comfort-club-number">3.</span><span class="comfort-club-title">Exclusive Member Savings</span><i class="bi bi-plus-circle comfort-club-icon"></i></a></li>
+          <li><a href="#" class="comfort-club-item"><span class="comfort-club-number">4.</span><span class="comfort-club-title">Extended System Health</span><i class="bi bi-plus-circle comfort-club-icon"></i></a></li>
+        </ul>
+        <div class="comfort-club-membership">
+          <h3 class="comfort-club-membership-title">The Home Comfort Club</h3>
+          <p class="comfort-club-membership-sub">Service plans starting at</p>
+          <div class="comfort-club-membership-buttons">
+            <a href="#" class="steps-btn-outline" style="cursor: default;">$49.99/mo</a>
+            <a onclick="openQuotePopup()" class="steps-btn-filled">All Service Plans <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+          </div>
         </div>
       </div>
     </div>

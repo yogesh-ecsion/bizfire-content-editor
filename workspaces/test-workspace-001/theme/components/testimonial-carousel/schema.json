@@ -1,43 +1,12 @@
 {
-  "name": "Testimonials Carousel",
-  "category": "Social Proof",
-  "fields": {
-    "title": {
-      "type": "text",
-      "label": "Section Title",
-      "default": "What Our Customers Are Saying"
-    },
-    "subtitle": {
-      "type": "text",
-      "label": "Subtitle",
-      "default": "100% Satisfaction Guarantee"
-    },
-    "slides": {
-      "type": "array",
-      "label": "Review Slides",
-      "itemLabel": "Slide (3 reviews)",
-      "itemSchema": {
-        "reviewer1_name": {
-          "type": "text",
-          "label": "Reviewer 1 Name",
-          "default": "Steven Raffuel"
-        },
-        "reviewer1_text": {
-          "type": "textarea",
-          "label": "Reviewer 1 Quote",
-          "default": "A/C went down unexpectedly in the middle of humid New Jersey summer. Princeton Air was out in less than 24 hours."
-        },
-        "reviewer2_name": {
-          "type": "text",
-          "label": "Reviewer 2 Name",
-          "default": "Janet Grisi"
-        },
-        "reviewer2_text": {
-          "type": "textarea",
-          "label": "Reviewer 2 Quote",
-          "default": "Princeton Air provided prompt and honest service for our water heater replacement. Highly recommend."
-        }
-      }
-    }
+  "title": {
+    "type": "text",
+    "label": "Section Title",
+    "default": "What Our Customers Are Saying"
+  },
+  "subtitle": {
+    "type": "text",
+    "label": "Subtitle",
+    "default": "100% Satisfaction Guarantee"
   }
 }

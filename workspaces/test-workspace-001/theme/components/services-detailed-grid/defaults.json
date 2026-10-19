@@ -1,35 +1,3 @@
 {
-  "title": "Comprehensive Residential Plumbing Services",
-  "cards": [
-    {
-      "_id": "sc-1",
-      "title": "Emergency Plumbing",
-      "desc": "Fast local response when pipes freeze, burst, or overflow."
-    },
-    {
-      "_id": "sc-2",
-      "title": "Pipe Repair & Repiping",
-      "desc": "Modern PEX and copper plumbing upgrades with minimal wall cutting."
-    },
-    {
-      "_id": "sc-3",
-      "title": "Drain Cleaning & Hydro-Jetting",
-      "desc": "Camera video inspection and high-pressure root clearing."
-    },
-    {
-      "_id": "sc-4",
-      "title": "Water Heaters",
-      "desc": "Traditional tank diagnostics, element replacement, and routine flushing."
-    },
-    {
-      "_id": "sc-5",
-      "title": "Tankless Water Heaters",
-      "desc": "Endless on-demand hot water with high-efficiency energy rebates."
-    },
-    {
-      "_id": "sc-6",
-      "title": "Sewer Line Services",
-      "desc": "Trenchless sewer repairs and main line replacements."
-    }
-  ]
+  "title": "Services"
 }

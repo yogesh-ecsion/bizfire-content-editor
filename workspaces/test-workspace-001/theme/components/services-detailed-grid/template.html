@@ -1,17 +1,57 @@
-<section class="services-section section-padding bg-light-gray" style="padding:48px 0;">
+<section class="services-section section-padding bg-light-gray">
   <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="section-title">{{title}}</h2>
+    <div class="section-header">
+      <h2 class="section-title text-center"><span class="highlight">{{title}}</span></h2>
     </div>
-    <div class="row g-4">
-      {{#each cards}}
-      <div class="col-md-4">
-        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:28px; height:100%;">
-          <h3 style="font-size:20px; font-weight:700; color:#172033; margin:0 0 10px;">{{this.title}}</h3>
-          <p style="color:#5b6472; font-size:14px; line-height:1.5; margin:0;">{{this.desc}}</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="card-icon">
+          <i class="fa-solid fa-triangle-exclamation"></i>
         </div>
+        <h3>Emergency Plumbing</h3>
+        <p>A plumbing emergency won't wait until tomorrow, and neither should the call.</p>
+        <a href="/plumbing/" class="card-link">Emergency Plumbing <span class="arrow">→</span></a>
       </div>
-      {{/each}}
+      <div class="service-card">
+        <div class="card-icon">
+          <i class="fa-solid fa-faucet-drip"></i>
+        </div>
+        <h3>Pipe Services</h3>
+        <p>Supply lines and drain stacks run out of sight for decades, and what happens inside them affects everything.</p>
+        <a href="/plumbing/" class="card-link">Pipe Services <span class="arrow">→</span></a>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">
+          <i class="fa-solid fa-filter"></i>
+        </div>
+        <h3>Drain Cleaning</h3>
+        <p>Slow drains are an early indicator; stubborn blockages are a household halt.</p>
+        <a href="/plumbing/" class="card-link">Drain Cleaning <span class="arrow">→</span></a>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">
+          <i class="fa-solid fa-fire"></i>
+        </div>
+        <h3>Water Heaters</h3>
+        <p>Hot water is one of those things a home is built around until it's lukewarm or missing.</p>
+        <a href="/plumbing/" class="card-link">Water Heaters <span class="arrow">→</span></a>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <h3>Tankless Water Heaters</h3>
+        <p>Continuous hot water, less space taken, and reduced standby energy use make sense for high-demand homes.</p>
+        <a href="/plumbing/" class="card-link">Tankless Water Heaters <span class="arrow">→</span></a>
+      </div>
+      <div class="service-card">
+        <div class="card-icon">
+          <i class="fa-solid fa-water"></i>
+        </div>
+        <h3>Sewer</h3>
+        <p>A sewer issue is never simply an inconvenience; it requires swift diagnosis and targeted repair.</p>
+        <a href="/plumbing/" class="card-link">Sewer Line Services <span class="arrow">→</span></a>
+      </div>
     </div>
   </div>
 </section>

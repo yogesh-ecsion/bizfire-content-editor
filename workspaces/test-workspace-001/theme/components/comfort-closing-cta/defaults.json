@@ -1,5 +1,9 @@
 {
-  "title": "Restore Your Comfort. Call Princeton Air Today.",
+  "title": "Restore Your Comfort.<br> Call Princeton Air Today.",
   "subtitle": "Quality, Friendly Service in Central New Jersey Since 1971.",
+  "image": {
+    "src": "/assets/img/7-restore-your.webp",
+    "alt": "Restore Your Comfort"
+  },
   "phone": "(123) 456-7890"
 }

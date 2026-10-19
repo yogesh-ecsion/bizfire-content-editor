@@ -1,2 +1,13 @@
 /* Scoped Layer 2 styles for comfort-club-perks */
 .comfort-club-section { background:#fff; padding:48px 0; }
+.comfort-club-image { width: 100%; height: auto; border-radius: 16px; object-fit: cover; }
+.comfort-club-list { list-style: none; padding: 0; margin-bottom: 32px; }
+.comfort-club-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 12px; text-decoration: none; color: #172033; font-weight: 600; font-size: 15px; }
+.comfort-club-number { color: #A01922; margin-right: 8px; font-weight: 700; }
+.comfort-club-icon { color: #A01922; font-size: 18px; }
+.comfort-club-membership { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; }
+.comfort-club-membership-title { font-size: 20px; font-weight: 700; color: #172033; margin: 0 0 6px; font-family: Outfit, sans-serif; }
+.comfort-club-membership-sub { font-size: 14px; color: #5b6472; margin: 0 0 16px; }
+.comfort-club-membership-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+.steps-btn-outline { border: 1px solid #172033; color: #172033; padding: 10px 20px; border-radius: 30px; font-weight: 700; text-decoration: none; }
+.steps-btn-filled { background: #A01922; color: #fff; padding: 10px 20px; border-radius: 30px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }

@@ -1,44 +1,25 @@
 {
-  "name": "Plumbing Care Video Section",
-  "category": "Media",
-  "fields": {
-    "heading": {
-      "type": "text",
-      "label": "Section Heading",
-      "default": "Plumbing Care That Matches the Character of Your Home"
-    },
-    "subheading": {
-      "type": "text",
-      "label": "Subheading",
-      "default": "The right plumbing approach depends on what's already there."
-    },
-    "image": {
-      "type": "image",
-      "label": "Video Thumbnail / Image",
-      "default": {
-        "src": "/assets/img/2-plumbing-care.webp",
-        "alt": "Plumbing service video placeholder"
-      }
-    },
-    "desc1": {
-      "type": "textarea",
-      "label": "Paragraph 1",
-      "default": "Every home has its own story, its own age, and its own plumbing system characteristics. We diagnose issues with careful attention to finished spaces."
-    },
-    "desc2": {
-      "type": "textarea",
-      "label": "Paragraph 2",
-      "default": "Whether it's modern fixtures or historic pipes, our master technicians know how to preserve your home while restoring optimal water flow and reliability."
-    },
-    "phone": {
-      "type": "text",
-      "label": "Phone Number",
-      "default": "(123) 456-7890"
-    },
-    "chatText": {
-      "type": "text",
-      "label": "Chat Button Text",
-      "default": "Chat with us"
+  "heading": {
+    "type": "text",
+    "label": "Section Heading",
+    "default": "Plumbing Care That Matches the Character of Your Home"
+  },
+  "subheading": {
+    "type": "text",
+    "label": "Subheading",
+    "default": "The right plumbing approach depends on what's already there."
+  },
+  "image": {
+    "type": "image",
+    "label": "Video Placeholder Image",
+    "default": {
+      "src": "/assets/img/2-plumbing-care.webp",
+      "alt": "Plumbing service video placeholder"
     }
+  },
+  "phone": {
+    "type": "text",
+    "label": "Phone Number",
+    "default": "(123) 456-7890"
   }
 }

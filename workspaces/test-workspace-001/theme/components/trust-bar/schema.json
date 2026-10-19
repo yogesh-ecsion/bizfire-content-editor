@@ -1,16 +1,12 @@
 {
-  "name": "Trust Rating & Social Bar",
-  "category": "Social Proof",
-  "fields": {
-    "rating": {
-      "type": "text",
-      "label": "Rating Score",
-      "default": "4.7"
-    },
-    "reviewText": {
-      "type": "text",
-      "label": "Review Details",
-      "default": "Based on 6634 reviews powered by Google"
-    }
+  "rating": {
+    "type": "text",
+    "label": "Rating Number",
+    "default": "4.7"
+  },
+  "reviewsCount": {
+    "type": "text",
+    "label": "Review Count",
+    "default": "6634"
   }
 }

@@ -1,6 +1,5 @@
 {
-  "phoneTitle": "Ready to talk to a home services specialist?",
-  "phoneText": "(123) 456-7890",
-  "chatTitle": "Need Immediate Help?",
-  "chatButtonText": "Chat with us"
+  "phone": "(123) 456-7890",
+  "phoneText": "to schedule plumbing services.",
+  "chatText": "Chat with us"
 }

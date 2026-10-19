@@ -1,7 +1,34 @@
-<section class="comfort-section section-padding" style="background:#172033; color:#fff; padding:60px 0; text-align:center;">
+<section class="comfort-section section-padding">
   <div class="container">
-    <h2 style="color:#fff; font-size:36px; font-weight:800; margin-bottom:12px;">{{title}}</h2>
-    <p style="color:#94a3b8; font-size:18px; margin-bottom:28px;">{{subtitle}}</p>
-    <a href="tel:{{phone}}" style="background:#A01922; color:#fff; padding:14px 32px; border-radius:30px; font-size:18px; font-weight:700; text-decoration:none; display:inline-block;">Call {{phone}}</a>
+    <div class="row">
+      <div class="col-12 mb-4">
+        <div class="comfort-heading text-center">
+          <h2 class="section-title">{{{title}}}</h2>
+          <p class="section-subtitle">{{subtitle}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6 col-12">
+        <div class="comfort-img-wrap">
+          <img src="{{image.src}}" alt="{{image.alt}}" class="comfort-img img-fluid" width="700" height="900" loading="lazy">
+        </div>
+      </div>
+      <div class="col-lg-6 col-12">
+        <div class="comfort-content">
+          <p class="comfort-lead">
+            Plumbing shouldn't pull you away from your week. A single call connects you to a licensed, prepared technician who diagnoses the issue honestly and repairs it properly the first time.
+          </p>
+          <div class="comfort-buttons">
+            <a href="tel:{{phone}}" class="btn-filled-chat">
+              <i class="fa-solid fa-phone"></i> Call {{phone}}
+            </a>
+            <a onclick="openQuotePopup()" class="btn-outline-phone">
+              <i class="fa-solid fa-message"></i> Book Online
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

@@ -1,28 +1,7 @@
 {
-  "name": "Detailed Services Grid (6 Cards)",
-  "category": "Services",
-  "fields": {
-    "title": {
-      "type": "text",
-      "label": "Section Title",
-      "default": "Comprehensive Residential Plumbing Services"
-    },
-    "cards": {
-      "type": "array",
-      "label": "Service Cards",
-      "itemLabel": "Service Card",
-      "itemSchema": {
-        "title": {
-          "type": "text",
-          "label": "Card Title",
-          "default": "Emergency Plumbing"
-        },
-        "desc": {
-          "type": "textarea",
-          "label": "Summary",
-          "default": "Immediate response when pipes burst or basements flood."
-        }
-      }
-    }
+  "title": {
+    "type": "text",
+    "label": "Section Title",
+    "default": "Services"
   }
 }
