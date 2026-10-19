@@ -1674,6 +1674,116 @@ fieldset.editor-field--array legend small {
 }
 
 /* ========================================================
+   READONLY HEADER & FOOTER SHELL PREVIEW IN POST EDITOR
+   ======================================================== */
+
+.editor-shell-preview-wrapper {
+  position: relative;
+  isolation: isolate;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.editor-shell-preview-wrapper.header-preview-wrapper {
+  margin-bottom: 28px;
+  border-bottom: 2px solid #cbd5e1;
+}
+
+.editor-shell-preview-wrapper.footer-preview-wrapper {
+  margin-top: 36px;
+  margin-bottom: 12px;
+  border-top: 2px solid #cbd5e1;
+}
+
+.editor-shell-preview-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 14px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 12px;
+  color: #475569;
+}
+
+.editor-shell-preview-bar.bottom {
+  border-bottom: none;
+  border-top: 1px solid #e2e8f0;
+}
+
+.shell-preview-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shell-preview-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  display: inline-block;
+}
+
+.shell-preview-badge {
+  background: #e2e8f0;
+  color: #334155;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.shell-preview-link {
+  color: #0284c7;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #e0f2fe;
+  transition: all 0.15s ease;
+}
+
+.shell-preview-link:hover {
+  background: #bae6fd;
+  color: #0369a1;
+  text-decoration: underline;
+}
+
+.btn-preview-toggle {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-preview-toggle:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #1e293b;
+}
+
+.btn-preview-toggle.is-active {
+  background: #e0f2fe;
+  border-color: #7dd3fc;
+  color: #0369a1;
+}
+
+/* ========================================================
    TEMPLATE PICKER (NEW PAGE INITIALIZATION)
    ======================================================== */
 

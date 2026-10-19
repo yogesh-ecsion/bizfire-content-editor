@@ -25,6 +25,22 @@ export default async function WorkspacePostEditorPage({ params }) {
     pageData = null;
   }
 
+  // Load Header and Footer configurations for workspace preview
+  let header = null;
+  let footer = null;
+
+  try {
+    header = await DataSource.getHeader(workspaceId);
+  } catch (err) {
+    console.error(`Failed to load header for "${workspaceId}":`, err);
+  }
+
+  try {
+    footer = await DataSource.getFooter(workspaceId);
+  } catch (err) {
+    console.error(`Failed to load footer for "${workspaceId}":`, err);
+  }
+
   // If page content has not been created yet, show the template picker
   if (!pageData) {
     return (
@@ -46,6 +62,8 @@ export default async function WorkspacePostEditorPage({ params }) {
       initialCustomCss={themeBundle.customCss || ''}
       initialComponents={themeBundle.components}
       initialVariants={themeBundle.pageTemplates}
+      initialHeader={header}
+      initialFooter={footer}
     />
   );
 }

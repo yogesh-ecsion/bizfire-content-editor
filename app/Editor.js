@@ -4,6 +4,8 @@ import { useMemo, useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Handlebars from 'handlebars';
 import ImageCropperModal from './ImageCropperModal';
+import { compileHeader } from '@/lib/headerCompiler.js';
+import { compileFooter } from '@/lib/footerCompiler.js';
 
 function generateUniqueId(prefix = 'id') {
   if (typeof crypto !== 'undefined' && crypto.randomUUID) {
@@ -347,7 +349,9 @@ export default function Editor({
   initialComponents = [],
   initialPageTemplates = [],
   initialVariants = [],
-  initialPage = []
+  initialPage = [],
+  initialHeader = null,
+  initialFooter = null,
 }) {
   const templates = initialPageTemplates.length > 0 ? initialPageTemplates : initialVariants;
 
@@ -356,6 +360,29 @@ export default function Editor({
   const [customCss, setCustomCss] = useState(initialCustomCss);
   const [components, setComponents] = useState(initialComponents);
   const [pageTemplates, setPageTemplates] = useState(templates);
+
+  // Compile Site Header and Footer for readonly preview in workspace mode
+  const compiledHeader = useMemo(() => {
+    if (!initialHeader) return null;
+    try {
+      return compileHeader(initialHeader);
+    } catch (err) {
+      console.error('Error compiling header for preview:', err);
+      return null;
+    }
+  }, [initialHeader]);
+
+  const compiledFooter = useMemo(() => {
+    if (!initialFooter) return null;
+    try {
+      return compileFooter(initialFooter);
+    } catch (err) {
+      console.error('Error compiling footer for preview:', err);
+      return null;
+    }
+  }, [initialFooter]);
+
+  const [showHeaderFooterPreview, setShowHeaderFooterPreview] = useState(true);
 
   // Initialize page ensuring all sections have stable runtime instanceIds
   const [page, setPage] = useState(() => {
@@ -1032,26 +1059,38 @@ ${renderedSections}
                   : 'pure Handlebars + active theme style.css'}
               </span>
             </div>
-            {mode === 'workspace' ? (
-              <button
-                type="button"
-                className="btn-secondary"
-                onClick={handlePublish}
-                disabled={isPublishing}
-                title="Publish changes to WordPress"
-              >
-                {isPublishing ? 'Publishing...' : 'Quick Publish'}
-              </button>
-            ) : (
-              <button
-                type="button"
-                className={`export-button export-button--toolbar ${exportSuccess ? 'is-success' : ''}`}
-                onClick={exportHtml}
-                title="Download standalone HTML file"
-              >
-                {exportSuccess ? '✓ Exported!' : 'Export HTML ⤓'}
-              </button>
-            )}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              {mode === 'workspace' && (compiledHeader || compiledFooter) && (
+                <button
+                  type="button"
+                  className={`btn-preview-toggle ${showHeaderFooterPreview ? 'is-active' : ''}`}
+                  onClick={() => setShowHeaderFooterPreview(v => !v)}
+                  title="Toggle Site Header & Footer preview in canvas"
+                >
+                  {showHeaderFooterPreview ? '✓ Header & Footer On' : 'Header & Footer Off'}
+                </button>
+              )}
+              {mode === 'workspace' ? (
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  onClick={handlePublish}
+                  disabled={isPublishing}
+                  title="Publish changes to WordPress"
+                >
+                  {isPublishing ? 'Publishing...' : 'Quick Publish'}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className={`export-button export-button--toolbar ${exportSuccess ? 'is-success' : ''}`}
+                  onClick={exportHtml}
+                  title="Download standalone HTML file"
+                >
+                  {exportSuccess ? '✓ Exported!' : 'Export HTML ⤓'}
+                </button>
+              )}
+            </div>
           </div>
 
           <div className="preview-canvas page-preview">
@@ -1062,10 +1101,54 @@ ${renderedSections}
             <style dangerouslySetInnerHTML={{ __html: themeCss }} />
 
             {mode === 'workspace' && (
-              <div className="wp-preview-shell-banner top">
-                <span>WordPress Theme Header & Navigation</span>
-                <small>Provided by client's active WordPress theme</small>
-              </div>
+              showHeaderFooterPreview && compiledHeader ? (
+                <div
+                  className="editor-shell-preview-wrapper header-preview-wrapper"
+                  onClickCapture={(e) => {
+                    const anchor = e.target.closest('a');
+                    if (anchor) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      return;
+                    }
+                    const button = e.target.closest('button');
+                    if (button && !button.classList.contains('bizfire-hamburger-toggle')) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
+                >
+                  <div className="editor-shell-preview-bar top">
+                    <div className="shell-preview-meta">
+                      <span className="shell-preview-dot"></span>
+                      <strong>Site Header</strong>
+                      <span className="shell-preview-badge">Readonly Preview</span>
+                    </div>
+                    {workspace?.workspaceId && (
+                      <Link
+                        href={`/editor/${workspace.workspaceId}/header`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shell-preview-link"
+                        title="Edit Header & Navigation in Studio (Opens in new tab)"
+                      >
+                        Edit Header Studio ↗
+                      </Link>
+                    )}
+                  </div>
+                  <div
+                    className="editor-shell-preview-content"
+                    dangerouslySetInnerHTML={{
+                      __html: `${compiledHeader.css}\n${compiledHeader.html}`,
+                    }}
+                  />
+                </div>
+              ) : (
+                <div className="wp-preview-shell-banner top">
+                  <span>WordPress Theme Header & Navigation</span>
+                  <small>Provided by client's active WordPress theme</small>
+                </div>
+              )
             )}
 
             {page.map(item => {
@@ -1097,10 +1180,48 @@ ${renderedSections}
             })}
 
             {mode === 'workspace' && (
-              <div className="wp-preview-shell-banner bottom">
-                <span>WordPress Theme Footer & Copyright</span>
-                <small>Provided by client's active WordPress theme</small>
-              </div>
+              showHeaderFooterPreview && compiledFooter ? (
+                <div
+                  className="editor-shell-preview-wrapper footer-preview-wrapper"
+                  onClickCapture={(e) => {
+                    const anchor = e.target.closest('a');
+                    if (anchor) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
+                >
+                  <div className="editor-shell-preview-bar bottom">
+                    <div className="shell-preview-meta">
+                      <span className="shell-preview-dot"></span>
+                      <strong>Site Footer</strong>
+                      <span className="shell-preview-badge">Readonly Preview</span>
+                    </div>
+                    {workspace?.workspaceId && (
+                      <Link
+                        href={`/editor/${workspace.workspaceId}/footer`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shell-preview-link"
+                        title="Edit Footer in Studio (Opens in new tab)"
+                      >
+                        Edit Footer Studio ↗
+                      </Link>
+                    )}
+                  </div>
+                  <div
+                    className="editor-shell-preview-content"
+                    dangerouslySetInnerHTML={{
+                      __html: `${compiledFooter.css}\n${compiledFooter.html}`,
+                    }}
+                  />
+                </div>
+              ) : (
+                <div className="wp-preview-shell-banner bottom">
+                  <span>WordPress Theme Footer & Copyright</span>
+                  <small>Provided by client's active WordPress theme</small>
+                </div>
+              )
             )}
           </div>
         </section>
