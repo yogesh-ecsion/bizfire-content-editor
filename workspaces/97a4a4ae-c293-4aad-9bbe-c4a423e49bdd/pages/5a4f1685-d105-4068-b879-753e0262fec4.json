@@ -1,10 +1,10 @@
 {
-  "postId": null,
+  "postId": 9861,
   "slug": "testing-new-component",
   "title": "Testing new component",
   "templateId": "web-development-site-main",
   "lastSavedAt": "2026-10-21T13:42:14.997Z",
-  "lastPublishedAt": "2026-10-21T13:42:15.004Z",
+  "lastPublishedAt": "2026-10-21T14:20:53.008Z",
   "sections": [
     {
       "type": "customer-testimonials-carousel",

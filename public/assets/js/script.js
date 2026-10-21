@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function initScript() {
+    function initCarousel() {
         
         // ============================================================
         // DOM REFERENCES
@@ -161,10 +161,15 @@
             console.log('[Testimonial Carousel] Initialized.');
         }
 
-        // Run init now that DOMContentLoaded has fired
+        // Run init now that DOM is ready
         init();
-    });
+    }
 
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCarousel);
+    } else {
+        initCarousel();
+    }
 })();
 
 
@@ -685,7 +690,7 @@ function openRedeemPopup() {
     });
 
     // Event listener to open popup on clicking any element with .coupon-btn class
-    document.addEventListener("DOMContentLoaded", function() {
+    function initCouponPopups() {
         const couponBtns = document.querySelectorAll('.coupon-btn');
         couponBtns.forEach(function(btn) {
             btn.addEventListener('click', function(e) {
@@ -702,7 +707,7 @@ function openRedeemPopup() {
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initScript);
+        document.addEventListener('DOMContentLoaded', initCouponPopups);
     } else {
-        initScript();
+        initCouponPopups();
     }
