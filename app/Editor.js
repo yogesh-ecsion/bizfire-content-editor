@@ -404,6 +404,9 @@ export default function Editor({
   });
 
   // Workspace-specific editing state
+  const [activePostId, setActivePostId] = useState(() => {
+    return (pageData?.postId && !isNaN(Number(pageData.postId))) ? Number(pageData.postId) : null;
+  });
   const [pageTitle, setPageTitle] = useState(() => pageData?.title || 'Untitled Page');
   const [pageSlug, setPageSlug] = useState(() => pageData?.slug || '');
   const [lastSaved, setLastSaved] = useState(() => pageData?.lastSavedAt || null);
@@ -427,13 +430,14 @@ export default function Editor({
     setIsSaving(true);
     setSaveStatus(null);
     try {
+      const resolvedRowGuid = pageData.rowGuid || pageData.pageGuid || (isNaN(Number(pageData.postId)) ? pageData.postId : undefined);
       const res = await fetch('/api/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           workspaceId: workspace.workspaceId,
-          postId: pageData.postId,
-          rowGuid: pageData.rowGuid || pageData.pageGuid,
+          postId: activePostId || (pageData.postId && !isNaN(Number(pageData.postId)) ? Number(pageData.postId) : resolvedRowGuid),
+          rowGuid: resolvedRowGuid,
           title: pageTitle,
           slug: pageSlug,
           templateId: activeTemplateId || pageData.templateId,
@@ -456,7 +460,7 @@ export default function Editor({
     } finally {
       setIsSaving(false);
     }
-  }, [mode, workspace, pageData, pageTitle, pageSlug, activeTemplateId, page]);
+  }, [mode, workspace, pageData, activePostId, pageTitle, pageSlug, activeTemplateId, page]);
 
   const handlePublish = useCallback(async () => {
     if (mode !== 'workspace' || !workspace || !pageData) return;
@@ -475,13 +479,15 @@ export default function Editor({
         } catch (_) {}
       }
 
+      const resolvedRowGuid = pageData.rowGuid || pageData.pageGuid || (isNaN(Number(pageData.postId)) ? pageData.postId : undefined);
+
       const res = await fetch('/api/publish', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           workspaceId: workspace.workspaceId,
-          postId: pageData.postId,
-          rowGuid: pageData.rowGuid || pageData.pageGuid,
+          postId: activePostId || (pageData.postId && !isNaN(Number(pageData.postId)) ? Number(pageData.postId) : resolvedRowGuid),
+          rowGuid: resolvedRowGuid,
           title: pageTitle,
           slug: pageSlug,
           templateId: activeTemplateId || pageData.templateId,
@@ -501,7 +507,8 @@ export default function Editor({
       setIsDirty(false);
 
       if (data.postId && !isNaN(Number(data.postId))) {
-        pageData.postId = data.postId;
+        pageData.postId = Number(data.postId);
+        setActivePostId(Number(data.postId));
       }
 
       if (data.wpSyncStatus === 'error') {
@@ -527,7 +534,7 @@ export default function Editor({
     } finally {
       setIsPublishing(false);
     }
-  }, [mode, workspace, pageData, pageTitle, pageSlug, activeTemplateId, page]);
+  }, [mode, workspace, pageData, activePostId, pageTitle, pageSlug, activeTemplateId, page]);
 
   // Keyboard shortcut: Cmd+S / Ctrl+S to save in workspace mode
   useEffect(() => {
@@ -771,8 +778,8 @@ ${renderedSections}
                     onChange={e => { setPageTitle(e.target.value); setIsDirty(true); }}
                     title="Click to edit page title"
                   />
-                  {pageData?.postId && !isNaN(Number(pageData.postId)) ? (
-                    <span className="post-id-tag">#{pageData.postId}</span>
+                  {activePostId || (pageData?.postId && !isNaN(Number(pageData.postId))) ? (
+                    <span className="post-id-tag">#{activePostId || pageData.postId}</span>
                   ) : (
                     <span className="post-id-tag draft-tag">Draft</span>
                   )}

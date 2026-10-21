@@ -1,0 +1,78 @@
+{
+  "logo": {
+    "type": "image",
+    "label": "Footer Logo",
+    "default": {
+      "src": "/assets/img/white-logo.svg",
+      "alt": "Bizfire Logo"
+    }
+  },
+  "tagline": {
+    "type": "textarea",
+    "label": "Brand Tagline",
+    "default": "HVAC \u00b7 Plumbing \u00b7 Electrical<br />Serving your community since 2024."
+  },
+  "navColumns": {
+    "type": "array",
+    "label": "Footer Navigation Columns",
+    "labelField": "heading",
+    "itemSchema": {
+      "heading": {
+        "type": "text",
+        "label": "Column Heading",
+        "required": true
+      },
+      "links": {
+        "type": "array",
+        "label": "Links",
+        "labelField": "label",
+        "itemSchema": {
+          "label": {
+            "type": "text",
+            "label": "Link Text",
+            "required": true
+          },
+          "url": {
+            "type": "url",
+            "label": "URL",
+            "required": true
+          }
+        }
+      }
+    }
+  },
+  "legalLinks": {
+    "type": "array",
+    "label": "Legal Links",
+    "labelField": "label",
+    "itemSchema": {
+      "label": {
+        "type": "text",
+        "label": "Link Text",
+        "required": true
+      },
+      "url": {
+        "type": "url",
+        "label": "URL",
+        "required": true
+      }
+    }
+  },
+  "copyright": {
+    "type": "text",
+    "label": "Copyright Text",
+    "default": "&copy; 2026 Princeton Air All Rights Reserved"
+  },
+  "whatsapp": {
+    "label": {
+      "type": "text",
+      "label": "WhatsApp Label",
+      "default": "WhatsApp"
+    },
+    "url": {
+      "type": "url",
+      "label": "WhatsApp Link",
+      "default": "https://wa.me/17323318811?text=Hello!%20I%20am%20visiting%20your%20website%20and%20would%20like%20to%20learn%20more%20about%20your%20services."
+    }
+  }
+}

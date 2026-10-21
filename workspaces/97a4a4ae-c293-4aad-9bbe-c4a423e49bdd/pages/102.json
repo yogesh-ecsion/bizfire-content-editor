@@ -1,0 +1,58 @@
+{
+  "postId": 102,
+  "slug": "emergency-heating",
+  "title": "24/7 Emergency Heating Repair Princeton",
+  "templateId": "service-emergency",
+  "lastSavedAt": "2026-10-14T12:18:59.145Z",
+  "lastPublishedAt": null,
+  "sections": [
+    {
+      "type": "cta-banner",
+      "content": {
+        "title": "Furnace Blowing Cold Air?",
+        "subtitle": "Call now for rapid response and emergency diagnostics.",
+        "buttonText": "Call Now",
+        "buttonUrl": "tel:6095550198"
+      }
+    },
+    {
+      "type": "hero-split",
+      "content": {
+        "eyebrow": "URGENT FURNACE & BOILER DISPATCH",
+        "title": "Emergency Heating & Furnace Repair in Princeton",
+        "subtitle": "Don't freeze tonight. Certified HVAC heating techs available 24/7 across Mercer County.",
+        "buttonText": "Call Dispatch: (609) 555-0198",
+        "buttonUrl": "tel:6095550198",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1400&q=80",
+          "alt": "Heating technician repairing furnace"
+        }
+      }
+    },
+    {
+      "type": "faq-accordion",
+      "content": {
+        "eyebrow": "COMMON QUESTIONS",
+        "title": "Frequently Asked Questions",
+        "subtitle": "Quick answers regarding diagnostic fees, warranties, and emergency dispatch.",
+        "items": [
+          {
+            "_id": "faq-01",
+            "question": "how are you",
+            "answer": "I am fine"
+          },
+          {
+            "_id": "faq-02",
+            "question": "Do you charge extra for evening or weekend visits?",
+            "answer": "No. We believe in clear, flat-rate pricing. You receive the exact repair estimate upfront before any wrench is turned."
+          },
+          {
+            "_id": "faq-03",
+            "question": "What warranty comes with repairs?",
+            "answer": "All parts and labor carry a 1-year 100% satisfaction guarantee. If the issue recurs, we return and fix it at no charge."
+          }
+        ]
+      }
+    }
+  ]
+}

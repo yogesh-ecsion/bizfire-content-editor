@@ -1,0 +1,377 @@
+{
+  "postId": "demo-plumbing",
+  "slug": "new-jersey-plumbing-services",
+  "title": "New Jersey Plumbing Services | Princeton Air",
+  "templateId": "demo-plumbing",
+  "lastSavedAt": "2026-10-16T11:35:07.009Z",
+  "lastPublishedAt": null,
+  "sections": [
+    {
+      "type": "plumbing-hero-split",
+      "content": {
+        "title": "New Jersey Plumbing Services",
+        "intro": "The quiet of a household depends on plumbing that works without being thought about.",
+        "paragraph1": "Water pooling where it shouldn't. A shower that runs cold before the morning is over. A toilet that runs and runs at 2 a.m. These are the moments that pull a household off schedule.",
+        "paragraph2": "Princeton Air's licensed plumbers arrive prepared, diagnose the actual cause, and complete the repair with careful attention to your finished spaces. Call or book online to schedule plumbing service in New Jersey.",
+        "image": {
+          "src": "/assets/img/1-index-hero-img.webp",
+          "alt": "Professional Plumber"
+        }
+      }
+    },
+    {
+      "type": "cta-strip",
+      "content": {
+        "text": "Ready to talk to a home services specialist?",
+        "buttonText": "Schedule Services",
+        "buttonUrl": "#quote"
+      }
+    },
+    {
+      "type": "plumbing-order-checklist",
+      "content": {
+        "sectionTitle": "When Plumbing Disrupts Your Home, We Restore Order",
+        "headline": "Your plumbing works in the background until the minute it stops.",
+        "desc1": "You turn a handle expecting water. You flush expecting nothing else to happen. You walk past the laundry room without thinking about what's under the sink. When one of those automatic assumptions stops holding, the rest of the household adjusts around it, and you start running a quiet inventory of what else might be about to go wrong.",
+        "desc2": "Princeton Air's licensed plumbers walk into that moment with a plan. We evaluate the whole system, not just the obvious failure, name the cause accurately, and put forward a scope that makes sense for your household and your budget. Five decades of serving New Jersey homeowners has taught us that the plumbing call that earns the next one is the one that's done properly the first time.",
+        "stats": [
+          {
+            "_id": "stat-1",
+            "number": "50+",
+            "label": "Years in Business"
+          },
+          {
+            "_id": "stat-2",
+            "number": "700",
+            "label": "Skilled Employees"
+          },
+          {
+            "_id": "stat-3",
+            "number": "24/7",
+            "label": "Emergency Service"
+          },
+          {
+            "_id": "stat-4",
+            "number": "500",
+            "label": "Trucks on the Road"
+          }
+        ]
+      }
+    },
+    {
+      "type": "plumbing-services-grid",
+      "content": {
+        "cards": [
+          {
+            "_id": "srv-1",
+            "title": "Plumbing",
+            "link": "#"
+          },
+          {
+            "_id": "srv-2",
+            "title": "Plumbing Installation",
+            "link": "#"
+          },
+          {
+            "_id": "srv-3",
+            "title": "Plumbing Repair",
+            "link": "#"
+          },
+          {
+            "_id": "srv-4",
+            "title": "Commercial",
+            "link": "#"
+          }
+        ]
+      }
+    },
+    {
+      "type": "plumbing-care-video",
+      "content": {
+        "heading": "Plumbing Care That Matches the Character of Your Home",
+        "subheading": "The right plumbing approach depends on what's already there.",
+        "image": {
+          "src": "/assets/img/2-plumbing-care.webp",
+          "alt": "Plumbing service video placeholder"
+        },
+        "desc1": "Every home has its own story, its own age, and its own plumbing system characteristics. We diagnose issues with careful attention to finished spaces.",
+        "desc2": "Whether it's modern fixtures or historic pipes, our master technicians know how to preserve your home while restoring optimal water flow and reliability.",
+        "phone": "(123) 456-7890",
+        "chatText": "Chat with us"
+      }
+    },
+    {
+      "type": "trust-bar",
+      "content": {
+        "rating": "4.7",
+        "reviewText": "Based on 6634 reviews powered by Google"
+      }
+    },
+    {
+      "type": "accordion-map-section",
+      "content": {
+        "heading": "New Jersey Chooses Princeton Air",
+        "items": [
+          {
+            "_id": "nj-1",
+            "number": "1.",
+            "title": "One Trusted Team for the Entire Home"
+          },
+          {
+            "_id": "nj-2",
+            "number": "2.",
+            "title": "Thorough, Code-Compliant Work"
+          },
+          {
+            "_id": "nj-3",
+            "number": "3.",
+            "title": "Flexible Financing Options"
+          },
+          {
+            "_id": "nj-4",
+            "number": "4.",
+            "title": "Solutions Made to Last"
+          },
+          {
+            "_id": "nj-5",
+            "number": "5.",
+            "title": "Respect for Your Home & Privacy"
+          },
+          {
+            "_id": "nj-6",
+            "number": "6.",
+            "title": "Responsive Emergency Plumbing Service"
+          }
+        ],
+        "buttonText": "New Jersey Locations"
+      }
+    },
+    {
+      "type": "process-steps-grid",
+      "content": {
+        "title": "Three Simple Steps to Reliable Plumbing",
+        "steps": [
+          {
+            "_id": "step-1",
+            "number": "01",
+            "title": "Contact Princeton Air",
+            "desc": "Reach out by phone or book online. You speak directly with our team — no runaround, no endless menus."
+          },
+          {
+            "_id": "step-2",
+            "number": "02",
+            "title": "Receive Clear Answers",
+            "desc": "Our licensed plumber arrives on schedule, thoroughly inspects the issue, and provides flat-rate pricing before starting."
+          },
+          {
+            "_id": "step-3",
+            "number": "03",
+            "title": "Precise Work Completed",
+            "desc": "We complete the repair or installation according to state plumbing code, verify operation, and leave your home spotless."
+          }
+        ],
+        "image": {
+          "src": "/assets/img/4-three-simple-steps.webp",
+          "alt": "Three Simple Steps"
+        }
+      }
+    },
+    {
+      "type": "cta-banner-dual",
+      "content": {
+        "phoneTitle": "Ready to talk to a home services specialist?",
+        "phoneText": "(123) 456-7890",
+        "chatTitle": "Need Immediate Help?",
+        "chatButtonText": "Chat with us"
+      }
+    },
+    {
+      "type": "testimonial-carousel",
+      "content": {
+        "title": "What Our Customers Are Saying",
+        "subtitle": "100% Satisfaction Guarantee",
+        "slides": [
+          {
+            "_id": "sl-1",
+            "reviewer1_name": "Steven Raffuel",
+            "reviewer1_text": "A/C went down unexpectedly in the middle of humid New Jersey summer. Princeton Air was out in less than 24 hours and solved the problem with zero stress.",
+            "reviewer2_name": "Janet Grisi",
+            "reviewer2_text": "Fast, professional, and very thorough. They explained every detail before doing the work and left our home clean."
+          }
+        ]
+      }
+    },
+    {
+      "type": "coupon-grid",
+      "content": {
+        "heading": "Plumbing Specials & Discounts",
+        "coupons": [
+          {
+            "_id": "c-1",
+            "discount": "$50 OFF",
+            "title": "Sink/Shower Unclog (Branch Line)",
+            "terms": "Cannot be combined with other offers.",
+            "expiry": "Expires 11/30/2026"
+          },
+          {
+            "_id": "c-2",
+            "discount": "$75 OFF",
+            "title": "Drain Cleaning Service",
+            "terms": "Valid for standard residential lines.",
+            "expiry": "Expires 11/30/2026"
+          },
+          {
+            "_id": "c-3",
+            "discount": "$250 OFF",
+            "title": "Water Heater Installation",
+            "terms": "Applies to tankless or hybrid units.",
+            "expiry": "Expires 11/30/2026"
+          }
+        ]
+      }
+    },
+    {
+      "type": "financing-cta",
+      "content": {
+        "title": "Get Pre-Approved Financing",
+        "desc": "Affordable monthly payment plans with zero penalty for early payoff. Quick, secure online application.",
+        "buttonText": "Apply For Financing"
+      }
+    },
+    {
+      "type": "comfort-club-perks",
+      "content": {
+        "title": "Year-Round Confidence With the Home Comfort Club",
+        "badge": "THE HOME COMFORT CLUB",
+        "desc": "Regular maintenance protects your plumbing investments, maintains manufacturer warranties, and avoids high-cost emergency dispatch fees.",
+        "perks": [
+          {
+            "_id": "p-1",
+            "text": "15% Discount on all plumbing and drain service repairs"
+          },
+          {
+            "_id": "p-2",
+            "text": "Priority scheduling ahead of non-members during peak freezes"
+          },
+          {
+            "_id": "p-3",
+            "text": "Comprehensive annual whole-house plumbing inspection"
+          },
+          {
+            "_id": "p-4",
+            "text": "Waived emergency overtime diagnostic charges"
+          }
+        ],
+        "image": {
+          "src": "/assets/img/the-home-comfort-club-new.webp",
+          "alt": "Home Comfort Club"
+        }
+      }
+    },
+    {
+      "type": "plumbing-spotlight-hero",
+      "content": {
+        "title": "Our New Jersey Plumbing Services",
+        "desc": "From precision leak detection to whole-home repiping and high-efficiency water heater conversions, our master technicians ensure lasting comfort.",
+        "image": {
+          "src": "/assets/img/plumbing-hero.webp",
+          "alt": "New Jersey Plumbing"
+        }
+      }
+    },
+    {
+      "type": "plumbing-services-grid",
+      "content": {
+        "cards": [
+          {
+            "_id": "srv-1",
+            "title": "Plumbing",
+            "link": "#"
+          },
+          {
+            "_id": "srv-2",
+            "title": "Plumbing Installation",
+            "link": "#"
+          },
+          {
+            "_id": "srv-3",
+            "title": "Plumbing Repair",
+            "link": "#"
+          },
+          {
+            "_id": "srv-4",
+            "title": "Commercial",
+            "link": "#"
+          }
+        ]
+      }
+    },
+    {
+      "type": "services-detailed-grid",
+      "content": {
+        "title": "Comprehensive Residential Plumbing Services",
+        "cards": [
+          {
+            "_id": "sc-1",
+            "title": "Emergency Plumbing",
+            "desc": "Fast local response when pipes freeze, burst, or overflow."
+          },
+          {
+            "_id": "sc-2",
+            "title": "Pipe Repair & Repiping",
+            "desc": "Modern PEX and copper plumbing upgrades with minimal wall cutting."
+          },
+          {
+            "_id": "sc-3",
+            "title": "Drain Cleaning & Hydro-Jetting",
+            "desc": "Camera video inspection and high-pressure root clearing."
+          },
+          {
+            "_id": "sc-4",
+            "title": "Water Heaters",
+            "desc": "Traditional tank diagnostics, element replacement, and routine flushing."
+          },
+          {
+            "_id": "sc-5",
+            "title": "Tankless Water Heaters",
+            "desc": "Endless on-demand hot water with high-efficiency energy rebates."
+          },
+          {
+            "_id": "sc-6",
+            "title": "Sewer Line Services",
+            "desc": "Trenchless sewer repairs and main line replacements."
+          }
+        ]
+      }
+    },
+    {
+      "type": "cta-banner-dual",
+      "content": {
+        "phoneTitle": "Ready to talk to a home services specialist?",
+        "phoneText": "(123) 456-7890",
+        "chatTitle": "Need Immediate Help?",
+        "chatButtonText": "Chat with us"
+      }
+    },
+    {
+      "type": "plumbing-hvac-cross-sell",
+      "content": {
+        "heading": "Total Home Comfort Under One Roof"
+      }
+    },
+    {
+      "type": "comfort-closing-cta",
+      "content": {
+        "title": "Restore Your Comfort. Call Princeton Air Today.",
+        "subtitle": "Quality, Friendly Service in Central New Jersey Since 1971.",
+        "phone": "(123) 456-7890"
+      }
+    },
+    {
+      "type": "certifications-marquee",
+      "content": {
+        "heading": "Trusted & Certified Excellence"
+      }
+    }
+  ]
+}

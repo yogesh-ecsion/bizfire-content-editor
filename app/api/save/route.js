@@ -34,14 +34,15 @@ export async function POST(request) {
       });
     }
 
-    if (!postId && postId !== 0) {
+    const targetPostId = (postId && Number(postId) > 0) ? postId : (rowGuid || pageGuid || postId);
+    if (!targetPostId && targetPostId !== 0) {
       return NextResponse.json(
-        { error: 'Missing required field: postId' },
+        { error: 'Missing required field: postId or rowGuid' },
         { status: 400 }
       );
     }
 
-    const result = await DataSource.savePageContent(workspaceId, postId, {
+    const result = await DataSource.savePageContent(workspaceId, targetPostId, {
       rowGuid: rowGuid || pageGuid,
       slug,
       title,

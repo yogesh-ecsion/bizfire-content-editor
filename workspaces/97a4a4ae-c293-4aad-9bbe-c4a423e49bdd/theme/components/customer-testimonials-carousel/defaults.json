@@ -1,0 +1,78 @@
+{
+  "title": "What Our Customers Are Saying",
+  "subtitle": "100% Satisfaction Guarantee",
+  "items": [
+    {
+      "_id": "customer-testimonials-carousel-item-01",
+      "slideTitle": "Slide 1",
+      "cards": [
+        {
+          "name": "Steven Raffuel",
+          "time": "17h ago",
+          "initial": "S",
+          "review": "A/C went down unexpectedly in the middle of humid New Jersey summer. Princeton Air was out in less than 24 hours and found the problem."
+        },
+        {
+          "name": "JRM",
+          "time": "a day ago",
+          "initial": "J",
+          "review": "A/C went down unexpectedly in the middle of humid New Jersey summer. Princeton Air was out in less than 24 hours and found the problem."
+        },
+        {
+          "name": "Janet Grisi",
+          "time": "17h ago",
+          "initial": "G",
+          "review": "A/C went down unexpectedly in the middle of humid New Jersey summer. Princeton Air was out in less than 24 hours and found the problem."
+        }
+      ]
+    },
+    {
+      "_id": "customer-testimonials-carousel-item-02",
+      "slideTitle": "Slide 2",
+      "cards": [
+        {
+          "name": "Michael Torres",
+          "time": "2 days ago",
+          "initial": "M",
+          "review": "Our water heater failed on a Sunday morning. Called Princeton Air and they had a technician at our door within 3 hours. Professional, courteous, and got our hot water back fast."
+        },
+        {
+          "name": "Karen Chen",
+          "time": "Yesterday",
+          "initial": "K",
+          "review": "Princeton Air installed a new HVAC system for our home. The team was professional, respectful of our space, and walked us through every step. Our energy bills have already dropped!"
+        },
+        {
+          "name": "David O'Brien",
+          "time": "3 weeks ago",
+          "initial": "D",
+          "review": "Had a plumbing emergency with a burst pipe in our basement. Princeton Air responded immediately, contained the damage, and replaced the section same day. Amazing service."
+        }
+      ]
+    },
+    {
+      "_id": "customer-testimonials-carousel-item-03",
+      "slideTitle": "Slide 3",
+      "cards": [
+        {
+          "name": "Linda Patterson",
+          "time": "5 days ago",
+          "initial": "L",
+          "review": "From the first call to the final walkthrough, Princeton Air delivered exceptional service. They installed our new water heater and even showed us how to maintain it. Highly recommend!"
+        },
+        {
+          "name": "Robert Kim",
+          "time": "1 week ago",
+          "initial": "R",
+          "review": "Our AC unit stopped cooling during the hottest week of July. Princeton Air came out same day, diagnosed the issue, and had it repaired by evening. Absolute lifesaver."
+        },
+        {
+          "name": "Sarah Mitchell",
+          "time": "2 weeks ago",
+          "initial": "S",
+          "review": "Princeton Air handled our whole-home plumbing inspection. They were thorough, explained everything clearly, and didn't try to upsell us on anything we didn't need. Honest and reliable."
+        }
+      ]
+    }
+  ]
+}

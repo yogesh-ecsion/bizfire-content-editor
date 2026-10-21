@@ -52,11 +52,19 @@ export default async function WorkspacePostEditorPage({ params }) {
     );
   }
 
+  // Ensure pageData has rowGuid / pageGuid set (critical for newly created draft pages)
+  const normalizedPageData = pageData ? {
+    ...pageData,
+    rowGuid: pageData.rowGuid || pageData.pageGuid || (isNaN(Number(postId)) ? postId : undefined),
+    pageGuid: pageData.pageGuid || pageData.rowGuid || (isNaN(Number(postId)) ? postId : undefined),
+    postId: (pageData.postId && !isNaN(Number(pageData.postId))) ? Number(pageData.postId) : (isNaN(Number(postId)) ? null : Number(postId))
+  } : null;
+
   return (
     <Editor
       mode="workspace"
       workspace={workspace}
-      pageData={pageData}
+      pageData={normalizedPageData}
       initialTheme={themeBundle.theme}
       initialThemeCss={themeBundle.styleCss}
       initialCustomCss={themeBundle.customCss || ''}

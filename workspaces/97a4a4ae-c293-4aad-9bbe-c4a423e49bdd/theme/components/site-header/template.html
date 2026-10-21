@@ -1,0 +1,684 @@
+  <header class="site-header" role="banner">
+
+        <div class="top-header">
+            <div class="row align-items-center">
+
+                <div class="col-auto">
+                     <a href="/" class="logo" aria-label="BIZfire home">
+                    
+                          <img src="{{logo.src}}" alt="{{logo.alt}}" class="logo-dark" width="180" height="48">
+                    </a>
+                </div>
+
+                <div class="col d-none d-md-block">
+                    <nav class="utility-nav" aria-label="Utility navigation">
+                        {{#each utilityLinks}}
+                        <a href="{{url}}" class="nav-link">{{label}}</a>
+                        {{#unless @last}}<span class="divider" aria-hidden="true">|</span>{{/unless}}
+                        {{/each}}
+                    </nav>
+                </div>
+
+                <div class="col-auto">
+                    <div class="header-contact">
+
+                        <a href="{{phone.href}}" class="phone-block" aria-label="Call us at {{phone.label}}">
+                            <span class="phone-icon" aria-hidden="true">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
+                            <span class="phone-text-wrap">
+                                <span class="phone-number">{{phone.label}}</span>
+                                <span class="phone-sub">{{phone.sub}}</span>
+                            </span>
+                        </a>
+
+                        <a onclick="openQuotePopup()" href="{{ctaButton.url}}" class="btn-schedule">{{ctaButton.label}}</a>
+
+                        <button class="hamburger d-md-none" aria-label="Toggle menu"
+                        onclick="document.getElementById('menu-toggle').checked = !document.getElementById('menu-toggle').checked;">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+        <ul class="nav-menu">
+
+            <li class="nav-item">
+        <a href="/heating-cooling/">
+        <button class="nav-link" type="button">
+                    Heating & Cooling
+                    <span class="chevron" aria-hidden="true">&#9660;</span>
+                </button>
+        </a>
+                
+                <div class="mega-menu">
+                    <div class="mega-col">
+                        <span class="mega-heading">Heating</span>
+                        <a href="/furnaces/" class="mega-link"><span class="mega-icon">›</span> Furnaces</a>
+                        <a href="/heat-pumps/" class="mega-link"><span class="mega-icon">›</span> Heat Pumps</a>
+                        <a href="/boilers/" class="mega-link"><span class="mega-icon">›</span> Boilers</a>
+                        <a href="/ductless-mini-splits/" class="mega-link"><span class="mega-icon">›</span> Ductless Mini-Splits</a>
+                        <a href="/thermostats/" class="mega-link"><span class="mega-icon">›</span> Thermostats</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Cooling</span>
+                        <a href="/central-ac/" class="mega-link"><span class="mega-icon">›</span> Central AC</a>
+                        <a href="/ductless-ac/" class="mega-link"><span class="mega-icon">›</span> Ductless AC</a>
+                        <a href="/heat-pumps/" class="mega-link"><span class="mega-icon">›</span> Heat Pumps</a>
+                        <a href="/air-handlers/" class="mega-link"><span class="mega-icon">›</span> Air Handlers</a>
+                        <a href="/zone-control/" class="mega-link"><span class="mega-icon">›</span> Zone Control</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Indoor Air</span>
+                        <a href="/air-purifiers/" class="mega-link"><span class="mega-icon">›</span> Air Purifiers</a>
+                        <a href="/humidifiers/" class="mega-link"><span class="mega-icon">›</span> Humidifiers</a>
+                        <a href="/dehumidifiers/" class="mega-link"><span class="mega-icon">›</span> Dehumidifiers</a>
+                        <a href="/uv-lights/" class="mega-link"><span class="mega-icon">›</span> UV Lights</a>
+                        <a href="/ventilation/" class="mega-link"><span class="mega-icon">›</span> Ventilation</a>
+                    </div>
+                    <div class="mega-promo">
+                        <div class="promo-title">🔥 Save on Heating</div>
+                        <div class="promo-desc">Up to $2,000 in rebates on select furnaces & heat pumps.</div>
+                        <a href="#" class="promo-cta">View Offers →</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+        <a href="/plumbing/">
+                <button class="nav-link" type="button">
+                    Plumbing
+                    <span class="chevron" aria-hidden="true">&#9660;</span>
+                </button>
+        </a>
+                <div class="mega-menu">
+                    <div class="mega-col">
+                        <span class="mega-heading">Water Heaters</span>
+                        <a href="/services-hotwater/" class="mega-link"><span class="mega-icon">›</span> Hot Water Recirculation</a>
+                        <a href="/gas/" class="mega-link"><span class="mega-icon">›</span> Gas</a>
+                        <a href="/electric/" class="mega-link"><span class="mega-icon">›</span> Electric</a>
+                        <a href="/heat-pumps/" class="mega-link"><span class="mega-icon">›</span> Heat Pump</a>
+                        <a href="/solar/" class="mega-link"><span class="mega-icon">›</span> Solar</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Drain & Sewer</span>
+                        <a href="/drain-cleaning/" class="mega-link"><span class="mega-icon">›</span> Drain Cleaning</a>
+                        <a href="/sewer-repair/" class="mega-link"><span class="mega-icon">›</span> Sewer Repair</a>
+                        <a href="/hydro-jetting/" class="mega-link"><span class="mega-icon">›</span> Hydro Jetting</a>
+                        <a href="/camera-inspection/" class="mega-link"><span class="mega-icon">›</span> Camera Inspection</a>
+                        <a href="/sump-pumps/" class="mega-link"><span class="mega-icon">›</span> Sump Pumps</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Fixtures & More</span>
+                        <a href="/faucets/" class="mega-link"><span class="mega-icon">›</span> Faucets</a>
+                        <a href="/toilets/" class="mega-link"><span class="mega-icon">›</span> Toilets</a>
+                        <a href="/garbage-disposals/" class="mega-link"><span class="mega-icon">›</span> Garbage Disposals</a>
+                        <a href="/water-filtration/" class="mega-link"><span class="mega-icon">›</span> Water Filtration</a>
+                        <a href="/pipe-repair/" class="mega-link"><span class="mega-icon">›</span> Pipe Repair</a>
+                    </div>
+                    <div class="mega-promo">
+                        <div class="promo-title">💧 Plumbing Special</div>
+                        <div class="promo-desc">Free drain inspection with any service call. Limited time.</div>
+                        <a href="#" class="promo-cta">Book Now →</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+        <a href="/electrical/">
+                <button class="nav-link" type="button">
+                    Electrical
+                    <span class="chevron" aria-hidden="true">&#9660;</span>
+                </button>
+        </a>
+                <div class="mega-menu">
+                    <div class="mega-col">
+                        <span class="mega-heading">Wiring & Panels</span>
+                        <a href="/panel-upgrades/" class="mega-link"><span class="mega-icon">›</span> Panel Upgrades</a>
+                        <a href="/rewiring/" class="mega-link"><span class="mega-icon">›</span> Rewiring</a>
+                        <a href="/gfci-afci/" class="mega-link"><span class="mega-icon">›</span> GFCI & AFCI</a>
+                        <a href="/surge-protection/" class="mega-link"><span class="mega-icon">›</span> Surge Protection</a>
+                        <a href="/smart-home/" class="mega-link"><span class="mega-icon">›</span> Smart Home</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Lighting</span>
+                        <a href="/led-retrofit/" class="mega-link"><span class="mega-icon">›</span> LED Retrofit</a>
+                        <a href="/outdoor-lighting/" class="mega-link"><span class="mega-icon">›</span> Outdoor Lighting</a>
+                        <a href="/landscape/" class="mega-link"><span class="mega-icon">›</span> Landscape</a>
+                        <a href="/smart-lighting/" class="mega-link"><span class="mega-icon">›</span> Smart Lighting</a>
+                        <a href="/ceiling-fans/" class="mega-link"><span class="mega-icon">›</span> Ceiling Fans</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Generators</span>
+                        <a href="/standby/" class="mega-link"><span class="mega-icon">›</span> Standby</a>
+                        <a href="/portable/" class="mega-link"><span class="mega-icon">›</span> Portable</a>
+                        <a href="/transfer-switches/" class="mega-link"><span class="mega-icon">›</span> Transfer Switches</a>
+                        <a href="/maintenance/" class="mega-link"><span class="mega-icon">›</span> Maintenance</a>
+                        <a href="/solar-battery/" class="mega-link"><span class="mega-icon">›</span> Solar + Battery</a>
+                    </div>
+                    <div class="mega-promo">
+                        <div class="promo-title">⚡ Free Estimate</div>
+                        <div class="promo-desc">Get a free electrical safety inspection with any panel upgrade.</div>
+                        <a href="#" class="promo-cta">Schedule →</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+        <a href="/health/">
+                <button class="nav-link" type="button">
+                    Health
+                    <span class="chevron" aria-hidden="true">&#9660;</span>
+                </button>
+        </a>
+                <div class="mega-menu">
+                    <div class="mega-col">
+                        <span class="mega-heading">Air Quality</span>
+                        <a href="/air-purifiers/" class="mega-link"><span class="mega-icon">›</span> Air Purifiers</a>
+                        <a href="/hepa-filters/" class="mega-link"><span class="mega-icon">›</span> HEPA Filters</a>
+                        <a href="/uv-c-lights/" class="mega-link"><span class="mega-icon">›</span> UV-C Lights</a>
+                        <a href="/electrostatic/" class="mega-link"><span class="mega-icon">›</span> Electrostatic</a>
+                        <a href="/ozone-generators/" class="mega-link"><span class="mega-icon">›</span> Ozone Generators</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Humidity Control</span>
+                        <a href="/whole-home-humidifiers/" class="mega-link"><span class="mega-icon">›</span> Whole-Home Humidifiers</a>
+                        <a href="/dehumidifiers/" class="mega-link"><span class="mega-icon">›</span> Dehumidifiers</a>
+                        <a href="/steam-systems/" class="mega-link"><span class="mega-icon">›</span> Steam Systems</a>
+                        <a href="/evaporative/" class="mega-link"><span class="mega-icon">›</span> Evaporative</a>
+                        <a href="/portable-units/" class="mega-link"><span class="mega-icon">›</span> Portable Units</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Duct & Ventilation</span>
+                        <a href="/duct-cleaning/" class="mega-link"><span class="mega-icon">›</span> Duct Cleaning</a>
+                        <a href="/duct-sealing/" class="mega-link"><span class="mega-icon">›</span> Duct Sealing</a>
+                        <a href="/ventilation-systems/" class="mega-link"><span class="mega-icon">›</span> Ventilation Systems</a>
+                        <a href="/energy-recovery/" class="mega-link"><span class="mega-icon">›</span> Energy Recovery</a>
+                        <a href="/exhaust-fans/" class="mega-link"><span class="mega-icon">›</span> Exhaust Fans</a>
+                    </div>
+                    <div class="mega-promo">
+                        <div class="promo-title">🌿 Breathe Clean</div>
+                        <div class="promo-desc">20% off whole-home air purification systems. Limited offer.</div>
+                        <a href="#" class="promo-cta">Claim Offer →</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+        <a href="/commercial/">
+                <button class="nav-link" type="button">
+                    Commercial
+                    <span class="chevron" aria-hidden="true">&#9660;</span>
+                </button>
+        </a>
+                <div class="mega-menu">
+                    <div class="mega-col">
+                        <span class="mega-heading">HVAC</span>
+                        <a href="/rooftop-units/" class="mega-link"><span class="mega-icon">›</span> Rooftop Units</a>
+                        <a href="/vrf-systems/" class="mega-link"><span class="mega-icon">›</span> VRF Systems</a>
+                        <a href="/chillers/" class="mega-link"><span class="mega-icon">›</span> Chillers</a>
+                        <a href="/boilers/" class="mega-link"><span class="mega-icon">›</span> Boilers</a>
+                        <a href="/controls-bms/" class="mega-link"><span class="mega-icon">›</span> Controls & BMS</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Plumbing</span>
+                        <a href="/commercial-water-heaters/" class="mega-link"><span class="mega-icon">›</span> Commercial Water Heaters</a>
+                        <a href="/grease-traps/" class="mega-link"><span class="mega-icon">›</span> Grease Traps</a>
+                        <a href="/backflow-prevention/" class="mega-link"><span class="mega-icon">›</span> Backflow Prevention</a>
+                        <a href="/drainage-systems/" class="mega-link"><span class="mega-icon">›</span> Drainage Systems</a>
+                        <a href="/pipe-retrofits/" class="mega-link"><span class="mega-icon">›</span> Pipe Retrofits</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Electrical</span>
+                        <a href="/commercial-panels/" class="mega-link"><span class="mega-icon">›</span> Commercial Panels</a>
+                        <a href="/lighting-controls/" class="mega-link"><span class="mega-icon">›</span> Lighting Controls</a>
+                        <a href="/emergency-systems/" class="mega-link"><span class="mega-icon">›</span> Emergency Systems</a>
+                        <a href="/ev-charging/" class="mega-link"><span class="mega-icon">›</span> EV Charging</a>
+                        <a href="/generators/" class="mega-link"><span class="mega-icon">›</span> Generators</a>
+                    </div>
+                    <div class="mega-promo">
+                        <div class="promo-title">🏢 Commercial Services</div>
+                        <div class="promo-desc">Free consultation for multi-unit buildings & offices.</div>
+                        <a href="#" class="promo-cta">Contact Sales →</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                 <a href="/offers/" class="nav-link" role="button" tabindex="0">
+    Offers
+<!--     <span class="chevron" aria-hidden="true">&#9660;</span> -->
+</a>
+<!--                 <div class="mega-menu">
+                    <div class="mega-col">
+                        <span class="mega-heading">Current Specials</span>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Free HVAC Tune-Up</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> $100 Off Repairs</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> 0% Financing</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Senior Discount</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Military Discount</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Rebates</span>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Energy Star</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Utility Rebates</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Tax Credits</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Manufacturer Rebates</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Local Incentives</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Seasonal</span>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Spring Tune-Up</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Summer AC Special</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Fall Heating Check</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Winter Plumbing</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Holiday Deals</a>
+                    </div>
+                    <div class="mega-promo">
+                        <div class="promo-title">🎯 New Customer</div>
+                        <div class="promo-desc">Get $50 off your first service call. Use code BIZFIRE50.</div>
+                        <a href="#" class="promo-cta">Redeem →</a>
+                    </div>
+                </div> -->
+            </li>
+
+            <li class="nav-item">
+              <a href="/about/" class="nav-link" role="button" tabindex="0">
+    About Us
+<!--     <span class="chevron" aria-hidden="true">&#9660;</span> -->
+</a>
+<!--                 <div class="mega-menu">
+                    <div class="mega-col">
+                        <span class="mega-heading">Company</span>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Our Story</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Mission & Values</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Leadership</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Community</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Sustainability</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Careers</span>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Open Positions</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Benefits</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Apprenticeships</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Culture</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Apply Now</a>
+                    </div>
+                    <div class="mega-col">
+                        <span class="mega-heading">Resources</span>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Reviews & Testimonials</a>
+                        <a href="/faq/" class="mega-link"><span class="mega-icon">›</span> FAQ</a>
+                        <a href="#" class="mega-link"><span class="mega-icon">›</span> Blog</a>
+                        <a href="/contact/" class="mega-link"><span class="mega-icon">›</span> Contact Us</a>
+                        <a href="/service-area/" class="mega-link"><span class="mega-icon">›</span> Service Area</a>
+                    </div>
+                    <div class="mega-promo">
+                        <div class="promo-title">⭐ Rated 4.9/5</div>
+                        <div class="promo-desc">Over 1,200 happy customers. Read our latest reviews.</div>
+                        <a href="#" class="promo-cta">See Reviews →</a>
+                    </div>
+                </div> -->
+            </li>
+
+        </ul>
+    </nav>
+
+    <input type="checkbox" id="menu-toggle" aria-hidden="true" />
+
+    <label for="menu-toggle" class="offcanvas-overlay" aria-hidden="true"></label>
+
+    <aside class="offcanvas-drawer" role="dialog" aria-label="Mobile navigation">
+        <button class="drawer-close" aria-label="Close menu"
+        onclick="document.getElementById('menu-toggle').checked = false;">
+        &times;
+    </button>
+
+    <div class="drawer-logo">
+        <a href="/" class="logo" aria-label="BIZfire home">
+                    
+                          <img src="{{logo.src}}" alt="{{logo.alt}}" class="logo-dark" width="180" height="48">
+                    </a>
+    </div>
+
+    <ul class="drawer-nav">
+
+        <li class="nav-item">
+            <a href="/plan/" class="nav-link">Plans</a>
+        </li>
+
+
+        <li class="nav-item">
+            <a href="/careers/" class="nav-link">Careers</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="/service-area/" class="nav-link">Service Area</a>
+        </li>
+
+        
+
+        <li class="nav-item">
+            <input type="checkbox" id="acc-heating" class="acc-toggle" />
+      <a href="/heating-cooling/">
+        <label for="acc-heating" class="nav-link" role="button" tabindex="0">
+                Heating & Cooling
+                <span class="chevron" aria-hidden="true">&#9660;</span>
+            </label>
+      </a>
+            
+            <div class="drawer-mega">
+                <div class="mega-col">
+                    <span class="mega-heading">Heating</span>
+          <a href="/heating-cooling/" class="mega-link"><span class="mega-icon">›</span> Heating & Cooling</a>
+                    <a href="/furnaces/" class="mega-link"><span class="mega-icon">›</span> Furnaces</a>
+                    <a href="/heat-pumps/" class="mega-link"><span class="mega-icon">›</span> Heat Pumps</a>
+                    <a href="/boilers/" class="mega-link"><span class="mega-icon">›</span> Boilers</a>
+                    <a href="/ductless-mini-splits/" class="mega-link"><span class="mega-icon">›</span> Ductless Mini-Splits</a>
+                    <a href="/thermostats/" class="mega-link"><span class="mega-icon">›</span> Thermostats</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Cooling</span>
+          <a href="/heating-cooling/" class="mega-link"><span class="mega-icon">›</span> Heating & Cooling</a>
+                    <a href="/central-ac/" class="mega-link"><span class="mega-icon">›</span> Central AC</a>
+                    <a href="/ductless-ac/" class="mega-link"><span class="mega-icon">›</span> Ductless AC</a>
+                    <a href="/heat-pumps/" class="mega-link"><span class="mega-icon">›</span> Heat Pumps</a>
+                    <a href="/air-handlers/" class="mega-link"><span class="mega-icon">›</span> Air Handlers</a>
+                    <a href="/zone-control/" class="mega-link"><span class="mega-icon">›</span> Zone Control</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Indoor Air</span>
+                    <a href="/air-purifiers/" class="mega-link"><span class="mega-icon">›</span> Air Purifiers</a>
+                    <a href="/humidifiers/" class="mega-link"><span class="mega-icon">›</span> Humidifiers</a>
+                    <a href="/dehumidifiers/" class="mega-link"><span class="mega-icon">›</span> Dehumidifiers</a>
+                    <a href="/uv-lights/" class="mega-link"><span class="mega-icon">›</span> UV Lights</a>
+                    <a href="/ventilation/" class="mega-link"><span class="mega-icon">›</span> Ventilation</a>
+                </div>
+                <div class="mega-promo">
+                    <div class="promo-title">🔥 Save on Heating</div>
+                    <div class="promo-desc">Up to $2,000 in rebates on select furnaces & heat pumps.</div>
+                    <a href="/offers/" class="promo-cta">View Offers →</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <input type="checkbox" id="acc-plumbing" class="acc-toggle" />
+      <a href="/plumbing/">
+            <label for="acc-plumbing" class="nav-link" role="button" tabindex="0">
+                Plumbing
+                <span class="chevron" aria-hidden="true">&#9660;</span>
+            </label>
+      </a>
+            <div class="drawer-mega">
+                <div class="mega-col">
+                    <span class="mega-heading">Water Heaters</span>
+          <a href="/plumbing/" class="mega-link"><span class="mega-icon">›</span> Plumbing</a>
+          
+                    <a href="/services-hotwater/" class="mega-link"><span class="mega-icon">›</span> Hot Water Recirculation</a>
+                    <a href="/gas/" class="mega-link"><span class="mega-icon">›</span> Gas</a>
+                    <a href="/electric/" class="mega-link"><span class="mega-icon">›</span> Electric</a>
+                    <a href="/heat-pump/" class="mega-link"><span class="mega-icon">›</span> Heat Pump</a>
+                    <a href="/solar/" class="mega-link"><span class="mega-icon">›</span> Solar</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Drain & Sewer</span>
+                    <a href="/drain-cleaning/" class="mega-link"><span class="mega-icon">›</span> Drain Cleaning</a>
+                    <a href="/sewer-repair/" class="mega-link"><span class="mega-icon">›</span> Sewer Repair</a>
+                    <a href="/hydro-jetting/" class="mega-link"><span class="mega-icon">›</span> Hydro Jetting</a>
+                    <a href="/camera-inspection/" class="mega-link"><span class="mega-icon">›</span> Camera Inspection</a>
+                    <a href="/sump-pumps/" class="mega-link"><span class="mega-icon">›</span> Sump Pumps</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Fixtures & More</span>
+                    <a href="/faucets/" class="mega-link"><span class="mega-icon">›</span> Faucets</a>
+                    <a href="/toilets/" class="mega-link"><span class="mega-icon">›</span> Toilets</a>
+                    <a href="/garbage-disposals/" class="mega-link"><span class="mega-icon">›</span> Garbage Disposals</a>
+                    <a href="/water-filtration/" class="mega-link"><span class="mega-icon">›</span> Water Filtration</a>
+                    <a href="/pipe-repair/" class="mega-link"><span class="mega-icon">›</span> Pipe Repair</a>
+                </div>
+                <div class="mega-promo">
+                    <div class="promo-title">💧 Plumbing Special</div>
+                    <div class="promo-desc">Free drain inspection with any service call. Limited time.</div>
+                    <a href="#" class="promo-cta">Book Now →</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <input type="checkbox" id="acc-electrical" class="acc-toggle" />
+      <a href="/electrical/">
+        <label for="acc-electrical" class="nav-link" role="button" tabindex="0">
+                Electrical
+                <span class="chevron" aria-hidden="true">&#9660;</span>
+            </label>
+      </a>
+            
+            <div class="drawer-mega">
+                <div class="mega-col">
+                    <span class="mega-heading">Wiring & Panels</span>
+          <a href="/electrical/" class="mega-link"><span class="mega-icon">›</span> Electrical</a>
+                    <a href="/panel-upgrades/" class="mega-link"><span class="mega-icon">›</span> Panel Upgrades</a>
+                    <a href="/rewiring/" class="mega-link"><span class="mega-icon">›</span> Rewiring</a>
+                    <a href="/gfci-afci/" class="mega-link"><span class="mega-icon">›</span> GFCI & AFCI</a>
+                    <a href="/surge-protection/" class="mega-link"><span class="mega-icon">›</span> Surge Protection</a>
+                    <a href="/smart-home/" class="mega-link"><span class="mega-icon">›</span> Smart Home</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Lighting</span>
+                    <a href="/led-retrofit/" class="mega-link"><span class="mega-icon">›</span> LED Retrofit</a>
+                    <a href="/outdoor-lighting/" class="mega-link"><span class="mega-icon">›</span> Outdoor Lighting</a>
+                    <a href="/landscape/" class="mega-link"><span class="mega-icon">›</span> Landscape</a>
+                    <a href="/smart-lighting/" class="mega-link"><span class="mega-icon">›</span> Smart Lighting</a>
+                    <a href="/ceiling-fans/" class="mega-link"><span class="mega-icon">›</span> Ceiling Fans</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Generators</span>
+                    <a href="/standby/" class="mega-link"><span class="mega-icon">›</span> Standby</a>
+                    <a href="/portable/" class="mega-link"><span class="mega-icon">›</span> Portable</a>
+                    <a href="/transfer-switches/" class="mega-link"><span class="mega-icon">›</span> Transfer Switches</a>
+                    <a href="/maintenance/" class="mega-link"><span class="mega-icon">›</span> Maintenance</a>
+                    <a href="/solar-battery/" class="mega-link"><span class="mega-icon">›</span> Solar + Battery</a>
+                </div>
+                <div class="mega-promo">
+                    <div class="promo-title">⚡ Free Estimate</div>
+                    <div class="promo-desc">Get a free electrical safety inspection with any panel upgrade.</div>
+                    <a href="#" class="promo-cta">Schedule →</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <input type="checkbox" id="acc-health" class="acc-toggle" />
+      <a href="/health/">
+            <label for="acc-health" class="nav-link" role="button" tabindex="0">
+                Health
+                <span class="chevron" aria-hidden="true">&#9660;</span>
+            </label>
+      </a>
+      
+            <div class="drawer-mega">
+                <div class="mega-col">
+                    <span class="mega-heading">Air Quality</span>
+          <a href="/health/" class="mega-link"><span class="mega-icon">›</span> Health</a>
+                    <a href="/air-purifiers/" class="mega-link"><span class="mega-icon">›</span> Air Purifiers</a>
+                    <a href="/hepa-filters/" class="mega-link"><span class="mega-icon">›</span> HEPA Filters</a>
+                    <a href="/uv-c-lights/" class="mega-link"><span class="mega-icon">›</span> UV-C Lights</a>
+                    <a href="/electrostatic/" class="mega-link"><span class="mega-icon">›</span> Electrostatic</a>
+                    <a href="/ozone-generators/" class="mega-link"><span class="mega-icon">›</span> Ozone Generators</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Humidity Control</span>
+                    <a href="/whole-home-humidifiers/" class="mega-link"><span class="mega-icon">›</span> Whole-Home Humidifiers</a>
+                    <a href="/dehumidifiers/" class="mega-link"><span class="mega-icon">›</span> Dehumidifiers</a>
+                    <a href="/steam-systems/" class="mega-link"><span class="mega-icon">›</span> Steam Systems</a>
+                    <a href="/evaporative/" class="mega-link"><span class="mega-icon">›</span> Evaporative</a>
+                    <a href="/portable-units/" class="mega-link"><span class="mega-icon">›</span> Portable Units</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Duct & Ventilation</span>
+                    <a href="/duct-cleaning/" class="mega-link"><span class="mega-icon">›</span> Duct Cleaning</a>
+                    <a href="/duct-sealing/" class="mega-link"><span class="mega-icon">›</span> Duct Sealing</a>
+                    <a href="/ventilation-systems/" class="mega-link"><span class="mega-icon">›</span> Ventilation Systems</a>
+                    <a href="/energy-recovery/" class="mega-link"><span class="mega-icon">›</span> Energy Recovery</a>
+                    <a href="/exhaust-fans/" class="mega-link"><span class="mega-icon">›</span> Exhaust Fans</a>
+                </div>
+                <div class="mega-promo">
+                    <div class="promo-title">🌿 Breathe Clean</div>
+                    <div class="promo-desc">20% off whole-home air purification systems. Limited offer.</div>
+                    <a href="/offers/" class="promo-cta">Claim Offer →</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <input type="checkbox" id="acc-commercial" class="acc-toggle" />
+      <a href="/commercial/">
+            <label for="acc-commercial" class="nav-link" role="button" tabindex="0">
+                Commercial
+                <span class="chevron" aria-hidden="true">&#9660;</span>
+            </label>
+      </a>
+            <div class="drawer-mega">
+                <div class="mega-col">
+          
+                    <span class="mega-heading">HVAC</span>
+          <a href="/commercial/" class="mega-link"><span class="mega-icon">›</span> Commercial</a>
+                    <a href="/rooftop-units/" class="mega-link"><span class="mega-icon">›</span> Rooftop Units</a>
+                    <a href="/vrf-systems/" class="mega-link"><span class="mega-icon">›</span> VRF Systems</a>
+                    <a href="/chillers/" class="mega-link"><span class="mega-icon">›</span> Chillers</a>
+                    <a href="/boilers/" class="mega-link"><span class="mega-icon">›</span> Boilers</a>
+                    <a href="/controls-bms/" class="mega-link"><span class="mega-icon">›</span> Controls & BMS</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Plumbing</span>
+                    <a href="/commercial-water-heaters/" class="mega-link"><span class="mega-icon">›</span> Commercial Water Heaters</a>
+                    <a href="/grease-traps/" class="mega-link"><span class="mega-icon">›</span> Grease Traps</a>
+                    <a href="/backflow-prevention/" class="mega-link"><span class="mega-icon">›</span> Backflow Prevention</a>
+                    <a href="/drainage-systems/" class="mega-link"><span class="mega-icon">›</span> Drainage Systems</a>
+                    <a href="/pipe-retrofits/" class="mega-link"><span class="mega-icon">›</span> Pipe Retrofits</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Electrical</span>
+                    <a href="/commercial-panels/" class="mega-link"><span class="mega-icon">›</span> Commercial Panels</a>
+                    <a href="/lighting-controls/" class="mega-link"><span class="mega-icon">›</span> Lighting Controls</a>
+                    <a href="/emergency-systems/" class="mega-link"><span class="mega-icon">›</span> Emergency Systems</a>
+                    <a href="/ev-charging/" class="mega-link"><span class="mega-icon">›</span> EV Charging</a>
+                    <a href="/generators/" class="mega-link"><span class="mega-icon">›</span> Generators</a>
+                </div>
+                <div class="mega-promo">
+                    <div class="promo-title">🏢 Commercial Services</div>
+                    <div class="promo-desc">Free consultation for multi-unit buildings & offices.</div>
+                    <a href="/contact/" class="promo-cta">Contact Sales →</a>
+                </div>
+            </div>
+        </li>
+    
+    <li class="nav-item">
+            <a href="/offers/" class="nav-link">Offers</a>
+        </li>
+    
+    <li class="nav-item">
+            <a href="/about/" class="nav-link">About Us</a>
+        </li>
+
+<!--         <li class="nav-item">
+            <input type="checkbox" id="acc-offers" class="acc-toggle" />
+      <a href="/offers/">
+            <label for="acc-offers" class="nav-link" role="button" tabindex="0">
+                Offers
+                <span class="chevron" aria-hidden="true">&#9660;</span>
+            </label>
+      </a> -->
+<!--             <div class="drawer-mega">
+                <div class="mega-col">
+                    <span class="mega-heading">Current Specials</span>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Free HVAC Tune-Up</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> $100 Off Repairs</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> 0% Financing</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Senior Discount</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Military Discount</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Rebates</span>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Energy Star</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Utility Rebates</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Tax Credits</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Manufacturer Rebates</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Local Incentives</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Seasonal</span>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Spring Tune-Up</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Summer AC Special</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Fall Heating Check</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Winter Plumbing</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Holiday Deals</a>
+                </div>
+                <div class="mega-promo">
+                    <div class="promo-title">🎯 New Customer</div>
+                    <div class="promo-desc">Get $50 off your first service call. Use code BIZFIRE50.</div>
+                    <a href="#" class="promo-cta">Redeem →</a>
+                </div>
+            </div> -->
+<!--         </li> -->
+
+<!--         <li class="nav-item">
+            <input type="checkbox" id="acc-about" class="acc-toggle" />
+      <a href="/about/">
+            <label for="acc-about" class="nav-link" role="button" tabindex="0">
+                About Us
+                <span class="chevron" aria-hidden="true">&#9660;</span>
+            </label>
+      </a> -->
+<!--             <div class="drawer-mega">
+                <div class="mega-col">
+                    <span class="mega-heading">Company</span>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Our Story</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Mission & Values</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Leadership</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Community</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Sustainability</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Careers</span>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Open Positions</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Benefits</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Apprenticeships</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Culture</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Apply Now</a>
+                </div>
+                <div class="mega-col">
+                    <span class="mega-heading">Resources</span>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Reviews & Testimonials</a>
+                    <a href="faq" class="mega-link"><span class="mega-icon">›</span> FAQ</a>
+                    <a href="#" class="mega-link"><span class="mega-icon">›</span> Blog</a>
+                    <a href="contact" class="mega-link"><span class="mega-icon">›</span> Contact Us</a>
+                    <a href="/services-area/" class="mega-link"><span class="mega-icon">›</span> Service Area</a>
+                </div>
+                <div class="mega-promo">
+                    <div class="promo-title">⭐ Rated 4.9/5</div>
+                    <div class="promo-desc">Over 1,200 happy customers. Read our latest reviews.</div>
+                    <a href="#" class="promo-cta">See Reviews →</a>
+                </div>
+            </div> -->
+<!--         </li> -->
+
+    </ul>
+
+    <div class="drawer-phone">
+        <span class="number"><a href="{{phone.href}}">{{phone.label}}</a> </span>
+        <span class="sub">{{phone.sub}}</span>
+        <a onclick="openQuotePopup()" href="{{ctaButton.url}}" class="btn-schedule drawer-btn" style="text-align:center;width:100%;">
+            {{ctaButton.label}}
+        </a>
+    </div>
+</aside>
+
+</header>

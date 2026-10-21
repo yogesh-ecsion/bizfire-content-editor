@@ -1,0 +1,32 @@
+{
+  "logo": {
+    "src": "/assets/img/logo-dark.svg",
+    "alt": "Bizfire Logo"
+  },
+  "utilityLinks": [
+    {
+      "_id": "utility-01",
+      "label": "Plans",
+      "url": "/plan/"
+    },
+    {
+      "_id": "utility-02",
+      "label": "Careers",
+      "url": "careers"
+    },
+    {
+      "_id": "utility-03",
+      "label": "Service Area",
+      "url": "/service-area/"
+    }
+  ],
+  "phone": {
+    "label": "(123) 456-7890",
+    "href": "tel:1234567890",
+    "sub": "24/7 Emergency Service"
+  },
+  "ctaButton": {
+    "label": "Schedule Today",
+    "url": "#"
+  }
+}

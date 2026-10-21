@@ -1,0 +1,56 @@
+{
+  "logo": {
+    "type": "image",
+    "label": "Site Logo",
+    "default": {
+      "src": "/assets/img/logo-dark.svg",
+      "alt": "Bizfire Logo"
+    }
+  },
+  "utilityLinks": {
+    "type": "array",
+    "label": "Utility Navigation Links",
+    "labelField": "label",
+    "itemSchema": {
+      "label": {
+        "type": "text",
+        "label": "Link Text",
+        "required": true
+      },
+      "url": {
+        "type": "url",
+        "label": "URL",
+        "required": true
+      }
+    }
+  },
+  "phone": {
+    "label": {
+      "type": "text",
+      "label": "Phone Display Text",
+      "default": "(123) 456-7890"
+    },
+    "href": {
+      "type": "text",
+      "label": "Phone href (tel:...)",
+      "default": "tel:1234567890"
+    },
+    "sub": {
+      "type": "text",
+      "label": "Phone Subtitle",
+      "default": "24/7 Emergency Service"
+    }
+  },
+  "ctaButton": {
+    "label": {
+      "type": "text",
+      "label": "CTA Button Text",
+      "default": "Schedule Today"
+    },
+    "url": {
+      "type": "url",
+      "label": "CTA Button URL",
+      "default": "#"
+    }
+  }
+}

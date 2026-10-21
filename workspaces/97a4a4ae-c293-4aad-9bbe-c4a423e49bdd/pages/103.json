@@ -1,0 +1,92 @@
+{
+  "postId": 103,
+  "slug": "emergency-furnace-replacement",
+  "title": "Emergency Furnace Replacement Princeton",
+  "templateId": "service-emergency",
+  "lastSavedAt": "2026-10-14T11:20:49.884Z",
+  "lastPublishedAt": "2026-10-14T11:20:49.934Z",
+  "sections": [
+    {
+      "type": "hero-split",
+      "content": {
+        "eyebrow": "24/7 EMERGENCY DISPATCH",
+        "title": "AC Repair & Cooling Service in Princeton",
+        "subtitle": "Fast, honest technicians on call. Flat-rate pricing with no surprise overtime fees.",
+        "buttonText": "Call (609) 555-0198",
+        "buttonUrl": "tel:6095550198",
+        "image": {
+          "src": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1400&q=80",
+          "alt": "HVAC technician servicing air conditioner"
+        }
+      }
+    },
+    {
+      "type": "cta-banner",
+      "content": {
+        "title": "Need Immediate AC or Heating Service?",
+        "subtitle": "Speak directly with our Princeton dispatch team. No hold music, no automated runaround.",
+        "buttonText": "Book Service Online",
+        "buttonUrl": "#book"
+      }
+    },
+    {
+      "type": "benefits-grid",
+      "content": {
+        "eyebrow": "WHY CHOOSE US",
+        "title": "Straightforward Service Homeowners Count On",
+        "subtitle": "We treat your home with respect and give you upfront pricing before any work starts.",
+        "items": [
+          {
+            "_id": "ben-01",
+            "number": "01",
+            "title": "45-Minute Dispatch",
+            "description": "Fast local response when your AC fails during summer heat waves."
+          },
+          {
+            "_id": "ben-02",
+            "number": "02",
+            "title": "Licensed & Insured",
+            "description": "Background-checked, master technicians with 10+ years experience."
+          },
+          {
+            "_id": "ben-03",
+            "number": "03",
+            "title": "Flat-Rate Pricing",
+            "description": "Zero hidden trip charges, zero overtime penalties, no high pressure."
+          }
+        ]
+      }
+    },
+    {
+      "type": "testimonials-grid",
+      "content": {
+        "eyebrow": "REVIEWS & TRUST",
+        "title": "What Princeton Homeowners Say",
+        "subtitle": "Over 1,200 verified reviews from families across Mercer County.",
+        "items": [
+          {
+            "_id": "t-01",
+            "author": "Sarah Jenkins",
+            "role": "Homeowner in Princeton",
+            "rating": "★★★★★",
+            "quote": "Technician arrived within 45 minutes on a 90-degree afternoon. Diagnosed the blown capacitor and had our AC cooling right away."
+          },
+          {
+            "_id": "t-02",
+            "author": "Marcus Vance",
+            "role": "Verified Customer",
+            "rating": "★★★★★",
+            "quote": "Transparent pricing with no hidden charges. Explained the repair options clearly before doing any work. Will definitely call again."
+          },
+          {
+            "_id": "t-03",
+            "author": "David & Elena Ross",
+            "role": "Residential Client",
+            "rating": "★★★★★",
+            "quote": "Bizfire replaced our entire central cooling system. Professional crew, spotless cleanup, and our energy bills actually dropped."
+          }
+        ]
+      }
+    }
+  ]
+}
