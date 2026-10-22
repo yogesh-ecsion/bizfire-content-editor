@@ -1,176 +1,176 @@
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    function initScript() {
-        
-        // ============================================================
-        // DOM REFERENCES
-        // ============================================================
-        const track = document.getElementById('carouselTrack');
-        // Safety check: If this page doesn't have the carousel, stop the script here.
-        if (!track) return;
+  function initScript() {
 
-        const slides = track.querySelectorAll('.carousel-slide');
-		
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const indicatorDots = document.querySelectorAll('#indicators button');
-        const carouselWrapper = document.getElementById('testimonialCarousel');
+    // ============================================================
+    // DOM REFERENCES
+    // ============================================================
+    const track = document.getElementById('carouselTrack');
+    // Safety check: If this page doesn't have the carousel, stop the script here.
+    if (!track) return;
 
-        const totalSlides = slides.length;
-        let currentIndex = 0;
-        let isTransitioning = false;
-        let autoPlayInterval = null;
-        const AUTO_PLAY_INTERVAL = 5000;
+    const slides = track.querySelectorAll('.carousel-slide');
 
-        // ============================================================
-        // UPDATE CAROUSEL
-        // ============================================================
-        function updateCarousel(index) {
-            if (isTransitioning) return;
-            if (index < 0) index = totalSlides - 1;
-            if (index >= totalSlides) index = 0;
-            if (index === currentIndex) return;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicatorDots = document.querySelectorAll('#indicators button');
+    const carouselWrapper = document.getElementById('testimonialCarousel');
 
-            isTransitioning = true;
+    const totalSlides = slides.length;
+    let currentIndex = 0;
+    let isTransitioning = false;
+    let autoPlayInterval = null;
+    const AUTO_PLAY_INTERVAL = 5000;
 
-            // Move the track
-            track.style.transform = 'translateX(-' + (index * 100) + '%)';
+    // ============================================================
+    // UPDATE CAROUSEL
+    // ============================================================
+    function updateCarousel(index) {
+      if (isTransitioning) return;
+      if (index < 0) index = totalSlides - 1;
+      if (index >= totalSlides) index = 0;
+      if (index === currentIndex) return;
 
-            // Update indicators
-            indicatorDots.forEach(function(dot, i) {
-                if (i === index) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
+      isTransitioning = true;
 
-            currentIndex = index;
+      // Move the track
+      track.style.transform = 'translateX(-' + (index * 100) + '%)';
 
-            // Release transition lock
-            setTimeout(function() {
-                isTransitioning = false;
-            }, 650);
+      // Update indicators
+      indicatorDots.forEach(function (dot, i) {
+        if (i === index) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
         }
+      });
 
-        // ============================================================
-        // NAVIGATION
-        // ============================================================
-        function goToPrev() {
-            updateCarousel(currentIndex - 1);
-            resetAutoPlay();
-        }
+      currentIndex = index;
 
-        function goToNext() {
-            updateCarousel(currentIndex + 1);
-            resetAutoPlay();
-        }
+      // Release transition lock
+      setTimeout(function () {
+        isTransitioning = false;
+      }, 650);
+    }
 
-        function goToSlide(index) {
-            updateCarousel(index);
-            resetAutoPlay();
-        }
+    // ============================================================
+    // NAVIGATION
+    // ============================================================
+    function goToPrev() {
+      updateCarousel(currentIndex - 1);
+      resetAutoPlay();
+    }
 
-        // ============================================================
-        // AUTO-PLAY
-        // ============================================================
-        function startAutoPlay() {
-            stopAutoPlay();
-            autoPlayInterval = setInterval(goToNext, AUTO_PLAY_INTERVAL);
-        }
+    function goToNext() {
+      updateCarousel(currentIndex + 1);
+      resetAutoPlay();
+    }
 
-        function stopAutoPlay() {
-            if (autoPlayInterval) {
-                clearInterval(autoPlayInterval);
-                autoPlayInterval = null;
-            }
-        }
+    function goToSlide(index) {
+      updateCarousel(index);
+      resetAutoPlay();
+    }
 
-        function resetAutoPlay() {
-            stopAutoPlay();
-            startAutoPlay();
-        }
+    // ============================================================
+    // AUTO-PLAY
+    // ============================================================
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoPlayInterval = setInterval(goToNext, AUTO_PLAY_INTERVAL);
+    }
 
-        // ============================================================
-        // EVENT LISTENERS
-        // ============================================================
-        if (prevBtn) prevBtn.addEventListener('click', goToPrev);
-        if (nextBtn) nextBtn.addEventListener('click', goToNext);
+    function stopAutoPlay() {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = null;
+      }
+    }
 
-        indicatorDots.forEach(function(dot) {
-            dot.addEventListener('click', function() {
-                var index = parseInt(this.getAttribute('data-index'), 10);
-                goToSlide(index);
-            });
-        });
+    function resetAutoPlay() {
+      stopAutoPlay();
+      startAutoPlay();
+    }
 
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                goToPrev();
-            } else if (e.key === 'ArrowRight') {
-                e.preventDefault();
-                goToNext();
-            }
-        });
+    // ============================================================
+    // EVENT LISTENERS
+    // ============================================================
+    if (prevBtn) prevBtn.addEventListener('click', goToPrev);
+    if (nextBtn) nextBtn.addEventListener('click', goToNext);
 
-        // Pause on hover
-        if (carouselWrapper) {
-            carouselWrapper.addEventListener('mouseenter', stopAutoPlay);
-            carouselWrapper.addEventListener('mouseleave', startAutoPlay);
-
-            // Pause on touch
-            carouselWrapper.addEventListener('touchstart', stopAutoPlay, { passive: true });
-            carouselWrapper.addEventListener('touchend', function() {
-                setTimeout(startAutoPlay, 2000);
-            }, { passive: true });
-        }
-
-        // ============================================================
-        // HANDLE RESIZE — keep slide width consistent
-        // ============================================================
-        var resizeTimer = null;
-        window.addEventListener('resize', function() {
-            if (resizeTimer) clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function() {
-                // Re-apply transform to keep current slide in view
-                track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
-            }, 150);
-        });
-
-        // ============================================================
-        // INIT
-        // ============================================================
-        function init() {
-            // Ensure first slide is visible
-            track.style.transform = 'translateX(0%)';
-            
-            // Set active indicator
-            indicatorDots.forEach(function(dot, i) {
-                if (i === 0) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-            
-            currentIndex = 0;
-            startAutoPlay();
-            console.log('[Testimonial Carousel] Initialized.');
-        }
-
-        // Run init now that DOMContentLoaded has fired
-        init();
+    indicatorDots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        var index = parseInt(this.getAttribute('data-index'), 10);
+        goToSlide(index);
+      });
     });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goToPrev();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goToNext();
+      }
+    });
+
+    // Pause on hover
+    if (carouselWrapper) {
+      carouselWrapper.addEventListener('mouseenter', stopAutoPlay);
+      carouselWrapper.addEventListener('mouseleave', startAutoPlay);
+
+      // Pause on touch
+      carouselWrapper.addEventListener('touchstart', stopAutoPlay, { passive: true });
+      carouselWrapper.addEventListener('touchend', function () {
+        setTimeout(startAutoPlay, 2000);
+      }, { passive: true });
+    }
+
+    // ============================================================
+    // HANDLE RESIZE — keep slide width consistent
+    // ============================================================
+    var resizeTimer = null;
+    window.addEventListener('resize', function () {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        // Re-apply transform to keep current slide in view
+        track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+      }, 150);
+    });
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    function init() {
+      // Ensure first slide is visible
+      track.style.transform = 'translateX(0%)';
+
+      // Set active indicator
+      indicatorDots.forEach(function (dot, i) {
+        if (i === 0) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+
+      currentIndex = 0;
+      startAutoPlay();
+      console.log('[Testimonial Carousel] Initialized.');
+    }
+
+    // Run init now that DOMContentLoaded has fired
+    init();
+  });
 
 })();
 
 
 // ============================================================
-        // MAP
-        // ============================================================
+// MAP
+// ============================================================
 
 (() => {
   'use strict';
@@ -526,183 +526,183 @@
   document.addEventListener('DOMContentLoaded', init);
 })();
 // ============================================================
-        // COntact Form POPUP
-        // ============================================================
+// COntact Form POPUP
+// ============================================================
 function openContactThankYouPopup() {
-        document.getElementById("contactThankYouPopup").classList.add("active");
-        document.body.style.overflow = "hidden";
-    }
+  document.getElementById("contactThankYouPopup").classList.add("active");
+  document.body.style.overflow = "hidden";
+}
 
-    function closeContactThankYouPopup() {
-        document.getElementById("contactThankYouPopup").classList.remove("active");
-        document.body.style.overflow = "";
+function closeContactThankYouPopup() {
+  document.getElementById("contactThankYouPopup").classList.remove("active");
+  document.body.style.overflow = "";
 
-        // Remove ?contact_submitted=success from URL without refreshing
-        const url = new URL(window.location.href);
-        url.searchParams.delete('contact_submitted');
-        window.history.replaceState({}, document.title, url.pathname);
-    }
+  // Remove ?contact_submitted=success from URL without refreshing
+  const url = new URL(window.location.href);
+  url.searchParams.delete('contact_submitted');
+  window.history.replaceState({}, document.title, url.pathname);
+}
 
-    document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") {
-            closeContactThankYouPopup();
-        }
-    });
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    closeContactThankYouPopup();
+  }
+});
 
-    // Check URL parameter to open Thank You modal upon submission redirect
-    window.addEventListener("DOMContentLoaded", function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('contact_submitted') === 'success') {
-            openContactThankYouPopup();
-        }
-    });
+// Check URL parameter to open Thank You modal upon submission redirect
+window.addEventListener("DOMContentLoaded", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('contact_submitted') === 'success') {
+    openContactThankYouPopup();
+  }
+});
 
 // SIGN UP POPUP
 function openPlumberPopup() {
-        document.getElementById("plumberCallbackPopup").classList.add("active");
-        document.body.style.overflow = "hidden";
-    }
+  document.getElementById("plumberCallbackPopup").classList.add("active");
+  document.body.style.overflow = "hidden";
+}
 
-    function closePlumberPopup() {
-        document.getElementById("plumberCallbackPopup").classList.remove("active");
-        document.body.style.overflow = "";
-    }
+function closePlumberPopup() {
+  document.getElementById("plumberCallbackPopup").classList.remove("active");
+  document.body.style.overflow = "";
+}
 
-    function openThankYouPopup() {
-        document.getElementById("thankYouPopup").classList.add("active");
-        document.body.style.overflow = "hidden";
-    }
+function openThankYouPopup() {
+  document.getElementById("thankYouPopup").classList.add("active");
+  document.body.style.overflow = "hidden";
+}
 
-    function closeThankYouPopup() {
-        document.getElementById("thankYouPopup").classList.remove("active");
-        document.body.style.overflow = "";
-        
-        // Clean URL parameter without reloading
-        const url = new URL(window.location.href);
-        url.searchParams.delete('submitted');
-        window.history.replaceState({}, document.title, url.pathname);
-    }
+function closeThankYouPopup() {
+  document.getElementById("thankYouPopup").classList.remove("active");
+  document.body.style.overflow = "";
 
-    document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") {
-            closePlumberPopup();
-            closeThankYouPopup();
-        }
-    });
+  // Clean URL parameter without reloading
+  const url = new URL(window.location.href);
+  url.searchParams.delete('submitted');
+  window.history.replaceState({}, document.title, url.pathname);
+}
 
-    // Automatically show Thank You popup if redirected after successful submission
-    window.addEventListener("DOMContentLoaded", function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('submitted') === 'success') {
-            openThankYouPopup();
-        }
-    });
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    closePlumberPopup();
+    closeThankYouPopup();
+  }
+});
 
-    window.openPlumberPopup = openPlumberPopup;
+// Automatically show Thank You popup if redirected after successful submission
+window.addEventListener("DOMContentLoaded", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('submitted') === 'success') {
+    openThankYouPopup();
+  }
+});
+
+window.openPlumberPopup = openPlumberPopup;
 
 
 
 
 // ============================================================
-        // Schedule Service POPUP
-        // ============================================================
+// Schedule Service POPUP
+// ============================================================
 function openQuotePopup() {
-        document.getElementById("freeQuotePopup").classList.add("active");
-        document.body.style.overflow = "hidden";
-    }
+  document.getElementById("freeQuotePopup").classList.add("active");
+  document.body.style.overflow = "hidden";
+}
 
-    function closeQuotePopup() {
-        document.getElementById("freeQuotePopup").classList.remove("active");
-        document.body.style.overflow = "";
-    }
+function closeQuotePopup() {
+  document.getElementById("freeQuotePopup").classList.remove("active");
+  document.body.style.overflow = "";
+}
 
-    function openThankYouPopup() {
-        document.getElementById("thankYouPopup").classList.add("active");
-        document.body.style.overflow = "hidden";
-    }
+function openThankYouPopup() {
+  document.getElementById("thankYouPopup").classList.add("active");
+  document.body.style.overflow = "hidden";
+}
 
-    function closeThankYouPopup() {
-        document.getElementById("thankYouPopup").classList.remove("active");
-        document.body.style.overflow = "";
-        
-        // Clean URL parameter without reloading
-        const url = new URL(window.location.href);
-        url.searchParams.delete('submitted');
-        window.history.replaceState({}, document.title, url.pathname);
-    }
+function closeThankYouPopup() {
+  document.getElementById("thankYouPopup").classList.remove("active");
+  document.body.style.overflow = "";
 
-    document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") {
-            closeQuotePopup();
-            closeThankYouPopup();
-        }
-    });
+  // Clean URL parameter without reloading
+  const url = new URL(window.location.href);
+  url.searchParams.delete('submitted');
+  window.history.replaceState({}, document.title, url.pathname);
+}
 
-    // Automatically show Thank You popup if redirected after successful submission
-    window.addEventListener("DOMContentLoaded", function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('submitted') === 'success') {
-            openThankYouPopup();
-        }
-    });
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    closeQuotePopup();
+    closeThankYouPopup();
+  }
+});
 
-    window.openQuotePopup = openQuotePopup;
+// Automatically show Thank You popup if redirected after successful submission
+window.addEventListener("DOMContentLoaded", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('submitted') === 'success') {
+    openThankYouPopup();
+  }
+});
+
+window.openQuotePopup = openQuotePopup;
 
 
 // ============================================================
-        // REDEEM POPUP
-        // ============================================================
+// REDEEM POPUP
+// ============================================================
 function openRedeemPopup() {
-        document.getElementById("redeemOfferPopup").classList.add("active");
-        document.body.style.overflow = "hidden";
-    }
+  document.getElementById("redeemOfferPopup").classList.add("active");
+  document.body.style.overflow = "hidden";
+}
 
-    function closeRedeemPopup() {
-        document.getElementById("redeemOfferPopup").classList.remove("active");
-        document.body.style.overflow = "";
-    }
+function closeRedeemPopup() {
+  document.getElementById("redeemOfferPopup").classList.remove("active");
+  document.body.style.overflow = "";
+}
 
-    function openThankYouPopup() {
-        document.getElementById("thankYouPopup").classList.add("active");
-        document.body.style.overflow = "hidden";
-    }
+function openThankYouPopup() {
+  document.getElementById("thankYouPopup").classList.add("active");
+  document.body.style.overflow = "hidden";
+}
 
-    function closeThankYouPopup() {
-        document.getElementById("thankYouPopup").classList.remove("active");
-        document.body.style.overflow = "";
-        
-        // Clean URL parameter without reloading
-        const url = new URL(window.location.href);
-        url.searchParams.delete('submitted');
-        window.history.replaceState({}, document.title, url.pathname);
-    }
+function closeThankYouPopup() {
+  document.getElementById("thankYouPopup").classList.remove("active");
+  document.body.style.overflow = "";
 
-    document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") {
-            closeRedeemPopup();
-            closeThankYouPopup();
-        }
+  // Clean URL parameter without reloading
+  const url = new URL(window.location.href);
+  url.searchParams.delete('submitted');
+  window.history.replaceState({}, document.title, url.pathname);
+}
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    closeRedeemPopup();
+    closeThankYouPopup();
+  }
+});
+
+// Event listener to open popup on clicking any element with .coupon-btn class
+document.addEventListener("DOMContentLoaded", function () {
+  const couponBtns = document.querySelectorAll('.coupon-btn');
+  couponBtns.forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      openRedeemPopup();
     });
+  });
 
-    // Event listener to open popup on clicking any element with .coupon-btn class
-    document.addEventListener("DOMContentLoaded", function() {
-        const couponBtns = document.querySelectorAll('.coupon-btn');
-        couponBtns.forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                openRedeemPopup();
-            });
-        });
-
-        // Automatically show Thank You popup if redirected after successful submission
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('submitted') === 'success') {
-            openThankYouPopup();
-        }
-    }
+  // Automatically show Thank You popup if redirected after successful submission
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('submitted') === 'success') {
+    openThankYouPopup();
+  }
+}
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initScript);
-    } else {
-        initScript();
-    }
+  document.addEventListener('DOMContentLoaded', initScript);
+} else {
+  initScript();
+}
