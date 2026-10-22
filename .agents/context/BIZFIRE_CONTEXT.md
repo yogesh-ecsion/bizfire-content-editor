@@ -186,7 +186,7 @@ When in doubt: use array. It gives the client the ability to add items later.
 
 1. NO raw `<svg>` in templates — use Font Awesome `<i class="fa-solid fa-..."></i>`.
 2. NO `<script>` tags inside templates — companion JS registered separately.
-3. NO `style=""` attributes — CSS classes only.
+3. Preserve inline `style=""` attributes verbatim from the designer HTML (e.g. `style="background: #1EA7A8;"`). Do NOT strip them out. Keep them intact in `template.html` to preserve exact visual styling.
 
 ---
 

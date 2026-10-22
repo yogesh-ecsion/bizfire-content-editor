@@ -74,6 +74,7 @@ Rules:
 5. Replace ANY `<svg>` icon with the equivalent Font Awesome class:
    `<i class="fa-solid fa-[icon-name]"></i>`
 6. Preserve all CSS classes, IDs, and structural nesting exactly — do NOT restructure the HTML.
+7. Preserve all inline `style=""` attributes from the designer HTML verbatim (e.g. `style="background: #1EA7A8;"`) — do NOT strip or remove them.
 
 ---
 
