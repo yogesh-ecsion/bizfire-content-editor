@@ -1,0 +1,49 @@
+{
+  "title": {
+    "type": "text",
+    "label": "Section Heading",
+    "default": "What Our Customers Are Saying"
+  },
+  "subtitle": {
+    "type": "text",
+    "label": "Subtitle",
+    "default": "100% Satisfaction Guarantee"
+  },
+  "items": {
+    "type": "array",
+    "label": "Slides",
+    "labelField": "slideTitle",
+    "itemSchema": {
+      "slideTitle": {
+        "type": "text",
+        "label": "Slide Title",
+        "required": true
+      },
+      "cards": {
+        "type": "array",
+        "label": "Cards (3 per slide)",
+        "labelField": "name",
+        "itemSchema": {
+          "name": {
+            "type": "text",
+            "label": "Customer Name",
+            "required": true
+          },
+          "time": {
+            "type": "text",
+            "label": "Time Posted"
+          },
+          "initial": {
+            "type": "text",
+            "label": "Avatar Initial"
+          },
+          "review": {
+            "type": "textarea",
+            "label": "Review Text",
+            "required": true
+          }
+        }
+      }
+    }
+  }
+}

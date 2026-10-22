@@ -1,0 +1,52 @@
+<section class="testimonial-section bg-light-gray section-padding" aria-label="Customer testimonials">
+  <div class="container">
+    <!-- ===== HEADER ===== -->
+    <div class="testimonial-header">
+      {{#if title}}<h2 class="testimonial-heading section-title">{{{title}}}</h2>{{/if}}
+      {{#if subtitle}}<p class="testimonial-subtitle section-subtitle">{{{subtitle}}}</p>{{/if}}
+    </div>
+
+    <!-- ===== CAROUSEL ===== -->
+    <div class="carousel-wrapper" id="testimonialCarousel">
+
+      <!-- Track -->
+      <div class="carousel-track" id="carouselTrack">
+        {{#each items}}
+        <div class="carousel-slide">
+          {{#each cards}}
+          <div class="card-body">
+            <div class="testimonial-top">
+              <div class="testimonial-avatar">{{initial}}</div>
+              <div class="testimonial-info">
+                <span class="testimonial-name">{{name}}</span>
+                {{#if time}}<span class="testimonial-time">{{time}}</span>{{/if}}
+              </div>
+            </div>
+            <div class="testimonial-stars">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <p class="testimonial-review">
+              {{review}}
+            </p>
+          </div>
+          {{/each}}
+        </div>
+        {{/each}}
+      </div>
+      <!-- /carousel-track -->
+
+      <!-- ===== INDICATORS ===== -->
+      <div class="testimonial-indicators" id="indicators">
+        {{#each items}}
+        <button{{#if @first}} class="active"{{/if}} data-index="{{@index}}" aria-label="Slide"></button>
+        {{/each}}
+      </div>
+
+    </div>
+    <!-- /carousel-wrapper -->
+  </div>
+</section>

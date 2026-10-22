@@ -1,0 +1,50 @@
+<section class="plumbing-service-section">
+  <div class="container-fluid">
+    <div class="row p-0 align-items-stretch">
+
+      <!-- LEFT COLUMN — IMAGE -->
+      <div class="col-lg-6 section-hero-main">
+        <div class="plumbing-service-image">
+          {{#if image.src}}
+          <img src="{{image.src}}" alt="{{#if image.alt}}{{image.alt}}{{/if}}" width="800" height="900" loading="eager" fetchpriority="high">
+          {{/if}}
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN — CONTENT -->
+      <div class="col-lg-6 section-hero-main">
+        <div class="plumbing-service-content">
+          <!-- Divider (vertical on desktop, horizontal on mobile) -->
+          <div class="plumbing-service-divider"></div>
+
+          <div class="plumbing-service-inner">
+            {{#if title}}
+            <h2 class="plumbing-service-title">
+              {{{title}}}
+            </h2>
+            {{/if}}
+
+            {{#if intro}}
+            <p class="plumbing-service-intro">
+              {{intro}}
+            </p>
+            {{/if}}
+
+            {{#if paragraph1}}
+            <p class="plumbing-service-text">
+              {{paragraph1}}
+            </p>
+            {{/if}}
+
+            {{#if paragraph2}}
+            <p class="plumbing-service-text">
+              {{paragraph2}}
+            </p>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

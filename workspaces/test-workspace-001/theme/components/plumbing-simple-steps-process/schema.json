@@ -1,0 +1,59 @@
+{
+  "title": {
+    "type": "text",
+    "label": "Section Heading",
+    "default": "Three Simple Steps to Reliable Plumbing"
+  },
+  "subtitle": {
+    "type": "textarea",
+    "label": "Subheading",
+    "default": "Scheduling plumbing service with Princeton Air should take minutes and follow a clear path from the first call to the final walkthrough."
+  },
+  "desc": {
+    "type": "textarea",
+    "label": "Supporting Description",
+    "default": "Your experience with Princeton Air is clear, structured, and centered on your schedule."
+  },
+  "items": {
+    "type": "array",
+    "label": "Process Steps",
+    "labelField": "title",
+    "itemSchema": {
+      "stepNumber": {
+        "type": "text",
+        "label": "Step Number (e.g. 1, 2, 3)",
+        "required": true
+      },
+      "title": {
+        "type": "text",
+        "label": "Step Title",
+        "required": true
+      },
+      "desc": {
+        "type": "textarea",
+        "label": "Step Description",
+        "required": true
+      }
+    }
+  },
+  "phoneText": {
+    "type": "text",
+    "label": "Phone Button Text",
+    "default": "(123) 456-7890"
+  },
+  "phoneUrl": {
+    "type": "url",
+    "label": "Phone Button Link",
+    "default": "tel:1234567890"
+  },
+  "chatText": {
+    "type": "text",
+    "label": "Chat Button Text",
+    "default": "Chat with us"
+  },
+  "chatUrl": {
+    "type": "url",
+    "label": "Chat Button Link (WhatsApp or chat)",
+    "default": "https://api.whatsapp.com/send/?phone=%2B17323318811&text&type=phone_number&app_absent=0"
+  }
+}

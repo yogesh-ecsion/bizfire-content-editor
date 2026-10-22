@@ -1,0 +1,10 @@
+/* Auto-generated Design Tokens */
+:root {
+  --theme-primary: #ff0055;
+  --theme-secondary: #aa0033;
+  --theme-dark: #111122;
+  --theme-light: #ffffff;
+  --theme-font: Outfit, sans-serif;
+}
+
+.btn-custom { border-radius: 99px; }

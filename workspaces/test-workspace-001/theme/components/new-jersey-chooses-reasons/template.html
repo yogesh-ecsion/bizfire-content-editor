@@ -1,0 +1,75 @@
+<section class="nj-section section-padding py-lg-6">
+  <div class="container">
+
+    <!-- ========== HEADER ========== -->
+    {{#if title}}
+    <div class="row justify-content-center">
+      <div class="col-lg-10 text-center mb-2">
+        <h2 class="nj-heading section-title">{{{title}}}</h2>
+      </div>
+    </div>
+    {{/if}}
+
+    <!-- ========== CONTENT ROW ========== -->
+    <div class="row align-items-center gx-5">
+
+      <!-- ===== LEFT COLUMN: ACCORDION LIST ===== -->
+      <div class="col-lg-4 col-12">
+        <ul class="nj-list">
+          {{#each col1Items}}
+          <li>
+            <a href="{{#if url}}{{url}}{{else}}#{{/if}}"{{#if onClick}} onclick="{{onClick}}"{{/if}} class="nj-list-item">
+              {{#if number}}<span class="nj-number">{{number}}</span>{{/if}}
+              <span class="nj-title">{{title}}</span>
+              <i class="bi bi-plus-circle nj-icon"></i>
+            </a>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+
+      <div class="col-lg-4 col-12 mb-4">
+        <ul class="nj-list">
+          {{#each col2Items}}
+          <li>
+            <a href="{{#if url}}{{url}}{{else}}#{{/if}}"{{#if onClick}} onclick="{{onClick}}"{{/if}} class="nj-list-item">
+              {{#if number}}<span class="nj-number">{{number}}</span>{{/if}}
+              <span class="nj-title">{{title}}</span>
+              <i class="bi bi-plus-circle nj-icon"></i>
+            </a>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+
+      <!-- ===== RIGHT COLUMN: MAP CARD ===== -->
+      <div class="col-lg-4 col-12 w-100">
+        <div class="nj-card">
+          <main class="map-page">
+            <h1 class="visually-hidden">New Jersey Service Areas</h1>
+
+            <!-- The SVG map itself is generated entirely at runtime by script.js -->
+            <div id="map-container" class="map-container" aria-label="Interactive map of New Jersey service areas">
+              <!-- <svg id="nj-map"> gets injected here by createSVG() -->
+            </div>
+
+            <!-- Tooltip element, positioned/populated by createTooltip() + JS -->
+            <div id="map-tooltip" class="map-tooltip" role="status" aria-hidden="true"></div>
+          </main>
+
+          <!-- CTA Button -->
+          {{#if buttonText}}
+          <a href="{{#if buttonUrl}}{{buttonUrl}}{{else}}#{{/if}}" class="btn-filled-chat location-popup">
+            <i class="bi bi-plus-circle"></i>
+            {{buttonText}}
+          </a>
+          {{/if}}
+        </div>
+      </div>
+
+    </div>
+    <!-- /row -->
+
+  </div>
+  <!-- /container -->
+</section>

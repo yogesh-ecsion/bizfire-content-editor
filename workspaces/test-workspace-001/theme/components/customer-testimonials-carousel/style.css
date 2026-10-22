@@ -1,0 +1,4 @@
+/* Component styles handled by master theme stylesheet. */
+.testimonial-avatar {
+  background-color: var(--primary-color, #A91F38);
+}

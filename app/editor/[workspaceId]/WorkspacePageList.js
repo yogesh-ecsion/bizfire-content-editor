@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { Spinner, Alert, ProgressBar } from 'react-bootstrap';
 import AddPageOffcanvas from '../../AddPageOffcanvas';
 import ImportWpPageOffcanvas from '../../ImportWpPageOffcanvas';
+import ImportComponentsModal from '../../ImportComponentsModal';
+import ThemeStylingModal from '../../ThemeStylingModal';
 
 export default function WorkspacePageList({
   workspace,
@@ -20,9 +22,11 @@ export default function WorkspacePageList({
     setPages(initialPages);
   }, [initialPages]);
 
-  // Drawer States
+  // Drawer & Modal States
   const [isAddPageDrawerOpen, setIsAddPageDrawerOpen] = useState(false);
   const [isImportDrawerOpen, setIsImportDrawerOpen] = useState(false);
+  const [isComponentModalOpen, setIsComponentModalOpen] = useState(false);
+  const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
 
   // Filters State
   const [searchQuery, setSearchQuery] = useState('');
@@ -659,6 +663,22 @@ export default function WorkspacePageList({
               </Link>
               <button
                 type="button"
+                className="btn btn-outline-secondary"
+                disabled={isPublishing}
+                onClick={() => setIsThemeModalOpen(true)}
+              >
+                🎨 Theme & Styling
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline-secondary"
+                disabled={isPublishing}
+                onClick={() => setIsComponentModalOpen(true)}
+              >
+                🧩 Component Library
+              </button>
+              <button
+                type="button"
                 className="btn btn-outline-primary"
                 disabled={isPublishing}
                 onClick={() => setIsImportDrawerOpen(true)}
@@ -1091,6 +1111,27 @@ export default function WorkspacePageList({
         onHide={() => setIsAddPageDrawerOpen(false)}
         workspace={workspace}
         themeBundle={themeBundle}
+      />
+
+      {/* Component Library / Ingestion Modal */}
+      <ImportComponentsModal
+        show={isComponentModalOpen}
+        onHide={() => setIsComponentModalOpen(false)}
+        workspaceId={workspace.workspaceId}
+        onSuccess={() => {
+          router.refresh();
+        }}
+      />
+
+      {/* Theme & Styling Modal */}
+      <ThemeStylingModal
+        show={isThemeModalOpen}
+        onHide={() => setIsThemeModalOpen(false)}
+        workspace={workspace}
+        themeBundle={themeBundle}
+        onSuccess={() => {
+          router.refresh();
+        }}
       />
     </div>
   );

@@ -4,6 +4,8 @@ import { useMemo, useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Handlebars from 'handlebars';
 import ImageCropperModal from './ImageCropperModal';
+import ImportComponentsModal from './ImportComponentsModal';
+import ThemeStylingModal from './ThemeStylingModal';
 import { compileHeader } from '@/lib/headerCompiler.js';
 import { compileFooter } from '@/lib/footerCompiler.js';
 
@@ -360,6 +362,8 @@ export default function Editor({
   const [customCss, setCustomCss] = useState(initialCustomCss);
   const [components, setComponents] = useState(initialComponents);
   const [pageTemplates, setPageTemplates] = useState(templates);
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+  const [showThemeModal, setShowThemeModal] = useState(false);
 
   // Compile Site Header and Footer for readonly preview in workspace mode
   const compiledHeader = useMemo(() => {
@@ -421,6 +425,23 @@ export default function Editor({
   const [exportSuccess, setExportSuccess] = useState(false);
 
   const library = useMemo(() => Object.fromEntries(components.map(c => [c.id, c])), [components]);
+
+  // Deduplicate Layer 2 component styles for live interactive preview canvas
+  const liveComponentCss = useMemo(() => {
+    const usedTypes = new Set();
+    const cssList = [];
+    (page || []).forEach(item => {
+      if (!usedTypes.has(item.type)) {
+        usedTypes.add(item.type);
+        const def = library[item.type];
+        const css = def?.css || def?.style_css || '';
+        if (css && css.trim()) {
+          cssList.push(`/* ── Component: ${item.type} ── */\n${css.trim()}`);
+        }
+      }
+    });
+    return cssList.join('\n\n');
+  }, [page, library]);
 
   const selected = page.find(x => x.instanceId === selectedId) || page[0];
   const selectedDef = selected ? library[selected.type] : null;
@@ -984,7 +1005,25 @@ ${renderedSections}
           </div>
 
           <div className="add-component-box">
-            <label>+ ADD COMPONENT</label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+              <label style={{ margin: 0 }}>+ ADD COMPONENT</label>
+              <button
+                type="button"
+                onClick={() => setIsImportModalOpen(true)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#2563eb',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  padding: 0
+                }}
+                title="Import or upload components to library"
+              >
+                🧩 Import
+              </button>
+            </div>
             <select
               defaultValue=""
               onChange={e => {
@@ -1067,6 +1106,18 @@ ${renderedSections}
               </span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              {mode === 'workspace' && (
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  onClick={() => setShowThemeModal(true)}
+                  title="Customize Theme & Workspace Styles"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                >
+                  <span>🎨</span>
+                  <span>Theme & Styling</span>
+                </button>
+              )}
               {mode === 'workspace' && (compiledHeader || compiledFooter) && (
                 <button
                   type="button"
@@ -1105,7 +1156,16 @@ ${renderedSections}
             {theme?.fontUrl && (
               <link rel="stylesheet" href={theme.fontUrl} />
             )}
-            <style dangerouslySetInnerHTML={{ __html: themeCss }} />
+            {/* Layer 1: Master Theme Baseline */}
+            <style id="live-theme-styles" dangerouslySetInnerHTML={{ __html: themeCss }} />
+            {/* Layer 2: Deduplicated Scoped Component CSS */}
+            {liveComponentCss ? (
+              <style id="live-component-styles" dangerouslySetInnerHTML={{ __html: liveComponentCss }} />
+            ) : null}
+            {/* Layer 3: Workspace Custom Overrides (Cascades Last) */}
+            {customCss ? (
+              <style id="live-workspace-custom-styles" dangerouslySetInnerHTML={{ __html: customCss }} />
+            ) : null}
 
             {mode === 'workspace' && (
               showHeaderFooterPreview && compiledHeader ? (
@@ -1233,6 +1293,51 @@ ${renderedSections}
           </div>
         </section>
       </div>
+
+      <ImportComponentsModal
+        show={isImportModalOpen}
+        onHide={() => setIsImportModalOpen(false)}
+        workspaceId={workspace?.workspaceId}
+        onSuccess={async () => {
+          try {
+            if (workspace?.workspaceId) {
+              const res = await fetch(`/api/theme/${workspace.workspaceId}`);
+              if (res.ok) {
+                const data = await res.json();
+                if (data.components) {
+                  setComponents(data.components);
+                }
+              }
+            }
+          } catch (err) {
+            console.warn('Failed to reload components in editor:', err);
+          }
+        }}
+      />
+
+      {showThemeModal && (
+        <ThemeStylingModal
+          show={showThemeModal}
+          onHide={() => setShowThemeModal(false)}
+          workspace={workspace}
+          themeBundle={{
+            theme,
+            styleCss: themeCss,
+            customCss
+          }}
+          onSuccess={(updated) => {
+            if (updated?.themeCss !== undefined) {
+              setThemeCss(updated.themeCss);
+            }
+            if (updated?.customCss !== undefined) {
+              setCustomCss(updated.customCss);
+            }
+            if (updated?.fontUrl) {
+              setTheme(prev => ({ ...prev, fontUrl: updated.fontUrl, fontFamily: updated.fontFamily }));
+            }
+          }}
+        />
+      )}
     </main>
   );
 }
