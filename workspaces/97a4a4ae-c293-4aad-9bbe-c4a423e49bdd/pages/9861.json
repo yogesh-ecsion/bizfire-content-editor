@@ -3,8 +3,8 @@
   "slug": "testing-new-component",
   "title": "Testing new component",
   "templateId": "web-development-site-main",
-  "lastSavedAt": "2026-10-21T14:22:41.528Z",
-  "lastPublishedAt": "2026-10-21T14:22:41.537Z",
+  "lastSavedAt": "2026-10-22T06:47:08.133Z",
+  "lastPublishedAt": "2026-10-22T06:47:08.149Z",
   "sections": [
     {
       "type": "customer-testimonials-carousel",
@@ -85,6 +85,92 @@
             ]
           }
         ]
+      }
+    },
+    {
+      "type": "plumbing-service-hero",
+      "content": {
+        "title": "New Jersey Plumbing \nServices",
+        "intro": "The quiet of a household depends on plumbing that works without being thought about.",
+        "paragraph1": "Water pooling where it shouldn't. A shower that runs cold before the morning is over. A toilet that runs and runs at 2 a.m. These are the moments that pull a household off schedule.",
+        "paragraph2": "Princeton Air's licensed plumbers arrive prepared, diagnose the actual cause, and complete the repair with careful attention to your finished spaces. Call or book online to schedule plumbing service in New Jersey.",
+        "image": {
+          "src": "/assets/img/1-index-hero-img.webp",
+          "alt": "Professional Plumber"
+        }
+      }
+    },
+    {
+      "type": "new-jersey-chooses-reasons",
+      "content": {
+        "title": "New Jersey Chooses Princeton Air",
+        "col1Items": [
+          {
+            "_id": "nj-reason-01",
+            "number": "1.",
+            "title": "One Trusted Team for the Entire Home",
+            "url": "#"
+          },
+          {
+            "_id": "nj-reason-02",
+            "number": "2.",
+            "title": "Thorough, Code-Compliant Work",
+            "url": "#"
+          },
+          {
+            "_id": "nj-reason-03",
+            "number": "3.",
+            "title": "Financing Options",
+            "url": "#",
+            "onClick": "openQuotePopup()"
+          },
+          {
+            "_id": "nj-reason-04",
+            "number": "4.",
+            "title": "Solutions Made to Last",
+            "url": "#"
+          },
+          {
+            "_id": "nj-reason-05",
+            "number": "5.",
+            "title": "Respect for Your Home and Privacy",
+            "url": "#"
+          }
+        ],
+        "col2Items": [
+          {
+            "_id": "nj-reason-06",
+            "number": "6.",
+            "title": "Responsive Emergency Plumbing Service",
+            "url": "#"
+          },
+          {
+            "_id": "nj-reason-07",
+            "number": "7.",
+            "title": "Transparent Pricing",
+            "url": "#"
+          },
+          {
+            "_id": "nj-reason-08",
+            "number": "8.",
+            "title": "Over 50 Years Serving New Jersey",
+            "url": "#"
+          },
+          {
+            "_id": "nj-reason-09",
+            "number": "9.",
+            "title": "New Jersey Locations",
+            "url": "#"
+          },
+          {
+            "_id": "nj-reason-10",
+            "number": "10.",
+            "title": "Over 50 Years Serving New Jersey",
+            "url": "#"
+          }
+        ],
+        "buttonText": "New Jersey Locations",
+        "buttonUrl": "#"
       }
     }
   ]
