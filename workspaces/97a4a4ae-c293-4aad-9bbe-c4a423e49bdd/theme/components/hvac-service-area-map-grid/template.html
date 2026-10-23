@@ -1,0 +1,76 @@
+<section class="section hvac-area-section" id="service-area" aria-labelledby="area-title">
+    <div class="container">
+        <div class="hvac-area-layout">
+
+            <!-- IMAGE -->
+            <div class="hvac-area-image-wrap">
+                {{#if image.src}}
+                <img class="hvac-area-image"
+                    src="{{image.src}}"
+                    alt="{{image.alt}}" width="1200" height="960"
+                    loading="lazy">
+                {{/if}}
+
+                {{#if badgeTitle}}
+                <div class="hvac-area-image-note">
+                    <strong>{{badgeTitle}}</strong>
+                    {{#if badgeDescription}}<span>{{badgeDescription}}</span>{{/if}}
+                </div>
+                {{/if}}
+            </div>
+
+            <!-- CONTENT -->
+            <div class="hvac-area-content">
+                {{#if eyebrow}}
+                <span class="section-eyebrow">{{eyebrow}}</span>
+                {{/if}}
+
+                {{#if title}}
+                <h2 class="section-title" id="area-title">
+                    {{{title}}}
+                </h2>
+                {{/if}}
+
+                {{#if subtitle}}
+                <h3 class="section-subtitle">
+                    {{{subtitle}}}
+                </h3>
+                {{/if}}
+
+                {{#if description}}
+                <p class="hvac-area-description">
+                    {{description}}
+                </p>
+                {{/if}}
+
+                {{#if locations}}
+                <ul class="hvac-area-list">
+                    {{#each locations}}
+                    <li>
+                        <i class="fa-solid {{#if icon}}{{icon}}{{else}}fa-location-dot{{/if}}" aria-hidden="true"></i>
+                        <span>{{name}}</span>
+                    </li>
+                    {{/each}}
+                </ul>
+                {{/if}}
+
+                <div class="hvac-area-cta">
+                    {{#if primaryButtonText}}
+                    <a href="{{primaryButtonUrl}}" class="btn btn-primary">
+                        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                        {{primaryButtonText}}
+                    </a>
+                    {{/if}}
+
+                    {{#if secondaryLinkText}}
+                    <a href="{{secondaryLinkUrl}}" class="hvac-area-link">
+                        {{secondaryLinkText}}
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                    {{/if}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

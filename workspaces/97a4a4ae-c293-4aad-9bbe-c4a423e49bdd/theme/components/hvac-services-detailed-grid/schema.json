@@ -1,0 +1,68 @@
+{
+  "eyebrow": {
+    "type": "text",
+    "label": "Eyebrow Text",
+    "default": "OUR SERVICES"
+  },
+  "title": {
+    "type": "text",
+    "label": "Section Title",
+    "default": "Complete HVAC Services for Your Comfort"
+  },
+  "subtitle": {
+    "type": "text",
+    "label": "Section Subtitle",
+    "default": "Heating, Cooling, Installation & Repair"
+  },
+  "description": {
+    "type": "textarea",
+    "label": "Section Description",
+    "default": "From air conditioning repairs to heating system installation, we help homeowners and businesses in Princeton, NJ and Mercer County maintain comfortable indoor spaces."
+  },
+  "services": {
+    "type": "array",
+    "label": "Services List",
+    "labelField": "title",
+    "itemSchema": {
+      "icon": {
+        "type": "text",
+        "label": "Font Awesome Icon Class",
+        "default": "fa-snowflake"
+      },
+      "title": {
+        "type": "text",
+        "label": "Service Title",
+        "required": true
+      },
+      "description": {
+        "type": "textarea",
+        "label": "Service Description"
+      },
+      "linkText": {
+        "type": "text",
+        "label": "Link Text",
+        "default": "Explore Services"
+      },
+      "linkUrl": {
+        "type": "url",
+        "label": "Link URL",
+        "default": "#services"
+      }
+    }
+  },
+  "ctaText": {
+    "type": "text",
+    "label": "CTA Supporting Text",
+    "default": "Need help choosing the right HVAC service?"
+  },
+  "ctaButtonText": {
+    "type": "text",
+    "label": "CTA Button Text",
+    "default": "Schedule Service"
+  },
+  "ctaButtonUrl": {
+    "type": "url",
+    "label": "CTA Button Link",
+    "default": "#schedule"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "eyebrow": {
+    "type": "text",
+    "label": "Section Eyebrow",
+    "default": "GET IN TOUCH"
+  },
+  "title": {
+    "type": "text",
+    "label": "Section Title",
+    "default": "Need HVAC Service?"
+  },
+  "subtitle": {
+    "type": "text",
+    "label": "Section Subtitle",
+    "default": "Let's Discuss Your Heating & Cooling Needs"
+  },
+  "description": {
+    "type": "textarea",
+    "label": "Description",
+    "default": "Whether you need help with an air conditioner, heating system, repair, or routine maintenance, contact our team to discuss your requirements and confirm service availability."
+  },
+  "contactOptions": {
+    "type": "array",
+    "label": "Contact Methods & Highlights",
+    "labelField": "title",
+    "itemSchema": {
+      "icon": {
+        "type": "text",
+        "label": "Font Awesome Icon (e.g. fa-phone)",
+        "default": "fa-phone"
+      },
+      "title": {
+        "type": "text",
+        "label": "Title",
+        "required": true
+      },
+      "description": {
+        "type": "textarea",
+        "label": "Description"
+      }
+    }
+  },
+  "primaryButtonText": {
+    "type": "text",
+    "label": "Primary Button Text",
+    "default": "Request Service"
+  },
+  "primaryButtonUrl": {
+    "type": "url",
+    "label": "Primary Button URL",
+    "default": "#schedule"
+  },
+  "primaryButtonIcon": {
+    "type": "text",
+    "label": "Primary Button Icon",
+    "default": "fa-calendar-check"
+  },
+  "secondaryButtonText": {
+    "type": "text",
+    "label": "Secondary Button Text",
+    "default": "Explore Services"
+  },
+  "secondaryButtonUrl": {
+    "type": "url",
+    "label": "Secondary Button URL",
+    "default": "#services"
+  },
+  "secondaryButtonIcon": {
+    "type": "text",
+    "label": "Secondary Button Icon",
+    "default": "fa-screwdriver-wrench"
+  },
+  "note": {
+    "type": "text",
+    "label": "Notice / Note Text",
+    "default": "Contact us to confirm service availability and appointment times."
+  },
+  "image": {
+    "type": "image",
+    "label": "Contact Visual Image",
+    "default": {
+      "src": "https://images.pexels.com/photos/5463580/pexels-photo-5463580.jpeg?auto=compress&cs=tinysrgb&w=1000",
+      "alt": "HVAC technician inspecting heating and cooling equipment"
+    }
+  }
+}

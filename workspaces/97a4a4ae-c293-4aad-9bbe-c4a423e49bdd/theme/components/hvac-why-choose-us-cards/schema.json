@@ -1,0 +1,66 @@
+{
+  "eyebrow": {
+    "type": "text",
+    "label": "Eyebrow Text",
+    "default": "WHY CHOOSE US"
+  },
+  "title": {
+    "type": "text",
+    "label": "Section Title",
+    "default": "HVAC Service Built Around Your Needs"
+  },
+  "subtitle": {
+    "type": "text",
+    "label": "Section Subtitle",
+    "default": "Clear Communication. Practical Solutions. Personal Attention."
+  },
+  "description": {
+    "type": "textarea",
+    "label": "Section Description",
+    "default": "Every property has different heating and cooling needs. Our goal is to help you understand your options and make informed decisions about your HVAC system."
+  },
+  "cards": {
+    "type": "array",
+    "label": "Feature Cards",
+    "labelField": "title",
+    "itemSchema": {
+      "image": {
+        "type": "image",
+        "label": "Card Image",
+        "default": {
+          "src": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
+          "alt": "HVAC technician inspecting mechanical equipment"
+        }
+      },
+      "icon": {
+        "type": "text",
+        "label": "Font Awesome Icon Class",
+        "default": "fa-comments"
+      },
+      "title": {
+        "type": "text",
+        "label": "Card Title",
+        "required": true
+      },
+      "description": {
+        "type": "textarea",
+        "label": "Card Description"
+      }
+    }
+  },
+  "ctaText": {
+    "type": "text",
+    "label": "CTA Text",
+    "default": "Have a heating or cooling concern? Let's discuss the right next step."
+  },
+  "ctaButtonText": {
+    "type": "text",
+    "label": "CTA Button Text",
+    "default": "Request Service"
+  },
+  "ctaButtonUrl": {
+    "type": "url",
+    "label": "CTA Button Link",
+    "default": "#schedule"
+  }
+}

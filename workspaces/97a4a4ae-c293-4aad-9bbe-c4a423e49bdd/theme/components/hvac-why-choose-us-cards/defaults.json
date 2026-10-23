@@ -1,0 +1,71 @@
+{
+  "eyebrow": "WHY CHOOSE US",
+  "title": "HVAC Service Built Around Your Needs",
+  "subtitle": "Clear Communication. Practical Solutions. Personal Attention.",
+  "description": "Every property has different heating and cooling needs. Our goal is to help you understand your options and make informed decisions about your HVAC system.",
+  "cards": [
+    {
+      "_id": "hvac-why-choose-us-cards-item-01",
+      "image": {
+        "src": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80",
+        "alt": "HVAC technician inspecting mechanical equipment"
+      },
+      "icon": "fa-comments",
+      "title": "Clear Communication",
+      "description": "Understand the reported issue, available options, and recommended next steps before deciding how to proceed."
+    },
+    {
+      "_id": "hvac-why-choose-us-cards-item-02",
+      "image": {
+        "src": "https://images.pexels.com/photos/5463580/pexels-photo-5463580.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "alt": "Technician working on heating and cooling equipment"
+      },
+      "icon": "fa-screwdriver-wrench",
+      "title": "Practical Service Options",
+      "description": "Explore suitable repair, maintenance, or replacement options based on your system's condition and needs."
+    },
+    {
+      "_id": "hvac-why-choose-us-cards-item-03",
+      "image": {
+        "src": "https://images.unsplash.com/photo-1631545806609-6e7e3c0d3a22?auto=format&fit=crop&w=800&q=80",
+        "alt": "Residential heating and cooling equipment"
+      },
+      "icon": "fa-house",
+      "title": "Residential & Commercial Needs",
+      "description": "Discuss the requirements of your home or business and confirm whether the requested service is available."
+    },
+    {
+      "_id": "hvac-why-choose-us-cards-item-04",
+      "image": {
+        "src": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80",
+        "alt": "Technician examining technical equipment"
+      },
+      "icon": "fa-magnifying-glass",
+      "title": "Attention to the Problem",
+      "description": "Share the symptoms you notice so the service team can assess the issue and discuss appropriate next steps."
+    },
+    {
+      "_id": "hvac-why-choose-us-cards-item-05",
+      "image": {
+        "src": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+        "alt": "Residential property in a landscaped neighborhood"
+      },
+      "icon": "fa-location-dot",
+      "title": "Local Service Area",
+      "description": "Contact us about HVAC needs in Princeton, NJ, and Mercer County to confirm coverage for your address."
+    },
+    {
+      "_id": "hvac-why-choose-us-cards-item-06",
+      "image": {
+        "src": "https://images.pexels.com/photos/5463575/pexels-photo-5463575.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "alt": "HVAC service professional working with equipment"
+      },
+      "icon": "fa-calendar-check",
+      "title": "Convenient Scheduling",
+      "description": "Tell us what service you need and discuss available appointment options with the team."
+    }
+  ],
+  "ctaText": "Have a heating or cooling concern? Let's discuss the right next step.",
+  "ctaButtonText": "Request Service",
+  "ctaButtonUrl": "#schedule"
+}

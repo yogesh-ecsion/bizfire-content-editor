@@ -1,0 +1,153 @@
+/* HVAC CONTACT SECTION */
+.hvac-contact-section {
+    background: var(--light);
+}
+
+.hvac-contact-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 40px;
+    padding: 40px;
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+}
+
+/* LEFT: CONTENT */
+.hvac-contact-content {
+    min-width: 0;
+    align-self: center;
+    padding: 12px 0;
+}
+
+.hvac-contact-description {
+    margin: 0 0 28px;
+    color: var(--secondary);
+    line-height: 1.8;
+}
+
+.hvac-contact-options {
+    display: grid;
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.hvac-contact-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.hvac-contact-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: var(--radius);
+}
+
+.hvac-contact-option-content {
+    min-width: 0;
+}
+
+.hvac-contact-option-content h3 {
+    margin: 0 0 4px;
+    color: var(--dark);
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.hvac-contact-option-content p {
+    margin: 0;
+    color: var(--secondary);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.hvac-contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.hvac-contact-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hvac-contact-note {
+    margin: 18px 0 0;
+    color: var(--text-muted);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* RIGHT: IMAGE */
+.hvac-contact-visual {
+    min-width: 0;
+    display: flex;
+}
+
+.hvac-contact-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    align-self: stretch;
+    object-fit: cover;
+    object-position: center;
+    border-radius: var(--radius-lg);
+    background: var(--secondary-soft);
+}
+
+@media (max-width: 991.98px) {
+    .hvac-contact-card {
+        gap: 28px;
+        padding: 28px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .hvac-contact-card {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 24px;
+    }
+
+    .hvac-contact-content {
+        order: 1;
+        padding: 0;
+    }
+
+    .hvac-contact-visual {
+        order: 2;
+    }
+
+    .hvac-contact-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+    }
+}
+
+@media (max-width: 420px) {
+    .hvac-contact-card {
+        padding: 20px;
+    }
+
+    .hvac-contact-actions {
+        flex-direction: column;
+    }
+
+    .hvac-contact-actions .btn {
+        width: 100%;
+    }
+}

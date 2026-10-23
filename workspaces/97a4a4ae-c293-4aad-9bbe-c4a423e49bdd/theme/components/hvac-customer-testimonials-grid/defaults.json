@@ -1,0 +1,40 @@
+{
+  "eyebrow": "CUSTOMER EXPERIENCES",
+  "title": "Trusted HVAC Service Starts with You",
+  "subtitle": "Your Comfort and Confidence Matter",
+  "description": "Choosing an HVAC provider is an important decision. We aim to make every service experience clear, helpful, and focused on your heating and cooling needs.",
+  "testimonials": [
+    {
+      "_id": "hvac-customer-testimonials-grid-item-01",
+      "quote": "“Our AC died during the July heatwave. Ecsion Test HVAC diagnosed the compressor fault and had us cool again the same afternoon. Clear pricing, no surprises.”",
+      "authorName": "Sarah M.",
+      "authorLocation": "Princeton, NJ",
+      "avatar": {
+        "src": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=120",
+        "alt": "Sarah M."
+      }
+    },
+    {
+      "_id": "hvac-customer-testimonials-grid-item-02",
+      "quote": "“They replaced our aging furnace before winter and walked us through every option without pressure. The installation was clean, on time, and exactly as quoted.”",
+      "authorName": "David R.",
+      "authorLocation": "Mercer County, NJ",
+      "avatar": {
+        "src": "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=120",
+        "alt": "David R."
+      }
+    },
+    {
+      "_id": "hvac-customer-testimonials-grid-item-03",
+      "quote": "“We use them for our office building’s HVAC maintenance. Responsive, professional, and they always explain what they find before recommending any work.”",
+      "authorName": "Jennifer L.",
+      "authorLocation": "West Windsor, NJ",
+      "avatar": {
+        "src": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=120",
+        "alt": "Jennifer L."
+      }
+    }
+  ],
+  "ctaButtonText": "Request HVAC Service",
+  "ctaButtonUrl": "#schedule"
+}

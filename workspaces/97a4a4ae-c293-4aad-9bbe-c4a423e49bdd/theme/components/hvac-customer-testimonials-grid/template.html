@@ -1,0 +1,77 @@
+<section class="section hvac-testimonials-section" id="testimonials" aria-labelledby="testimonials-title">
+    <div class="container">
+
+        <!-- SECTION HEADER -->
+        <div class="section-header text-center">
+            {{#if eyebrow}}
+            <span class="section-eyebrow">{{eyebrow}}</span>
+            {{/if}}
+
+            {{#if title}}
+            <h2 class="section-title" id="testimonials-title">
+                {{{title}}}
+            </h2>
+            {{/if}}
+
+            {{#if subtitle}}
+            <h3 class="section-subtitle">
+                {{{subtitle}}}
+            </h3>
+            {{/if}}
+
+            {{#if description}}
+            <p class="section-description">
+                {{description}}
+            </p>
+            {{/if}}
+        </div>
+
+        <!-- TESTIMONIAL CARDS -->
+        <div class="section-content">
+            <div class="testimonial-grid">
+                {{#each testimonials}}
+                <article class="testimonial-card">
+                    <div class="testimonial-quote-icon" aria-hidden="true">
+                        <i class="fa-solid fa-quote-left"></i>
+                    </div>
+
+                    {{#if quote}}
+                    <p class="testimonial-text">
+                        {{quote}}
+                    </p>
+                    {{/if}}
+
+                    <div class="testimonial-author">
+                        {{#if avatar.src}}
+                        <img class="testimonial-avatar"
+                            src="{{avatar.src}}"
+                            alt="{{#if avatar.alt}}{{avatar.alt}}{{else}}{{authorName}}{{/if}}"
+                            width="52" height="52" loading="lazy">
+                        {{/if}}
+
+                        <div class="testimonial-author-info">
+                            {{#if authorName}}
+                            <h3 class="testimonial-author-name">{{authorName}}</h3>
+                            {{/if}}
+
+                            {{#if authorLocation}}
+                            <p class="testimonial-author-location">{{authorLocation}}</p>
+                            {{/if}}
+                        </div>
+                    </div>
+                </article>
+                {{/each}}
+            </div>
+
+            {{#if ctaButtonText}}
+            <div class="testimonials-cta">
+                <a href="{{ctaButtonUrl}}" class="btn btn-primary">
+                    <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                    {{ctaButtonText}}
+                </a>
+            </div>
+            {{/if}}
+        </div>
+
+    </div>
+</section>

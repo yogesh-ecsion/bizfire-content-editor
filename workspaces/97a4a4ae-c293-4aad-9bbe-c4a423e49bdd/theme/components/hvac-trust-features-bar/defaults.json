@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "_id": "hvac-trust-features-bar-item-01",
+      "icon": "fa-user-gear",
+      "title": "Professional Technicians",
+      "description": "Heating and cooling service for your property."
+    },
+    {
+      "_id": "hvac-trust-features-bar-item-02",
+      "icon": "fa-house",
+      "title": "Residential & Commercial",
+      "description": "HVAC solutions for homes and businesses."
+    },
+    {
+      "_id": "hvac-trust-features-bar-item-03",
+      "icon": "fa-calendar-check",
+      "title": "Convenient Scheduling",
+      "description": "Request an appointment for HVAC service."
+    },
+    {
+      "_id": "hvac-trust-features-bar-item-04",
+      "icon": "fa-location-dot",
+      "title": "Local Service Area",
+      "description": "Princeton, NJ & Mercer County."
+    }
+  ]
+}

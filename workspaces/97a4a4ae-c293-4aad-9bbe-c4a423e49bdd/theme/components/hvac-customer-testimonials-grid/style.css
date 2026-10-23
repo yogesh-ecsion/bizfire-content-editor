@@ -1,0 +1,92 @@
+/* HVAC TESTIMONIALS — no type overrides */
+.hvac-testimonials-section {
+    background: var(--white);
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.testimonial-card {
+    height: 100%;
+    padding: 28px;
+    background: var(--light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+}
+
+.testimonial-quote-icon {
+    margin-bottom: 18px;
+    color: var(--primary);
+    font-size: 1.75rem;
+}
+
+.testimonial-text {
+    margin: 0 0 24px;
+    color: var(--body-color);
+    line-height: 1.8;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.testimonial-avatar {
+    display: block;
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
+    object-fit: cover;
+    border-radius: 50%;
+    background: var(--secondary-soft);
+}
+
+.testimonial-author-info {
+    min-width: 0;
+}
+
+.testimonial-author-name {
+    margin: 0 0 4px;
+    color: var(--dark);
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.testimonial-author-location {
+    margin: 0;
+    color: var(--secondary);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.testimonials-cta {
+    margin-top: 36px;
+    text-align: center;
+}
+
+@media (max-width: 991.98px) {
+    .testimonial-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 575.98px) {
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .testimonial-card {
+        padding: 24px;
+    }
+
+    .testimonials-cta {
+        margin-top: 28px;
+    }
+}

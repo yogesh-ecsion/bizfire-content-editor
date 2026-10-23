@@ -1,0 +1,86 @@
+{
+  "rowGuid": "fe259fd0-7239-4466-99ca-3b96186e59c0",
+  "postId": 9874,
+  "slug": "test-hvac-components",
+  "title": "Test HVAC components",
+  "templateId": "web-development-site-main",
+  "lastSavedAt": "2026-10-23T12:40:25.125Z",
+  "lastPublishedAt": "2026-10-23T12:40:25.552Z",
+  "sections": [
+    {
+      "type": "hvac-hero-split",
+      "content": {
+        "eyebrow": "Trusted HVAC Experts in Princeton, NJ",
+        "eyebrowIcon": "fa-shield-halved",
+        "title": "Reliable Heating &amp; Cooling for <span>Your Home and Business</span>",
+        "description": "Stay comfortable in every season with professional HVAC installation, maintenance, and repair services throughout Princeton and Mercer County.",
+        "primaryButtonText": "Schedule Service",
+        "primaryButtonUrl": "#schedule",
+        "secondaryButtonText": "(609) 555-0100",
+        "secondaryButtonUrl": "tel:+16095550100",
+        "secondaryButtonAriaLabel": "Call Ecsion Test HVAC at 609-555-0100",
+        "benefits": [
+          {
+            "_id": "hvac-hero-split-item-01",
+            "icon": "fa-circle-check",
+            "title": "Professional Technicians"
+          },
+          {
+            "_id": "hvac-hero-split-item-02",
+            "icon": "fa-clock",
+            "title": "24/7 Emergency Service"
+          },
+          {
+            "_id": "hvac-hero-split-item-03",
+            "icon": "fa-house",
+            "title": "Residential & Commercial"
+          }
+        ],
+        "image": {
+          "src": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=85",
+          "alt": "HVAC technician in Princeton NJ servicing a residential heating and air conditioning unit"
+        }
+      }
+    },
+    {
+      "type": "hvac-contact-info-cards",
+      "content": {
+        "eyebrow": "GET IN TOUCH",
+        "title": "Need HVAC Service?",
+        "subtitle": "Let's Discuss Your Heating & Cooling Needs",
+        "description": "Whether you need help with an air conditioner, heating system, repair, or routine maintenance, contact our team to discuss your requirements and confirm service availability.",
+        "contactOptions": [
+          {
+            "_id": "hvac-contact-item-01",
+            "icon": "fa-phone",
+            "title": "Call Our Team",
+            "description": "Discuss your HVAC service requirements with us."
+          },
+          {
+            "_id": "hvac-contact-item-02",
+            "icon": "fa-location-dot",
+            "title": "Service Area",
+            "description": "Princeton, NJ and Mercer County, subject to confirmation."
+          },
+          {
+            "_id": "hvac-contact-item-03",
+            "icon": "fa-calendar-check",
+            "title": "Request an Appointment",
+            "description": "Tell us about your needs to discuss scheduling."
+          }
+        ],
+        "primaryButtonText": "Request Service",
+        "primaryButtonUrl": "#schedule",
+        "primaryButtonIcon": "fa-calendar-check",
+        "secondaryButtonText": "Explore Services",
+        "secondaryButtonUrl": "#services",
+        "secondaryButtonIcon": "fa-screwdriver-wrench",
+        "note": "Contact us to confirm service availability and appointment times.",
+        "image": {
+          "src": "https://images.pexels.com/photos/5463580/pexels-photo-5463580.jpeg?auto=compress&cs=tinysrgb&w=1000",
+          "alt": "HVAC technician inspecting heating and cooling equipment"
+        }
+      }
+    }
+  ]
+}

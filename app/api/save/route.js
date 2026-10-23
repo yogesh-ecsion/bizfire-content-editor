@@ -4,7 +4,7 @@ import { DataSource } from '../../../lib/dataSource.js';
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { workspaceId, postId, rowGuid, pageGuid, slug, title, templateId, sections } = body;
+    const { workspaceId, postId, rowGuid, pageGuid, slug, title, templateId, sections, stashedSections } = body;
 
     if (!workspaceId) {
       return NextResponse.json(
@@ -47,7 +47,8 @@ export async function POST(request) {
       slug,
       title,
       templateId,
-      sections
+      sections,
+      stashedSections
     });
 
     return NextResponse.json({

@@ -1,0 +1,45 @@
+{
+  "eyebrow": "FREQUENTLY ASKED QUESTIONS",
+  "title": "HVAC Questions, Answered",
+  "subtitle": "Helpful Information Before You Book",
+  "description": "Have questions about heating, air conditioning, repairs, or maintenance? Explore these common questions or contact our team to discuss your specific needs.",
+  "image": {
+    "src": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1000&q=80",
+    "alt": "HVAC technician inspecting indoor mechanical equipment"
+  },
+  "faqs": [
+    {
+      "_id": "hvac-faq-accordion-item-01",
+      "question": "How do I know if my HVAC system needs repair?",
+      "answer": "Unusual noises, weak airflow, inconsistent temperatures, or unexpected changes in energy use can indicate a problem. A qualified technician can assess the system and recommend appropriate next steps."
+    },
+    {
+      "_id": "hvac-faq-accordion-item-02",
+      "question": "How often should I schedule HVAC maintenance?",
+      "answer": "Many systems benefit from professional maintenance about twice a year: once before the cooling season and once before the heating season. Your equipment and manufacturer recommendations may vary."
+    },
+    {
+      "_id": "hvac-faq-accordion-item-03",
+      "question": "Should I repair or replace my HVAC system?",
+      "answer": "The decision depends on the system's age, repair history, performance, efficiency, and repair cost. An assessment can help you compare suitable options before making a decision."
+    },
+    {
+      "_id": "hvac-faq-accordion-item-04",
+      "question": "Do you provide residential and commercial HVAC service?",
+      "answer": "Service availability depends on the work required and the property's system. Contact our team to confirm whether we can assist with your residential or commercial HVAC needs."
+    },
+    {
+      "_id": "hvac-faq-accordion-item-05",
+      "question": "Which areas do you serve?",
+      "answer": "Our target service area includes Princeton, NJ, and Mercer County communities. Please contact us to confirm availability at your address."
+    },
+    {
+      "_id": "hvac-faq-accordion-item-06",
+      "question": "How can I request an HVAC service appointment?",
+      "answer": "Use the service request or contact form on our website to describe your HVAC concern. Our team can then discuss availability and the next steps."
+    }
+  ],
+  "ctaText": "Still have a question about your heating or cooling system?",
+  "ctaButtonText": "Contact Our Team",
+  "ctaButtonUrl": "#contact"
+}

@@ -1,0 +1,66 @@
+{
+  "eyebrow": {
+    "type": "text",
+    "label": "Eyebrow Text",
+    "default": "OUR SERVICE PROCESS"
+  },
+  "title": {
+    "type": "text",
+    "label": "Section Title",
+    "default": "Simple Steps to HVAC Comfort"
+  },
+  "subtitle": {
+    "type": "text",
+    "label": "Section Subtitle",
+    "default": "Know What to Expect at Every Step"
+  },
+  "description": {
+    "type": "textarea",
+    "label": "Section Description",
+    "default": "From your first service request to the recommended next steps, we aim to make your heating and cooling service straightforward with clear communication throughout the process."
+  },
+  "steps": {
+    "type": "array",
+    "label": "Process Steps",
+    "labelField": "title",
+    "itemSchema": {
+      "stepNumber": {
+        "type": "text",
+        "label": "Step Number",
+        "default": "01"
+      },
+      "title": {
+        "type": "text",
+        "label": "Step Title",
+        "required": true
+      },
+      "description": {
+        "type": "textarea",
+        "label": "Step Description"
+      },
+      "image": {
+        "type": "image",
+        "label": "Step Image",
+        "default": {
+          "src": "https://images.pexels.com/photos/5463575/pexels-photo-5463575.jpeg?auto=compress&cs=tinysrgb&w=800",
+          "alt": "HVAC technician working on equipment"
+        }
+      }
+    }
+  },
+  "ctaText": {
+    "type": "text",
+    "label": "CTA Text",
+    "default": "Need help with your heating or cooling system?"
+  },
+  "ctaButtonText": {
+    "type": "text",
+    "label": "CTA Button Text",
+    "default": "Request HVAC Service"
+  },
+  "ctaButtonUrl": {
+    "type": "url",
+    "label": "CTA Button Link",
+    "default": "#schedule"
+  }
+}

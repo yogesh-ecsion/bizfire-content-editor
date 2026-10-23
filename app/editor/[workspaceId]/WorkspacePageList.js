@@ -28,9 +28,11 @@ export default function WorkspacePageList({
   const [isImportDrawerOpen, setIsImportDrawerOpen] = useState(false);
   const [isComponentModalOpen, setIsComponentModalOpen] = useState(false);
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
-  const [activeThemeSlug, setActiveThemeSlug] = useState(workspace.themeId || themeBundle.theme?.id || 'trades-modern');
+  const [activeThemeSlug, setActiveThemeSlug] = useState(workspace.themeId || themeBundle.theme?.id || 'samir-theme');
+  const [selectedThemeToApply, setSelectedThemeToApply] = useState(workspace.themeId || themeBundle.theme?.id || 'samir-theme');
   const [availableThemes, setAvailableThemes] = useState([]);
   const [isChangingTheme, setIsChangingTheme] = useState(false);
+  const [themeFeedback, setThemeFeedback] = useState(null);
 
   useEffect(() => {
     async function loadThemes() {
@@ -47,33 +49,57 @@ export default function WorkspacePageList({
     loadThemes();
   }, []);
 
-  async function handleThemeChange(e) {
-    const newSlug = e.target.value;
-    setActiveThemeSlug(newSlug);
+  async function applyTheme(targetSlug) {
+    const slug = targetSlug || selectedThemeToApply;
+    if (!slug) return;
+
     setIsChangingTheme(true);
+    setThemeFeedback({
+      type: 'info',
+      message: `Applying theme "${slug}" and syncing to WordPress...`
+    });
+
     try {
       const res = await fetch(`/api/workspace/${workspace.workspaceId}/theme`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ themeSlug: newSlug })
+        body: JSON.stringify({ themeSlug: slug })
       });
       const data = await res.json();
       if (!res.ok || !data.success) {
         throw new Error(data.error || 'Failed to update theme');
       }
-      setPublishAlert({
-        type: 'success',
-        message: `Workspace theme switched to "${data.theme?.name || newSlug}". Reloading styles...`
+
+      setActiveThemeSlug(slug);
+      setSelectedThemeToApply(slug);
+
+      const wpStatus = data.wpSync?.synced
+        ? 'Theme applied and live on WordPress!'
+        : (data.wpSync?.error ? `Theme applied locally (WP notice: ${data.wpSync.error})` : 'Theme applied to workspace.');
+
+      setThemeFeedback({
+        type: data.wpSync?.synced ? 'success' : 'info',
+        message: `✓ ${data.theme?.name || slug}: ${wpStatus}`
       });
+
+      // Clear feedback after 6 seconds
+      setTimeout(() => {
+        setThemeFeedback(prev => (prev?.message?.includes(slug) ? null : prev));
+      }, 6000);
+
       router.refresh();
     } catch (err) {
-      setPublishAlert({
+      setThemeFeedback({
         type: 'danger',
-        message: `Failed to change theme: ${err.message}`
+        message: `Failed to apply theme: ${err.message}`
       });
     } finally {
       setIsChangingTheme(false);
     }
+  }
+
+  function handleThemeSelectChange(e) {
+    setSelectedThemeToApply(e.target.value);
   }
 
   // Filters State
@@ -632,7 +658,7 @@ export default function WorkspacePageList({
         availableThemes={availableThemes}
         isChangingTheme={isChangingTheme}
         isPublishing={isPublishing}
-        onThemeChange={handleThemeChange}
+        onThemeChange={applyTheme}
         onOpenAddPage={() => setIsAddPageDrawerOpen(true)}
         onOpenComponentLibrary={() => setIsComponentModalOpen(true)}
         onOpenImportDrawer={() => setIsImportDrawerOpen(true)}
@@ -648,6 +674,55 @@ export default function WorkspacePageList({
             <span className="badge bg-primary-subtle text-primary border border-primary-subtle" style={{ fontSize: '11px', fontWeight: 600 }}>
               {filteredAndSortedPages.length} displayed
             </span>
+          </div>
+
+          {/* Direct Workspace Header Theme Applicator */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#f8fafc', padding: '4px 12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+            <span style={{ fontSize: '12px', fontWeight: 600, color: '#334155', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <span>🎨</span> Theme:
+            </span>
+            <select
+              className="form-select form-select-sm"
+              style={{ minWidth: '150px', fontSize: '12px', height: '30px', padding: '2px 8px', fontWeight: 500 }}
+              value={selectedThemeToApply}
+              onChange={handleThemeSelectChange}
+              disabled={isChangingTheme || isPublishing}
+            >
+              {availableThemes.length === 0 ? (
+                <option value={activeThemeSlug}>{activeThemeSlug}</option>
+              ) : (
+                availableThemes.map(t => (
+                  <option key={t.slug} value={t.slug}>
+                    {t.name || t.slug} {t.slug === activeThemeSlug ? ' (Active)' : ''}
+                  </option>
+                ))
+              )}
+            </select>
+            <button
+              type="button"
+              className="btn btn-sm btn-dark"
+              style={{ fontSize: '11px', fontWeight: 600, padding: '4px 12px', display: 'inline-flex', alignItems: 'center', gap: '4px', height: '30px' }}
+              disabled={isChangingTheme || isPublishing}
+              onClick={() => applyTheme(selectedThemeToApply)}
+              title="Apply theme to workspace and sync directly to WordPress"
+            >
+              {isChangingTheme ? (
+                <>
+                  <Spinner size="sm" animation="border" style={{ width: '12px', height: '12px' }} />
+                  <span>Applying...</span>
+                </>
+              ) : (
+                <>
+                  <span>✓</span>
+                  <span>Apply Theme</span>
+                </>
+              )}
+            </button>
+            {activeThemeSlug && (
+              <span className="badge bg-success-subtle text-success border border-success-subtle" style={{ fontSize: '11px', fontWeight: 600, padding: '5px 8px' }} title="Active theme on WordPress">
+                Active: {availableThemes.find(t => t.slug === activeThemeSlug)?.name || activeThemeSlug}
+              </span>
+            )}
           </div>
 
           <div className="ws-topbar-right">
@@ -671,6 +746,20 @@ export default function WorkspacePageList({
             </button>
           </div>
         </header>
+
+        {/* Instant Theme Application Feedback Banner */}
+        {themeFeedback && (
+          <div style={{ padding: '10px 24px 0 24px' }}>
+            <Alert
+              variant={themeFeedback.type}
+              dismissible
+              onClose={() => setThemeFeedback(null)}
+              style={{ margin: 0, fontSize: '13px', padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}
+            >
+              <span>{themeFeedback.message}</span>
+            </Alert>
+          </div>
+        )}
 
         {/* Main Container */}
         <main className="ws-main-content">

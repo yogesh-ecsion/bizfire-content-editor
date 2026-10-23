@@ -1,0 +1,48 @@
+{
+  "image": {
+    "src": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+    "alt": "Residential home in a landscaped neighborhood"
+  },
+  "badgeTitle": "Local HVAC Service",
+  "badgeDescription": "Heating and cooling support for homes and businesses.",
+  "eyebrow": "OUR SERVICE AREA",
+  "title": "HVAC Services in Princeton, NJ",
+  "subtitle": "Serving Homes and Businesses Across Mercer County",
+  "description": "Looking for heating or air conditioning service in Princeton or nearby communities? Contact our team to discuss your HVAC needs and confirm service availability at your location.",
+  "locations": [
+    {
+      "_id": "hvac-service-area-map-grid-item-01",
+      "name": "Princeton, NJ",
+      "icon": "fa-location-dot"
+    },
+    {
+      "_id": "hvac-service-area-map-grid-item-02",
+      "name": "West Windsor, NJ",
+      "icon": "fa-location-dot"
+    },
+    {
+      "_id": "hvac-service-area-map-grid-item-03",
+      "name": "Plainsboro, NJ",
+      "icon": "fa-location-dot"
+    },
+    {
+      "_id": "hvac-service-area-map-grid-item-04",
+      "name": "Lawrence Township, NJ",
+      "icon": "fa-location-dot"
+    },
+    {
+      "_id": "hvac-service-area-map-grid-item-05",
+      "name": "Hopewell, NJ",
+      "icon": "fa-location-dot"
+    },
+    {
+      "_id": "hvac-service-area-map-grid-item-06",
+      "name": "Nearby Mercer County communities",
+      "icon": "fa-location-dot"
+    }
+  ],
+  "primaryButtonText": "Request HVAC Service",
+  "primaryButtonUrl": "#schedule",
+  "secondaryLinkText": "Contact Our Team",
+  "secondaryLinkUrl": "#contact"
+}

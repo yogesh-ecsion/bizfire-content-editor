@@ -9,7 +9,6 @@ import ComponentPickerModal from './ComponentPickerModal';
 import ThemeEditorOffcanvas from './themes/ThemeEditorOffcanvas';
 import { compileHeader } from '@/lib/headerCompiler.js';
 import { compileFooter } from '@/lib/footerCompiler.js';
-import PreviewCanvasFrame from './PreviewCanvasFrame';
 
 function generateUniqueId(prefix = 'id') {
   if (typeof crypto !== 'undefined' && crypto.randomUUID) {
@@ -472,6 +471,13 @@ export default function Editor({
     return pageData?.templateId || templates[0]?.id || '';
   });
 
+  // Stashed / Inactive sections preserved across layout/template changes
+  const [stashedSections, setStashedSections] = useState(() => {
+    return Array.isArray(pageData?.stashedSections) ? pageData.stashedSections : [];
+  });
+  const [isStashOpen, setIsStashOpen] = useState(false);
+  const [templateNotice, setTemplateNotice] = useState(null);
+
   // Workspace-specific editing state
   const [activePostId, setActivePostId] = useState(() => {
     return (pageData?.postId && !isNaN(Number(pageData.postId))) ? Number(pageData.postId) : null;
@@ -591,7 +597,8 @@ export default function Editor({
           title: pageTitle,
           slug: pageSlug,
           templateId: activeTemplateId || pageData.templateId,
-          sections: page
+          sections: page,
+          stashedSections: stashedSections
         })
       });
 
@@ -610,7 +617,7 @@ export default function Editor({
     } finally {
       setIsSaving(false);
     }
-  }, [mode, workspace, pageData, activePostId, pageTitle, pageSlug, activeTemplateId, page]);
+  }, [mode, workspace, pageData, activePostId, pageTitle, pageSlug, activeTemplateId, page, stashedSections]);
 
   const handlePublish = useCallback(async () => {
     if (mode !== 'workspace' || !workspace || !pageData) return;
@@ -626,7 +633,7 @@ export default function Editor({
             const parsed = JSON.parse(stored);
             apiKey = parsed?.state?.apiKey || parsed?.apiKey || '';
           }
-        } catch (_) {}
+        } catch (_) { }
       }
 
       const resolvedRowGuid = pageData.rowGuid || pageData.pageGuid || (isNaN(Number(pageData.postId)) ? pageData.postId : undefined);
@@ -642,6 +649,7 @@ export default function Editor({
           slug: pageSlug,
           templateId: activeTemplateId || pageData.templateId,
           sections: page,
+          stashedSections: stashedSections,
           apiKey: apiKey || undefined,
         })
       });
@@ -668,7 +676,7 @@ export default function Editor({
         });
       } else {
         // Append cache buster so clicking View Live immediately displays fresh server render
-        const liveUrlWithBuster = data.liveUrl 
+        const liveUrlWithBuster = data.liveUrl
           ? (data.liveUrl.includes('?') ? `${data.liveUrl}&_t=${Date.now()}` : `${data.liveUrl}?_t=${Date.now()}`)
           : '';
 
@@ -874,6 +882,17 @@ export default function Editor({
     return { content, media, style };
   }, [schemaEntries]);
 
+  // Sibling layout variations for the currently selected section
+  const siblingVariants = useMemo(() => {
+    if (!selectedDef) return [];
+    const cat = (selectedDef.category || '').toLowerCase().trim();
+    if (!cat) return [];
+    return Object.values(library).filter(comp => {
+      const compCat = (comp.category || '').toLowerCase().trim();
+      return compCat === cat;
+    });
+  }, [selectedDef, library]);
+
   const displayedFields = useMemo(() => {
     const q = fieldSearch.toLowerCase().trim();
     let base = schemaEntries;
@@ -1062,7 +1081,7 @@ export default function Editor({
     setDropPosition(null);
   };
 
-  // Load a complete Page Template skeleton
+  // Load a complete Page Template skeleton with non-destructive content preservation
   function loadTemplate(templateId) {
     recordDiscreteAction();
     setIsDirty(true);
@@ -1070,18 +1089,94 @@ export default function Editor({
     if (!template) return;
     setActiveTemplateId(templateId);
 
-    const newPage = (template.components || []).map((compRef, idx) => {
-      const compDef = library[compRef.type];
-      const instanceId = `inst_${Date.now()}_${idx + 1}`;
-      const content = compDef?.defaults
-        ? structuredClone(compDef.defaults)
-        : (compDef?.schema ? emptyObjectFromSchema(compDef.schema) : {});
-      return { instanceId, type: compRef.type, content };
-    });
+    // Non-destructively match existing sections to target template
+    const { newSections, stashedSections: newlyStashed } = matchSectionsForTemplate(
+      page,
+      template.components || [],
+      library
+    );
 
-    setPage(newPage);
-    setSelectedId(newPage[0]?.instanceId || '');
+    setPage(newSections);
+    setSelectedId(newSections[0]?.instanceId || '');
+
+    if (newlyStashed.length > 0) {
+      setStashedSections(prev => [...newlyStashed, ...prev]);
+      setIsStashOpen(true);
+      setTemplateNotice({
+        type: 'info',
+        text: `Applied "${template.name}". ${newlyStashed.length} unmapped section${newlyStashed.length > 1 ? 's' : ''} moved to Stash.`
+      });
+      setTimeout(() => setTemplateNotice(null), 6000);
+    } else {
+      setTemplateNotice({
+        type: 'success',
+        text: `Template "${template.name}" applied with your content preserved!`
+      });
+      setTimeout(() => setTemplateNotice(null), 4000);
+    }
   }
+
+  // Restore a stashed section back into the active page canvas
+  const restoreStashedSection = (instanceId) => {
+    recordDiscreteAction();
+    setIsDirty(true);
+    const item = stashedSections.find(x => x.instanceId === instanceId);
+    if (!item) return;
+
+    setStashedSections(prev => prev.filter(x => x.instanceId !== instanceId));
+
+    const restored = {
+      instanceId: item.instanceId || `inst_${Date.now()}`,
+      type: item.type,
+      content: item.content || {},
+      hidden: false
+    };
+
+    setPage(prev => [...prev, restored]);
+    setSelectedId(restored.instanceId);
+    setTemplateNotice({
+      type: 'success',
+      text: `Restored "${library[item.type]?.name || item.type}" to active page!`
+    });
+    setTimeout(() => setTemplateNotice(null), 3000);
+  };
+
+  // Permanently remove a section from stash
+  const deleteStashedSection = (instanceId) => {
+    recordDiscreteAction();
+    setIsDirty(true);
+    setStashedSections(prev => prev.filter(x => x.instanceId !== instanceId));
+  };
+
+  // Swap section layout variant while preserving all user-customized fields
+  const swapSectionVariant = (instanceId, newType) => {
+    recordDiscreteAction();
+    setIsDirty(true);
+
+    const targetDef = library[newType];
+    if (!targetDef) return;
+
+    setPage(prevPage => prevPage.map(sec => {
+      if (sec.instanceId !== instanceId) return sec;
+
+      const mergedContent = mergeVariantProps(
+        sec.content || {},
+        targetDef.defaults || {}
+      );
+
+      return {
+        ...sec,
+        type: newType,
+        content: mergedContent
+      };
+    }));
+
+    setTemplateNotice({
+      type: 'success',
+      text: `Swapped to "${targetDef.name}". Your content was preserved!`
+    });
+    setTimeout(() => setTemplateNotice(null), 3000);
+  };
 
   // Backward compatibility alias
   const loadVariant = loadTemplate;
@@ -1442,6 +1537,13 @@ ${renderedSections}
       <div className={`page-editor-grid ${isPreviewFullView ? 'is-full-preview' : ''}`}>
         {/* Left Sidebar: Page Composition & Template Selector */}
         <aside ref={leftPanelRef} className="component-list-panel">
+          {templateNotice && (
+            <div className={`template-notice-banner template-notice--${templateNotice.type}`}>
+              <span>{templateNotice.text}</span>
+              <button type="button" onClick={() => setTemplateNotice(null)}>×</button>
+            </div>
+          )}
+
           {pageTemplates.length > 0 && (
             <div className="variant-selector-box">
               <label>PAGE TEMPLATE</label>
@@ -1594,6 +1696,59 @@ ${renderedSections}
             </div>
           </div>
 
+          {/* Stashed / Inactive Sections Drawer (Option B) */}
+          {stashedSections.length > 0 && (
+            <div className="stashed-sections-drawer">
+              <div
+                className="stashed-drawer-header"
+                onClick={() => setIsStashOpen(!isStashOpen)}
+                title="Click to expand/collapse stashed sections"
+              >
+                <div className="stashed-drawer-title">
+                  <span className="stashed-icon">📦</span>
+                  <strong>STASHED SECTIONS ({stashedSections.length})</strong>
+                </div>
+                <span className="stashed-chevron">{isStashOpen ? '▲' : '▼'}</span>
+              </div>
+
+              {isStashOpen && (
+                <div className="stashed-list">
+                  <p className="stashed-hint">Preserved from previous layouts. Restore to canvas or delete permanently.</p>
+                  {stashedSections.map((item, idx) => {
+                    const def = library[item.type];
+                    const titleSnippet = item.content?.title || item.content?.heading || item.type;
+                    return (
+                      <div key={item.instanceId || `stash_${idx}`} className="stashed-item-card">
+                        <div className="stashed-item-info">
+                          <span className="stashed-item-type">{def?.name || item.type}</span>
+                          <span className="stashed-item-snippet">{String(titleSnippet).length > 25 ? `${String(titleSnippet).slice(0, 25)}…` : String(titleSnippet)}</span>
+                        </div>
+                        <div className="stashed-item-actions">
+                          <button
+                            type="button"
+                            className="btn-stash-restore"
+                            onClick={() => restoreStashedSection(item.instanceId)}
+                            title="Restore section to page canvas"
+                          >
+                            Restore
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-stash-delete"
+                            onClick={() => deleteStashedSection(item.instanceId)}
+                            title="Delete permanently"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="sidebar-tools-box">
             <details>
               <summary>Page JSON State</summary>
@@ -1622,6 +1777,43 @@ ${renderedSections}
                     </span>
                   </div>
                   <span>Inferred from <code>{selectedDef.id}/schema.json</code></span>
+
+                  {/* Option A: Sibling Layout Variations Bar */}
+                  {siblingVariants.length >= 2 && (
+                    <div className="variant-thumbnails-section">
+                      <div className="variant-thumbnails-header">
+                        <span className="variant-thumbnails-label">LAYOUT VARIATIONS ({siblingVariants.length})</span>
+                        <span className="variant-thumbnails-sub">Click to swap style & preserve copy</span>
+                      </div>
+                      <div className="variant-thumbnails-row">
+                        {siblingVariants.map(variant => {
+                          const isActive = variant.id === selected.type;
+                          const wireframeSvg = getLayoutSvgWireframe(variant.id, variant.category);
+
+                          return (
+                            <button
+                              key={variant.id}
+                              type="button"
+                              className={`variant-card ${isActive ? 'is-active' : ''}`}
+                              onClick={() => {
+                                if (!isActive) swapSectionVariant(selected.instanceId, variant.id);
+                              }}
+                              title={`${variant.name} (${variant.id})`}
+                            >
+                              <div
+                                className="variant-card-thumbnail"
+                                dangerouslySetInnerHTML={{ __html: wireframeSvg }}
+                              />
+                              <div className="variant-card-meta">
+                                <span className="variant-card-name">{variant.name}</span>
+                                {isActive && <span className="variant-badge-active">Active</span>}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
 
                   {schemaEntries.length >= 3 && (
                     <div className="inspector-search-wrap">
@@ -1880,249 +2072,249 @@ ${renderedSections}
               iframeRef={previewIframeRef}
             >
 
-            {mode === 'workspace' && (
-              showHeaderFooterPreview && compiledHeader ? (
-                <div
-                  className="editor-shell-preview-wrapper header-preview-wrapper"
-                  onClickCapture={(e) => {
-                    const anchor = e.target.closest('a');
-                    if (anchor) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      return;
-                    }
-                    const button = e.target.closest('button');
-                    if (button && !button.classList.contains('bizfire-hamburger-toggle')) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                    }
-                  }}
-                >
-                  <div className="editor-shell-preview-bar top">
-                    <div className="shell-preview-meta">
-                      <span className="shell-preview-dot"></span>
-                      <strong>Site Header</strong>
-                      <span className="shell-preview-badge">Readonly Preview</span>
-                    </div>
-                    {workspace?.workspaceId && (
-                      <Link
-                        href={`/editor/${workspace.workspaceId}/header`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="shell-preview-link"
-                        title="Edit Header & Navigation in Studio (Opens in new tab)"
-                      >
-                        Edit Header Studio ↗
-                      </Link>
-                    )}
-                  </div>
+              {mode === 'workspace' && (
+                showHeaderFooterPreview && compiledHeader ? (
                   <div
-                    className="editor-shell-preview-content"
-                    dangerouslySetInnerHTML={{
-                      __html: `${compiledHeader.css}\n${compiledHeader.html}`,
-                    }}
-                  />
-                </div>
-              ) : (
-                <div className="wp-preview-shell-banner top">
-                  <span>WordPress Theme Header & Navigation</span>
-                  <small>Provided by client's active WordPress theme</small>
-                </div>
-              )
-            )}
-
-            {page.map((item, idx) => {
-              const def = library[item.type];
-              const isSelected = item.instanceId === selectedId;
-
-              if (item.hidden) {
-                return (
-                  <div
-                    key={item.instanceId}
-                    data-instance-id={item.instanceId}
-                    className={`preview-component preview-component--hidden ${isSelected ? 'is-selected' : ''}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      selectComponent(item.instanceId, 'canvas');
+                    className="editor-shell-preview-wrapper header-preview-wrapper"
+                    onClickCapture={(e) => {
+                      const anchor = e.target.closest('a');
+                      if (anchor) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return;
+                      }
+                      const button = e.target.closest('button');
+                      if (button && !button.classList.contains('bizfire-hamburger-toggle')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                      }
                     }}
                   >
-                    <div className="preview-hidden-banner">
-                      <div className="preview-hidden-banner-info">
-                        <span className="hidden-icon">👁️‍🗨️</span>
-                        <div>
-                          <strong>{def?.name || item.type} (Hidden)</strong>
-                          <small>This section is hidden and will not appear on published page</small>
-                        </div>
+                    <div className="editor-shell-preview-bar top">
+                      <div className="shell-preview-meta">
+                        <span className="shell-preview-dot"></span>
+                        <strong>Site Header</strong>
+                        <span className="shell-preview-badge">Readonly Preview</span>
                       </div>
-                      <button
-                        type="button"
-                        className="btn-unhide-section"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleSectionVisibility(item.instanceId);
-                        }}
-                      >
-                        Unhide Section
-                      </button>
+                      {workspace?.workspaceId && (
+                        <Link
+                          href={`/editor/${workspace.workspaceId}/header`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="shell-preview-link"
+                          title="Edit Header & Navigation in Studio (Opens in new tab)"
+                        >
+                          Edit Header Studio ↗
+                        </Link>
+                      )}
                     </div>
+                    <div
+                      className="editor-shell-preview-content"
+                      dangerouslySetInnerHTML={{
+                        __html: `${compiledHeader.css}\n${compiledHeader.html}`,
+                      }}
+                    />
                   </div>
-                );
-              }
+                ) : (
+                  <div className="wp-preview-shell-banner top">
+                    <span>WordPress Theme Header & Navigation</span>
+                    <small>Provided by client's active WordPress theme</small>
+                  </div>
+                )
+              )}
 
-              if (!def) {
+              {page.map((item, idx) => {
+                const def = library[item.type];
+                const isSelected = item.instanceId === selectedId;
+
+                if (item.hidden) {
+                  return (
+                    <div
+                      key={item.instanceId}
+                      data-instance-id={item.instanceId}
+                      className={`preview-component preview-component--hidden ${isSelected ? 'is-selected' : ''}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        selectComponent(item.instanceId, 'canvas');
+                      }}
+                    >
+                      <div className="preview-hidden-banner">
+                        <div className="preview-hidden-banner-info">
+                          <span className="hidden-icon">👁️‍🗨️</span>
+                          <div>
+                            <strong>{def?.name || item.type} (Hidden)</strong>
+                            <small>This section is hidden and will not appear on published page</small>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          className="btn-unhide-section"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleSectionVisibility(item.instanceId);
+                          }}
+                        >
+                          Unhide Section
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+
+                if (!def) {
+                  return (
+                    <div
+                      key={item.instanceId}
+                      data-instance-id={item.instanceId}
+                      className={`preview-component preview-component-missing ${isSelected ? 'is-selected' : ''}`}
+                      onClick={(e) => {
+                        const linkOrBtn = e.target.closest('a, button');
+                        if (linkOrBtn) e.preventDefault();
+                        selectComponent(item.instanceId, 'canvas');
+                      }}
+                    >
+                      <span>⚠️ Component <code>{item.type}</code> not found in active theme</span>
+                    </div>
+                  );
+                }
+
+                const html = Handlebars.compile(def.template)(item.content);
+
                 return (
                   <div
                     key={item.instanceId}
                     data-instance-id={item.instanceId}
-                    className={`preview-component preview-component-missing ${isSelected ? 'is-selected' : ''}`}
+                    className={`preview-component ${isSelected ? 'is-selected' : ''}`}
                     onClick={(e) => {
                       const linkOrBtn = e.target.closest('a, button');
                       if (linkOrBtn) e.preventDefault();
                       selectComponent(item.instanceId, 'canvas');
                     }}
                   >
-                    <span>⚠️ Component <code>{item.type}</code> not found in active theme</span>
+                    {isSelected && (
+                      <div className="preview-floating-toolbar" onClick={e => e.stopPropagation()}>
+                        <div className="preview-floating-title">
+                          <span className="preview-floating-index">#{idx + 1}</span>
+                          <span className="preview-floating-name">{def.name}</span>
+                        </div>
+
+                        <div className="preview-floating-divider" />
+
+                        <div className="preview-floating-actions">
+                          <button
+                            type="button"
+                            className="btn-floating-action"
+                            disabled={idx === 0}
+                            onClick={(e) => { e.stopPropagation(); moveSection(item.instanceId, -1); }}
+                            title="Move section up"
+                          >
+                            ↑
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-floating-action"
+                            disabled={idx === page.length - 1}
+                            onClick={(e) => { e.stopPropagation(); moveSection(item.instanceId, 1); }}
+                            title="Move section down"
+                          >
+                            ↓
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-floating-action"
+                            onClick={(e) => { e.stopPropagation(); duplicateSection(item.instanceId); }}
+                            title="Duplicate section"
+                          >
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                            </svg>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-floating-action"
+                            onClick={(e) => { e.stopPropagation(); toggleSectionVisibility(item.instanceId); }}
+                            title="Hide section from page"
+                          >
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                              <circle cx="12" cy="12" r="3" />
+                            </svg>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-floating-action btn-floating-add"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setIsComponentPickerOpen(true);
+                            }}
+                            title="Insert new component below"
+                          >
+                            ＋ Add Below
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-floating-action btn-floating-danger"
+                            onClick={(e) => { e.stopPropagation(); removeSection(item.instanceId); }}
+                            title="Remove section"
+                          >
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="3 6 5 6 21 6" />
+                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                    <div className="preview-component-content" dangerouslySetInnerHTML={{ __html: html }} />
                   </div>
                 );
-              }
+              })}
 
-              const html = Handlebars.compile(def.template)(item.content);
-
-              return (
-                <div
-                  key={item.instanceId}
-                  data-instance-id={item.instanceId}
-                  className={`preview-component ${isSelected ? 'is-selected' : ''}`}
-                  onClick={(e) => {
-                    const linkOrBtn = e.target.closest('a, button');
-                    if (linkOrBtn) e.preventDefault();
-                    selectComponent(item.instanceId, 'canvas');
-                  }}
-                >
-                  {isSelected && (
-                    <div className="preview-floating-toolbar" onClick={e => e.stopPropagation()}>
-                      <div className="preview-floating-title">
-                        <span className="preview-floating-index">#{idx + 1}</span>
-                        <span className="preview-floating-name">{def.name}</span>
-                      </div>
-
-                      <div className="preview-floating-divider" />
-
-                      <div className="preview-floating-actions">
-                        <button
-                          type="button"
-                          className="btn-floating-action"
-                          disabled={idx === 0}
-                          onClick={(e) => { e.stopPropagation(); moveSection(item.instanceId, -1); }}
-                          title="Move section up"
-                        >
-                          ↑
-                        </button>
-                        <button
-                          type="button"
-                          className="btn-floating-action"
-                          disabled={idx === page.length - 1}
-                          onClick={(e) => { e.stopPropagation(); moveSection(item.instanceId, 1); }}
-                          title="Move section down"
-                        >
-                          ↓
-                        </button>
-                        <button
-                          type="button"
-                          className="btn-floating-action"
-                          onClick={(e) => { e.stopPropagation(); duplicateSection(item.instanceId); }}
-                          title="Duplicate section"
-                        >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                          </svg>
-                        </button>
-                        <button
-                          type="button"
-                          className="btn-floating-action"
-                          onClick={(e) => { e.stopPropagation(); toggleSectionVisibility(item.instanceId); }}
-                          title="Hide section from page"
-                        >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                            <circle cx="12" cy="12" r="3" />
-                          </svg>
-                        </button>
-                        <button
-                          type="button"
-                          className="btn-floating-action btn-floating-add"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setIsComponentPickerOpen(true);
-                          }}
-                          title="Insert new component below"
-                        >
-                          ＋ Add Below
-                        </button>
-                        <button
-                          type="button"
-                          className="btn-floating-action btn-floating-danger"
-                          onClick={(e) => { e.stopPropagation(); removeSection(item.instanceId); }}
-                          title="Remove section"
-                        >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                  <div className="preview-component-content" dangerouslySetInnerHTML={{ __html: html }} />
-                </div>
-              );
-            })}
-
-            {mode === 'workspace' && (
-              showHeaderFooterPreview && compiledFooter ? (
-                <div
-                  className="editor-shell-preview-wrapper footer-preview-wrapper"
-                  onClickCapture={(e) => {
-                    const anchor = e.target.closest('a');
-                    if (anchor) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                    }
-                  }}
-                >
-                  <div className="editor-shell-preview-bar bottom">
-                    <div className="shell-preview-meta">
-                      <span className="shell-preview-dot"></span>
-                      <strong>Site Footer</strong>
-                      <span className="shell-preview-badge">Readonly Preview</span>
-                    </div>
-                    {workspace?.workspaceId && (
-                      <Link
-                        href={`/editor/${workspace.workspaceId}/footer`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="shell-preview-link"
-                        title="Edit Footer in Studio (Opens in new tab)"
-                      >
-                        Edit Footer Studio ↗
-                      </Link>
-                    )}
-                  </div>
+              {mode === 'workspace' && (
+                showHeaderFooterPreview && compiledFooter ? (
                   <div
-                    className="editor-shell-preview-content"
-                    dangerouslySetInnerHTML={{
-                      __html: `${compiledFooter.css}\n${compiledFooter.html}`,
+                    className="editor-shell-preview-wrapper footer-preview-wrapper"
+                    onClickCapture={(e) => {
+                      const anchor = e.target.closest('a');
+                      if (anchor) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                      }
                     }}
-                  />
-                </div>
-              ) : (
-                <div className="wp-preview-shell-banner bottom">
-                  <span>WordPress Theme Footer & Copyright</span>
-                  <small>Provided by client's active WordPress theme</small>
-                </div>
-              )
-            )}
+                  >
+                    <div className="editor-shell-preview-bar bottom">
+                      <div className="shell-preview-meta">
+                        <span className="shell-preview-dot"></span>
+                        <strong>Site Footer</strong>
+                        <span className="shell-preview-badge">Readonly Preview</span>
+                      </div>
+                      {workspace?.workspaceId && (
+                        <Link
+                          href={`/editor/${workspace.workspaceId}/footer`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="shell-preview-link"
+                          title="Edit Footer in Studio (Opens in new tab)"
+                        >
+                          Edit Footer Studio ↗
+                        </Link>
+                      )}
+                    </div>
+                    <div
+                      className="editor-shell-preview-content"
+                      dangerouslySetInnerHTML={{
+                        __html: `${compiledFooter.css}\n${compiledFooter.html}`,
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <div className="wp-preview-shell-banner bottom">
+                    <span>WordPress Theme Footer & Copyright</span>
+                    <small>Provided by client's active WordPress theme</small>
+                  </div>
+                )
+              )}
             </PreviewCanvasFrame>
           </div>
 

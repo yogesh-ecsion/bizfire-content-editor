@@ -1,0 +1,78 @@
+<section class="section hvac-faq-section" id="faq" aria-labelledby="faq-title">
+    <div class="container">
+        <div class="hvac-faq-layout">
+
+            <!-- LEFT: SECTION INTRO -->
+            <div class="hvac-faq-intro">
+                <div class="section-header">
+                    {{#if eyebrow}}
+                    <span class="section-eyebrow">{{eyebrow}}</span>
+                    {{/if}}
+
+                    {{#if title}}
+                    <h2 class="section-title" id="faq-title">
+                        {{{title}}}
+                    </h2>
+                    {{/if}}
+
+                    {{#if subtitle}}
+                    <h3 class="section-subtitle">
+                        {{{subtitle}}}
+                    </h3>
+                    {{/if}}
+
+                    {{#if description}}
+                    <p class="section-description">
+                        {{description}}
+                    </p>
+                    {{/if}}
+                </div>
+
+                {{#if image.src}}
+                <img class="hvac-faq-image"
+                    src="{{image.src}}"
+                    alt="{{image.alt}}" width="1000" height="600"
+                    loading="lazy">
+                {{/if}}
+            </div>
+
+            <!-- RIGHT: FAQ ACCORDION -->
+            <div class="hvac-faq-content">
+                <div class="hvac-faq-list">
+                    {{#each faqs}}
+                    <div class="hvac-faq-item">
+                        <button class="hvac-faq-question" id="faq-question-{{@index}}" type="button"
+                            aria-expanded="{{#if @first}}true{{else}}false{{/if}}" aria-controls="faq-answer-{{@index}}">
+                            <span>{{question}}</span>
+                            <i class="fa-solid fa-chevron-down hvac-faq-icon" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="hvac-faq-answer" id="faq-answer-{{@index}}" role="region"
+                            aria-labelledby="faq-question-{{@index}}" {{#unless @first}}hidden{{/unless}}>
+                            <p>
+                                {{answer}}
+                            </p>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+
+                {{#if ctaButtonText}}
+                <div class="hvac-faq-cta">
+                    {{#if ctaText}}
+                    <p>
+                        {{ctaText}}
+                    </p>
+                    {{/if}}
+
+                    <a href="{{ctaButtonUrl}}" class="btn btn-primary">
+                        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                        {{ctaButtonText}}
+                    </a>
+                </div>
+                {{/if}}
+            </div>
+
+        </div>
+    </div>
+</section>

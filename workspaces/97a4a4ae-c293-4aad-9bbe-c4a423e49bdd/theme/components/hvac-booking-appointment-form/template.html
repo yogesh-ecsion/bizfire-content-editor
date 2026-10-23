@@ -1,0 +1,181 @@
+<section class="section hvac-booking-section" id="schedule" aria-labelledby="booking-title">
+    <div class="container">
+
+        <!-- SECTION HEADER -->
+        <div class="section-header text-center">
+            {{#if eyebrow}}
+            <span class="section-eyebrow">{{eyebrow}}</span>
+            {{/if}}
+
+            <h2 class="section-title" id="booking-title">
+                {{{title}}}
+            </h2>
+
+            {{#if subtitle}}
+            <h3 class="section-subtitle">
+                {{subtitle}}
+            </h3>
+            {{/if}}
+
+            {{#if description}}
+            <p class="section-description">
+                {{description}}
+            </p>
+            {{/if}}
+        </div>
+
+        <div class="section-content">
+            <div class="hvac-booking-layout">
+
+                <!-- LEFT: SERVICE REQUEST FORM -->
+                <div class="hvac-booking-form-wrap">
+
+                    {{#if formTitle}}
+                    <h3 class="section-subtitle">{{formTitle}}</h3>
+                    {{/if}}
+
+                    {{#if formDescription}}
+                    <p class="hvac-booking-description">
+                        {{formDescription}}
+                    </p>
+                    {{/if}}
+
+                    <!-- Connect this form to your form handler before publishing -->
+                    <form class="hvac-form" action="{{#if formAction}}{{formAction}}{{else}}/api/service-request{{/if}}" method="post"
+                        aria-describedby="hvac-form-note">
+
+                        <div class="hvac-form-row">
+
+                            <div class="hvac-form-group">
+                                <label class="hvac-form-label" for="hvac-name">
+                                    Full Name *
+                                </label>
+
+                                <input class="hvac-form-control" type="text" id="hvac-name" name="name"
+                                    autocomplete="name" placeholder="Your full name" required>
+                            </div>
+
+                            <div class="hvac-form-group">
+                                <label class="hvac-form-label" for="hvac-phone">
+                                    Phone Number *
+                                </label>
+
+                                <input class="hvac-form-control" type="tel" id="hvac-phone" name="phone"
+                                    autocomplete="tel" placeholder="Your phone number" required>
+                            </div>
+
+                        </div>
+
+                        <div class="hvac-form-group">
+                            <label class="hvac-form-label" for="hvac-email">
+                                Email Address
+                            </label>
+
+                            <input class="hvac-form-control" type="email" id="hvac-email" name="email"
+                                autocomplete="email" placeholder="you@example.com">
+                        </div>
+
+                        <div class="hvac-form-row">
+
+                            <div class="hvac-form-group">
+                                <label class="hvac-form-label" for="hvac-service">
+                                    Service Needed *
+                                </label>
+
+                                <select class="hvac-form-control" id="hvac-service" name="service" required>
+                                    <option value="">Choose a service</option>
+                                    <option value="air-conditioning">Air Conditioning</option>
+                                    <option value="heating">Heating</option>
+                                    <option value="repair">HVAC Repair</option>
+                                    <option value="installation">Installation</option>
+                                    <option value="maintenance">Maintenance</option>
+                                    <option value="commercial">Commercial HVAC</option>
+                                    <option value="other">Other / Not Sure</option>
+                                </select>
+                            </div>
+
+                            <div class="hvac-form-group">
+                                <label class="hvac-form-label" for="hvac-property">
+                                    Property Type
+                                </label>
+
+                                <select class="hvac-form-control" id="hvac-property" name="property_type">
+                                    <option value="">Choose property type</option>
+                                    <option value="residential">Residential</option>
+                                    <option value="commercial">Commercial</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="hvac-form-group">
+                            <label class="hvac-form-label" for="hvac-message">
+                                How Can We Help? *
+                            </label>
+
+                            <textarea class="hvac-form-control" id="hvac-message" name="message"
+                                placeholder="Describe your heating or cooling concern..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary hvac-form-submit">
+                            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                            {{#if submitButtonText}}{{submitButtonText}}{{else}}Submit Service Request{{/if}}
+                        </button>
+
+                        {{#if formNote}}
+                        <p class="hvac-form-note" id="hvac-form-note">
+                            {{formNote}}
+                        </p>
+                        {{/if}}
+
+                    </form>
+                </div>
+
+                <!-- RIGHT: MAP & SERVICE AREA -->
+                <div class="hvac-booking-info">
+
+                    {{#if mapEmbedUrl}}
+                    <div class="hvac-map-wrap">
+                        <iframe class="hvac-map-frame"
+                            src="{{mapEmbedUrl}}"
+                            title="{{#if mapTitle}}{{mapTitle}}{{else}}Service area map{{/if}}" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+                    </div>
+                    {{/if}}
+
+                    {{#if locationTitle}}
+                    <div class="hvac-location-card">
+
+                        <div class="hvac-location-heading">
+                            <span class="hvac-location-icon" aria-hidden="true">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </span>
+
+                            <h3>{{locationTitle}}</h3>
+                        </div>
+
+                        {{#if locationDescription}}
+                        <p>
+                            {{locationDescription}}
+                        </p>
+                        {{/if}}
+
+                        {{#if locationMapUrl}}
+                        <a class="hvac-location-link"
+                            href="{{locationMapUrl}}"
+                            target="_blank" rel="noopener noreferrer">
+                            {{#if locationLinkText}}{{locationLinkText}}{{else}}Explore on Maps{{/if}}
+                            <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                        </a>
+                        {{/if}}
+
+                    </div>
+                    {{/if}}
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>

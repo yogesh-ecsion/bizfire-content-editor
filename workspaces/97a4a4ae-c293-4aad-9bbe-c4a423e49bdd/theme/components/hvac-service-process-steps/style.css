@@ -1,0 +1,117 @@
+/* HVAC SERVICE PROCESS — no type overrides */
+.hvac-process-section {
+    background: var(--light);
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.process-step {
+    height: 100%;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.process-step:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+}
+
+.process-image-wrap {
+    position: relative;
+    overflow: hidden;
+    background: var(--secondary-soft);
+}
+
+.process-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.process-step:hover .process-image {
+    transform: scale(1.04);
+}
+
+.process-step-content {
+    padding: 24px;
+}
+
+.process-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 18px;
+    color: var(--white);
+    background: var(--primary);
+    border-radius: var(--radius);
+    font-weight: 700;
+}
+
+.process-title {
+    margin: 0 0 12px;
+    color: var(--dark);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.process-description {
+    margin: 0;
+    color: var(--secondary);
+    line-height: 1.75;
+}
+
+.process-cta {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.process-cta p {
+    margin: 0 0 20px;
+    color: var(--body-color);
+    line-height: 1.7;
+}
+
+@media (max-width: 991.98px) {
+    .process-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 575.98px) {
+    .process-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .process-step-content {
+        padding: 22px;
+    }
+
+    .process-cta {
+        margin-top: 32px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .process-step,
+    .process-image {
+        transition: none;
+    }
+
+    .process-step:hover,
+    .process-step:hover .process-image {
+        transform: none;
+    }
+}

@@ -1,0 +1,132 @@
+/* HVAC SERVICE AREA */
+.hvac-area-section {
+    background: var(--light);
+}
+
+.hvac-area-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 56px;
+}
+
+.hvac-area-image-wrap {
+    position: relative;
+    min-width: 0;
+}
+
+.hvac-area-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+    border-radius: var(--radius-xl);
+    background: var(--secondary-soft);
+}
+
+.hvac-area-image-note {
+    position: absolute;
+    right: -16px;
+    bottom: 24px;
+    max-width: 240px;
+    padding: 18px 20px;
+    color: var(--white);
+    background: var(--dark);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+}
+
+.hvac-area-image-note strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.hvac-area-image-note span {
+    display: block;
+    font-size: 16px;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+.hvac-area-description {
+    margin: 0 0 24px;
+    color: var(--body-color);
+    line-height: 1.8;
+}
+
+.hvac-area-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 20px;
+    margin: 0 0 28px;
+    padding: 0;
+    list-style: none;
+}
+
+.hvac-area-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--body-color);
+    line-height: 1.6;
+}
+
+.hvac-area-list i {
+    margin-top: 5px;
+    color: var(--primary);
+}
+
+.hvac-area-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+}
+
+.hvac-area-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.hvac-area-link:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+@media (max-width: 991.98px) {
+    .hvac-area-layout {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+
+    .hvac-area-image-wrap {
+        max-width: 680px;
+    }
+
+    .hvac-area-image-note {
+        right: 16px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .hvac-area-list {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .hvac-area-image-note {
+        right: 12px;
+        bottom: 12px;
+        max-width: 220px;
+        padding: 14px 16px;
+    }
+
+    .hvac-area-cta {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
