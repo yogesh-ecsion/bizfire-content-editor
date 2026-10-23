@@ -1,0 +1,59 @@
+{
+  "eyebrow": "OUR SERVICES",
+  "title": "Complete HVAC Services for Your Comfort",
+  "subtitle": "Heating, Cooling, Installation &amp; Repair",
+  "description": "From air conditioning repairs to heating system installation, we help homeowners and businesses in Princeton, NJ and Mercer County maintain comfortable indoor spaces.",
+  "services": [
+    {
+      "_id": "hvac-services-detailed-grid-item-01",
+      "icon": "fa-snowflake",
+      "title": "Air Conditioning Services",
+      "description": "Get help with AC troubleshooting, cooling issues, system repairs and air conditioner installation.",
+      "linkText": "Explore AC Services",
+      "linkUrl": "#services"
+    },
+    {
+      "_id": "hvac-services-detailed-grid-item-02",
+      "icon": "fa-temperature-high",
+      "title": "Heating Services",
+      "description": "Heating system troubleshooting, furnace repairs and installation to help keep your space warm.",
+      "linkText": "Explore Heating Services",
+      "linkUrl": "#services"
+    },
+    {
+      "_id": "hvac-services-detailed-grid-item-03",
+      "icon": "fa-screwdriver-wrench",
+      "title": "HVAC Repair",
+      "description": "Identify heating and cooling system problems and find an appropriate repair solution.",
+      "linkText": "Explore Repair Services",
+      "linkUrl": "#services"
+    },
+    {
+      "_id": "hvac-services-detailed-grid-item-04",
+      "icon": "fa-gears",
+      "title": "HVAC Installation",
+      "description": "Explore heating and cooling system installation options for your home or commercial property.",
+      "linkText": "Explore Installation",
+      "linkUrl": "#services"
+    },
+    {
+      "_id": "hvac-services-detailed-grid-item-05",
+      "icon": "fa-calendar-check",
+      "title": "HVAC Maintenance",
+      "description": "Routine system checks and maintenance to help support reliable heating and cooling performance.",
+      "linkText": "Explore Maintenance",
+      "linkUrl": "#services"
+    },
+    {
+      "_id": "hvac-services-detailed-grid-item-06",
+      "icon": "fa-building",
+      "title": "Commercial HVAC",
+      "description": "Heating and cooling solutions for offices, business premises and other commercial spaces.",
+      "linkText": "Explore Commercial HVAC",
+      "linkUrl": "#services"
+    }
+  ],
+  "ctaText": "Need help choosing the right HVAC service?",
+  "ctaButtonText": "Schedule Service",
+  "ctaButtonUrl": "#schedule"
+}

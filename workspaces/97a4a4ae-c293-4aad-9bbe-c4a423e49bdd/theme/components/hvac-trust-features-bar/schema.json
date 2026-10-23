@@ -1,0 +1,23 @@
+{
+  "items": {
+    "type": "array",
+    "label": "Trust Features",
+    "labelField": "title",
+    "itemSchema": {
+      "icon": {
+        "type": "text",
+        "label": "Font Awesome Icon Class",
+        "default": "fa-user-gear"
+      },
+      "title": {
+        "type": "text",
+        "label": "Feature Title",
+        "required": true
+      },
+      "description": {
+        "type": "textarea",
+        "label": "Description"
+      }
+    }
+  }
+}

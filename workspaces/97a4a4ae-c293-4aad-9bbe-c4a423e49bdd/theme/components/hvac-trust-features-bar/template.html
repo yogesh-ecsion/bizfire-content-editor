@@ -1,0 +1,27 @@
+<section class="section trust-section" aria-label="HVAC service benefits">
+    <div class="container">
+        <div class="section-content">
+            <div class="trust-grid">
+                {{#each items}}
+                <div class="trust-item">
+                    {{#if icon}}
+                    <span class="trust-icon" aria-hidden="true">
+                        <i class="fa-solid {{icon}}"></i>
+                    </span>
+                    {{/if}}
+                    <div class="trust-content">
+                        {{#if title}}
+                        <h2 class="trust-title">{{title}}</h2>
+                        {{/if}}
+                        {{#if description}}
+                        <p class="trust-description">
+                            {{description}}
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</section>

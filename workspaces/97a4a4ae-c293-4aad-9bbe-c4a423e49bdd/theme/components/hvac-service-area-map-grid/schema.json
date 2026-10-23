@@ -1,0 +1,77 @@
+{
+  "image": {
+    "type": "image",
+    "label": "Featured Service Area Image",
+    "default": {
+      "src": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+      "alt": "Residential home in a landscaped neighborhood"
+    }
+  },
+  "badgeTitle": {
+    "type": "text",
+    "label": "Floating Note Badge Title",
+    "default": "Local HVAC Service"
+  },
+  "badgeDescription": {
+    "type": "text",
+    "label": "Floating Note Badge Text",
+    "default": "Heating and cooling support for homes and businesses."
+  },
+  "eyebrow": {
+    "type": "text",
+    "label": "Eyebrow Text",
+    "default": "OUR SERVICE AREA"
+  },
+  "title": {
+    "type": "text",
+    "label": "Section Title",
+    "default": "HVAC Services in Princeton, NJ"
+  },
+  "subtitle": {
+    "type": "text",
+    "label": "Section Subtitle",
+    "default": "Serving Homes and Businesses Across Mercer County"
+  },
+  "description": {
+    "type": "textarea",
+    "label": "Section Description",
+    "default": "Looking for heating or air conditioning service in Princeton or nearby communities? Contact our team to discuss your HVAC needs and confirm service availability at your location."
+  },
+  "locations": {
+    "type": "array",
+    "label": "Service Locations",
+    "labelField": "name",
+    "itemSchema": {
+      "name": {
+        "type": "text",
+        "label": "Location Name",
+        "required": true
+      },
+      "icon": {
+        "type": "text",
+        "label": "Font Awesome Icon Class",
+        "default": "fa-location-dot"
+      }
+    }
+  },
+  "primaryButtonText": {
+    "type": "text",
+    "label": "Primary Button Text",
+    "default": "Request HVAC Service"
+  },
+  "primaryButtonUrl": {
+    "type": "url",
+    "label": "Primary Button Link",
+    "default": "#schedule"
+  },
+  "secondaryLinkText": {
+    "type": "text",
+    "label": "Secondary Link Text",
+    "default": "Contact Our Team"
+  },
+  "secondaryLinkUrl": {
+    "type": "url",
+    "label": "Secondary Link URL",
+    "default": "#contact"
+  }
+}

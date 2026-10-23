@@ -1,0 +1,87 @@
+/* LIGHT FINAL CTA — no type overrides */
+.hvac-final-cta {
+    background: var(--light);
+}
+
+.hvac-final-cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: clamp(32px, 5vw, 56px);
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+}
+
+.hvac-final-cta-content {
+    max-width: 760px;
+}
+
+.hvac-final-cta-description {
+    margin: 0;
+    color: var(--secondary);
+    line-height: 1.8;
+}
+
+.hvac-final-cta-actions {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    min-width: 220px;
+}
+
+.hvac-final-cta-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px 20px;
+}
+
+.hvac-final-cta-secondary {
+    color: var(--primary);
+    background: var(--white);
+    border: 1px solid var(--primary);
+}
+
+.hvac-final-cta-secondary:hover {
+    color: var(--white);
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+@media (max-width: 767.98px) {
+    .hvac-final-cta-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .hvac-final-cta-actions {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .hvac-final-cta-actions .btn {
+        flex: 1 1 200px;
+    }
+}
+
+@media (max-width: 420px) {
+    .hvac-final-cta-inner {
+        padding: 24px 20px;
+    }
+
+    .hvac-final-cta-actions {
+        flex-direction: column;
+    }
+
+    .hvac-final-cta-actions .btn {
+        width: 100%;
+    }
+}

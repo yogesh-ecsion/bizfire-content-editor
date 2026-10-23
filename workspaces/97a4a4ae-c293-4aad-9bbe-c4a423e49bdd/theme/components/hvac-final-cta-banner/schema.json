@@ -1,0 +1,52 @@
+{
+  "eyebrow": {
+    "type": "text",
+    "label": "Eyebrow Text",
+    "default": "YOUR COMFORT STARTS HERE"
+  },
+  "title": {
+    "type": "text",
+    "label": "Heading Title",
+    "default": "Ready for Reliable Heating & Cooling?"
+  },
+  "subtitle": {
+    "type": "text",
+    "label": "Subtitle",
+    "default": "Let's Find the Right HVAC Solution for Your Property"
+  },
+  "description": {
+    "type": "textarea",
+    "label": "Description",
+    "default": "From air conditioning concerns to heating system maintenance, contact our team to discuss your needs and confirm service availability in Princeton, NJ and Mercer County."
+  },
+  "primaryButtonText": {
+    "type": "text",
+    "label": "Primary Button Text",
+    "default": "Request Service"
+  },
+  "primaryButtonUrl": {
+    "type": "url",
+    "label": "Primary Button Link",
+    "default": "#schedule"
+  },
+  "primaryButtonIcon": {
+    "type": "text",
+    "label": "Primary Button Icon",
+    "default": "fa-calendar-check"
+  },
+  "secondaryButtonText": {
+    "type": "text",
+    "label": "Secondary Button Text",
+    "default": "Explore Services"
+  },
+  "secondaryButtonUrl": {
+    "type": "url",
+    "label": "Secondary Button Link",
+    "default": "#services"
+  },
+  "secondaryButtonIcon": {
+    "type": "text",
+    "label": "Secondary Button Icon",
+    "default": "fa-screwdriver-wrench"
+  }
+}

@@ -1,0 +1,144 @@
+/* HVAC FAQ SECTION */
+.hvac-faq-section {
+    background: var(--white);
+}
+
+.hvac-faq-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: start;
+    gap: 56px;
+}
+
+.hvac-faq-intro {
+    position: sticky;
+    top: 24px;
+}
+
+.hvac-faq-image {
+    display: block;
+    width: 100%;
+    margin-top: 28px;
+    aspect-ratio: 5 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-xl);
+    background: var(--secondary-soft);
+}
+
+.hvac-faq-description {
+    margin: 0;
+    color: var(--secondary);
+    line-height: 1.8;
+}
+
+.hvac-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.hvac-faq-item {
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--white);
+}
+
+.hvac-faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    padding: 20px 22px;
+    color: var(--dark);
+    background: transparent;
+    border: 0;
+    text-align: left;
+    font: inherit;
+    font-weight: 700;
+    line-height: 1.6;
+    cursor: pointer;
+}
+
+.hvac-faq-question:hover {
+    color: var(--primary);
+}
+
+.hvac-faq-question:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: -4px;
+}
+
+.hvac-faq-icon {
+    flex: 0 0 auto;
+    color: var(--primary);
+    transition: transform 0.2s ease;
+}
+
+.hvac-faq-question[aria-expanded="true"] .hvac-faq-icon {
+    transform: rotate(180deg);
+}
+
+.hvac-faq-answer {
+    padding: 0 22px 22px;
+    color: var(--secondary);
+    line-height: 1.8;
+}
+
+.hvac-faq-answer p {
+    margin: 0;
+}
+
+.hvac-faq-cta {
+    margin-top: 28px;
+    padding: 24px;
+    background: var(--primary-soft);
+    border-radius: var(--radius-lg);
+}
+
+.hvac-faq-cta p {
+    margin: 0 0 16px;
+    color: var(--dark);
+    line-height: 1.7;
+}
+
+@media (max-width: 991.98px) {
+    .hvac-faq-layout {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+
+    .hvac-faq-intro {
+        position: static;
+    }
+
+    .hvac-faq-image {
+        max-height: 360px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .hvac-faq-layout {
+        gap: 28px;
+    }
+
+    .hvac-faq-question {
+        padding: 18px;
+        gap: 14px;
+    }
+
+    .hvac-faq-answer {
+        padding: 0 18px 18px;
+    }
+
+    .hvac-faq-cta {
+        padding: 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hvac-faq-icon {
+        transition: none;
+    }
+}

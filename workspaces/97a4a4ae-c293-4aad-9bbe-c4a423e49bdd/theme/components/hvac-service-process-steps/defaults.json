@@ -1,0 +1,51 @@
+{
+  "eyebrow": "OUR SERVICE PROCESS",
+  "title": "Simple Steps to HVAC Comfort",
+  "subtitle": "Know What to Expect at Every Step",
+  "description": "From your first service request to the recommended next steps, we aim to make your heating and cooling service straightforward with clear communication throughout the process.",
+  "steps": [
+    {
+      "_id": "hvac-service-process-steps-item-01",
+      "stepNumber": "01",
+      "title": "Request Service",
+      "description": "Tell us about your heating or cooling concern and share details about your property and service needs.",
+      "image": {
+        "src": "https://images.pexels.com/photos/5463575/pexels-photo-5463575.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "alt": "HVAC technician working on equipment"
+      }
+    },
+    {
+      "_id": "hvac-service-process-steps-item-02",
+      "stepNumber": "02",
+      "title": "Assess the Issue",
+      "description": "We review the reported problem and, when needed, inspect the HVAC system to identify possible causes.",
+      "image": {
+        "src": "https://images.pexels.com/photos/5463580/pexels-photo-5463580.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "alt": "Technician inspecting air conditioning equipment"
+      }
+    },
+    {
+      "_id": "hvac-service-process-steps-item-03",
+      "stepNumber": "03",
+      "title": "Review Your Options",
+      "description": "Review the findings, recommended work, and applicable pricing before deciding how to proceed.",
+      "image": {
+        "src": "https://images.pexels.com/photos/5463582/pexels-photo-5463582.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "alt": "Close-up of HVAC service and repair work"
+      }
+    },
+    {
+      "_id": "hvac-service-process-steps-item-04",
+      "stepNumber": "04",
+      "title": "Complete the Service",
+      "description": "After approval, the agreed work is completed and any relevant follow-up recommendations are shared.",
+      "image": {
+        "src": "https://images.pexels.com/photos/32588555/pexels-photo-32588555.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "alt": "Technician performing air conditioning maintenance"
+      }
+    }
+  ],
+  "ctaText": "Need help with your heating or cooling system?",
+  "ctaButtonText": "Request HVAC Service",
+  "ctaButtonUrl": "#schedule"
+}

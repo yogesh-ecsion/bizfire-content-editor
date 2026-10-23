@@ -1,0 +1,17 @@
+{
+  "eyebrow": "CONTACT & APPOINTMENTS",
+  "title": "Request HVAC Service",
+  "subtitle": "Tell Us How We Can Help",
+  "description": "Share a few details about your heating or cooling needs. Our team can review your request and discuss the next steps.",
+  "formTitle": "Send a Service Request",
+  "formDescription": "Complete the form below and include a short description of the issue you're experiencing.",
+  "formAction": "/api/service-request",
+  "submitButtonText": "Submit Service Request",
+  "formNote": "Submitting a request does not confirm an appointment. Our team will need to follow up with you.",
+  "mapEmbedUrl": "https://maps.google.com/maps?q=Princeton%2C%20New%20Jersey&t=&z=11&ie=UTF8&iwloc=&output=embed",
+  "mapTitle": "Map showing Princeton, New Jersey",
+  "locationTitle": "Our Service Area",
+  "locationDescription": "We focus on HVAC service requests in Princeton, NJ, and Mercer County. Contact us to confirm whether your property falls within our service area.",
+  "locationLinkText": "Explore Princeton on Maps",
+  "locationMapUrl": "https://www.google.com/maps/search/?api=1&query=Princeton%2C+New+Jersey"
+}

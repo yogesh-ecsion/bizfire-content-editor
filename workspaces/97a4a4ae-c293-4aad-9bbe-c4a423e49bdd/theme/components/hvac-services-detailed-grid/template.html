@@ -1,0 +1,78 @@
+<section class="section hvac-services" id="services" aria-labelledby="services-title">
+    <div class="container">
+
+        <!-- Common Section Header -->
+        <div class="section-header text-center">
+            {{#if eyebrow}}
+            <span class="section-eyebrow">{{eyebrow}}</span>
+            {{/if}}
+
+            {{#if title}}
+            <h2 class="section-title" id="services-title">
+                {{{title}}}
+            </h2>
+            {{/if}}
+
+            {{#if subtitle}}
+            <h3 class="section-subtitle">
+                {{{subtitle}}}
+            </h3>
+            {{/if}}
+
+            {{#if description}}
+            <p class="section-description">
+                {{description}}
+            </p>
+            {{/if}}
+        </div>
+
+        <!-- Services Grid -->
+        <div class="section-content">
+            <div class="row g-4">
+                {{#each services}}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <article class="card h-100 service-card">
+                        <div class="service-card-body">
+                            {{#if icon}}
+                            <span class="service-icon" aria-hidden="true">
+                                <i class="fa-solid {{icon}}"></i>
+                            </span>
+                            {{/if}}
+
+                            <h3 class="service-title">{{title}}</h3>
+
+                            {{#if description}}
+                            <p class="service-description">
+                                {{description}}
+                            </p>
+                            {{/if}}
+
+                            {{#if linkText}}
+                            <a class="service-link" href="{{linkUrl}}">
+                                {{linkText}}
+                                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                            </a>
+                            {{/if}}
+                        </div>
+                    </article>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <!-- Section CTA -->
+        {{#if ctaButtonText}}
+        <div class="services-cta">
+            {{#if ctaText}}
+            <p>{{ctaText}}</p>
+            {{/if}}
+
+            <a href="{{ctaButtonUrl}}" class="btn btn-primary">
+                {{ctaButtonText}}
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+        </div>
+        {{/if}}
+
+    </div>
+</section>

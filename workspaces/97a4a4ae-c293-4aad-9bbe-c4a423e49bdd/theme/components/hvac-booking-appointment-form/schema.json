@@ -1,0 +1,77 @@
+{
+  "eyebrow": {
+    "type": "text",
+    "label": "Section Eyebrow",
+    "default": "CONTACT & APPOINTMENTS"
+  },
+  "title": {
+    "type": "text",
+    "label": "Section Title",
+    "default": "Request HVAC Service"
+  },
+  "subtitle": {
+    "type": "text",
+    "label": "Section Subtitle",
+    "default": "Tell Us How We Can Help"
+  },
+  "description": {
+    "type": "textarea",
+    "label": "Section Description",
+    "default": "Share a few details about your heating or cooling needs. Our team can review your request and discuss the next steps."
+  },
+  "formTitle": {
+    "type": "text",
+    "label": "Form Subtitle",
+    "default": "Send a Service Request"
+  },
+  "formDescription": {
+    "type": "textarea",
+    "label": "Form Instructions",
+    "default": "Complete the form below and include a short description of the issue you're experiencing."
+  },
+  "formAction": {
+    "type": "text",
+    "label": "Form Submission URL / API Endpoint",
+    "default": "/api/service-request"
+  },
+  "submitButtonText": {
+    "type": "text",
+    "label": "Submit Button Text",
+    "default": "Submit Service Request"
+  },
+  "formNote": {
+    "type": "text",
+    "label": "Disclaimer / Confirmation Note",
+    "default": "Submitting a request does not confirm an appointment. Our team will need to follow up with you."
+  },
+  "mapEmbedUrl": {
+    "type": "url",
+    "label": "Google Maps Embed URL",
+    "default": "https://maps.google.com/maps?q=Princeton%2C%20New%20Jersey&t=&z=11&ie=UTF8&iwloc=&output=embed"
+  },
+  "mapTitle": {
+    "type": "text",
+    "label": "Map Iframe Title",
+    "default": "Map showing Princeton, New Jersey"
+  },
+  "locationTitle": {
+    "type": "text",
+    "label": "Service Area Card Heading",
+    "default": "Our Service Area"
+  },
+  "locationDescription": {
+    "type": "textarea",
+    "label": "Service Area Details",
+    "default": "We focus on HVAC service requests in Princeton, NJ, and Mercer County. Contact us to confirm whether your property falls within our service area."
+  },
+  "locationLinkText": {
+    "type": "text",
+    "label": "Maps Link Text",
+    "default": "Explore Princeton on Maps"
+  },
+  "locationMapUrl": {
+    "type": "url",
+    "label": "Google Maps External Link",
+    "default": "https://www.google.com/maps/search/?api=1&query=Princeton%2C+New+Jersey"
+  }
+}

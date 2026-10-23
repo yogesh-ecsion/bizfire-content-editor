@@ -1,0 +1,248 @@
+/* ==================== HVAC HERO ==================== */
+
+.hvac-hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background:
+        radial-gradient(circle at 90% 10%,
+            rgba(15, 118, 110, 0.08),
+            transparent 35%),
+        var(--light);
+}
+
+.hero-content {
+    max-width: 610px;
+}
+
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 24px;
+    padding: 9px 14px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border: 1px solid rgba(15, 118, 110, 0.12);
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+/* H1 — only unique hero sizing lives here */
+.hvac-hero .hero-title {
+    margin: 0 0 22px;
+    color: var(--dark);
+    font-size: clamp(2.4rem, 4.3vw, 4.25rem);
+    font-weight: 750;
+    letter-spacing: -1.8px;
+    line-height: 1.1;
+    text-wrap: balance;
+}
+
+.hero-title span {
+    color: var(--primary);
+}
+
+.hero-description {
+    max-width: 530px;
+    margin-bottom: 30px;
+    color: var(--secondary);
+    line-height: 1.85;
+}
+
+/* CTA Buttons */
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.hero-btn {
+    min-height: 52px;
+    padding: 12px 20px;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: var(--radius);
+}
+
+.hero-btn.btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.hero-btn.btn-primary:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+.hero-call-btn {
+    color: var(--dark);
+    border-color: var(--border-color-strong);
+    background: var(--white);
+}
+
+.hero-call-btn:hover {
+    color: var(--primary);
+    background: var(--white);
+    border-color: var(--primary);
+}
+
+/* Service Benefits */
+.hero-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    margin: 0;
+    padding: 24px 0 0;
+    border-top: 1px solid var(--border-color);
+    list-style: none;
+}
+
+.hero-trust-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: var(--dark);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.hero-trust-item i {
+    margin-top: 3px;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+/* Hero Image */
+.hero-visual {
+    position: relative;
+    max-width: 580px;
+    margin-left: auto;
+    padding: 0 0 38px 30px;
+}
+
+.hero-image {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 4.3;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 180px 180px 18px 18px;
+    box-shadow: var(--shadow-lg);
+}
+
+.hero-visual::before {
+    position: absolute;
+    top: -18px;
+    right: -12px;
+    z-index: 0;
+    width: 46%;
+    height: 45%;
+    border: 2px solid rgba(15, 118, 110, 0.25);
+    border-radius: 0 100px 0 0;
+    content: "";
+    pointer-events: none;
+}
+
+/* Tablet */
+@media (max-width: 991.98px) {
+    .hvac-hero {
+        padding-block: 4rem;
+    }
+
+    .hero-content {
+        max-width: 700px;
+    }
+
+    .hvac-hero .hero-title {
+        max-width: 650px;
+        font-size: clamp(2.5rem, 6vw, 3.5rem);
+    }
+
+    .hero-visual {
+        width: 100%;
+        max-width: 620px;
+        margin: 12px auto 0;
+    }
+
+    .hero-image {
+        aspect-ratio: 16 / 10;
+        border-radius: 100px 100px 16px 16px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 575.98px) {
+    .hvac-hero {
+        padding-block: 3rem;
+    }
+
+    .hero-eyebrow {
+        gap: 7px;
+        margin-bottom: 18px;
+        padding: 8px 11px;
+        font-size: 12px;
+    }
+
+    .hvac-hero .hero-title {
+        margin-bottom: 18px;
+        font-size: clamp(2.2rem, 9vw, 3rem);
+        letter-spacing: -1.1px;
+        line-height: 1.12;
+    }
+
+    .hero-description {
+        margin-bottom: 22px;
+        font-size: 16px;
+        line-height: 1.75;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        margin-bottom: 22px;
+    }
+
+    .hero-btn {
+        width: 100%;
+        min-height: 48px;
+    }
+
+    .hero-trust {
+        flex-direction: column;
+        gap: 12px;
+        padding-top: 20px;
+    }
+
+    .hero-visual {
+        margin-top: 14px;
+        padding: 0 0 35px 12px;
+    }
+
+    .hero-image {
+        aspect-ratio: 4 / 4.1;
+        border-radius: 100px 100px 14px 14px;
+    }
+
+    .hero-visual::before {
+        top: -10px;
+        right: -4px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hvac-hero *,
+    .hvac-hero *::before,
+    .hvac-hero *::after {
+        scroll-behavior: auto;
+        transition: none;
+    }
+}

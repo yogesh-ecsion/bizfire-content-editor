@@ -1,0 +1,84 @@
+<section class="section why-choose-section" id="why-choose-us" aria-labelledby="why-choose-title">
+    <div class="container">
+
+        <!-- SECTION HEADER -->
+        <div class="section-header text-center">
+            {{#if eyebrow}}
+            <span class="section-eyebrow">{{eyebrow}}</span>
+            {{/if}}
+
+            {{#if title}}
+            <h2 class="section-title" id="why-choose-title">
+                {{{title}}}
+            </h2>
+            {{/if}}
+
+            {{#if subtitle}}
+            <h3 class="section-subtitle">
+                {{{subtitle}}}
+            </h3>
+            {{/if}}
+
+            {{#if description}}
+            <p class="section-description">
+                {{description}}
+            </p>
+            {{/if}}
+        </div>
+
+        <!-- BENEFIT CARDS -->
+        <div class="section-content">
+            <div class="why-choose-grid">
+                {{#each cards}}
+                <article class="why-choose-card">
+                    {{#if image.src}}
+                    <div class="why-choose-image-wrap">
+                        <img class="why-choose-image"
+                            src="{{image.src}}"
+                            alt="{{image.alt}}" width="800" height="480"
+                            loading="lazy">
+                    </div>
+                    {{/if}}
+
+                    <div class="why-choose-content">
+                        {{#if icon}}
+                        <span class="why-choose-icon" aria-hidden="true">
+                            <i class="fa-solid {{icon}}"></i>
+                        </span>
+                        {{/if}}
+
+                        {{#if title}}
+                        <h3 class="why-choose-title">
+                            {{title}}
+                        </h3>
+                        {{/if}}
+
+                        {{#if description}}
+                        <p class="why-choose-description">
+                            {{description}}
+                        </p>
+                        {{/if}}
+                    </div>
+                </article>
+                {{/each}}
+            </div>
+
+            <!-- BOTTOM CTA -->
+            {{#if ctaButtonText}}
+            <div class="why-choose-cta">
+                {{#if ctaText}}
+                <p>
+                    {{ctaText}}
+                </p>
+                {{/if}}
+
+                <a href="{{ctaButtonUrl}}" class="btn btn-primary">
+                    <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                    {{ctaButtonText}}
+                </a>
+            </div>
+            {{/if}}
+        </div>
+
+    </div>
+</section>

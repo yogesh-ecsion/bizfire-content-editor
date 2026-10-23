@@ -1,0 +1,70 @@
+/* TRUST SECTION — unique styles only */
+.trust-section {
+    padding-block: 28px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.trust-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: var(--radius);
+    font-size: 19px;
+}
+
+.trust-content {
+    min-width: 0;
+}
+
+.trust-title {
+    margin: 0 0 5px;
+    color: var(--dark);
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.trust-description {
+    margin: 0;
+    color: var(--secondary);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+@media (max-width: 991.98px) {
+    .trust-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .trust-section {
+        padding-block: 24px;
+    }
+
+    .trust-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+}

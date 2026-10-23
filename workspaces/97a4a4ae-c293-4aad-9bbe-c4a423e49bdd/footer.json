@@ -1,0 +1,104 @@
+{
+  "workspaceId": "97a4a4ae-c293-4aad-9bbe-c4a423e49bdd",
+  "branding": {
+    "siteTitle": "Ecsion Test HVAC",
+    "logoUrl": "",
+    "logoWidth": 160,
+    "tagline": "Heating & Air Conditioning Specialists",
+    "aboutText": "Reliable heating and cooling solutions for homes and businesses across Princeton, NJ and Mercer County."
+  },
+  "columns": [
+    {
+      "id": "col-quick-links",
+      "title": "Quick Links",
+      "links": [
+        {
+          "id": "fl-1",
+          "label": "Home",
+          "url": "/",
+          "target": "_self"
+        },
+        {
+          "id": "fl-2",
+          "label": "About Us",
+          "url": "#why-choose-us",
+          "target": "_self"
+        },
+        {
+          "id": "fl-3",
+          "label": "Our Services",
+          "url": "#services",
+          "target": "_self"
+        },
+        {
+          "id": "fl-4",
+          "label": "Contact Us",
+          "url": "#contact",
+          "target": "_self"
+        },
+        {
+          "id": "fl-5",
+          "label": "Schedule Service",
+          "url": "#schedule",
+          "target": "_self"
+        }
+      ]
+    },
+    {
+      "id": "col-services",
+      "title": "Our Services",
+      "links": [
+        {
+          "id": "fl-s1",
+          "label": "Heating Services",
+          "url": "#services",
+          "target": "_self"
+        },
+        {
+          "id": "fl-s2",
+          "label": "Air Conditioning",
+          "url": "#services",
+          "target": "_self"
+        },
+        {
+          "id": "fl-s3",
+          "label": "Maintenance & Repair",
+          "url": "#services",
+          "target": "_self"
+        },
+        {
+          "id": "fl-s4",
+          "label": "HVAC Installation",
+          "url": "#services",
+          "target": "_self"
+        },
+        {
+          "id": "fl-s5",
+          "label": "Emergency Repairs",
+          "url": "#contact",
+          "target": "_self"
+        }
+      ]
+    }
+  ],
+  "contact": {
+    "phone": "(609) 555-0100",
+    "phoneLabel": "Phone",
+    "email": "service@ecsiontesthvac.com",
+    "emailLabel": "Email",
+    "address": "Princeton, NJ & Mercer County",
+    "addressLabel": "Location",
+    "workingHours": "24/7 Emergency Service",
+    "showPhone": true,
+    "showEmail": false,
+    "showAddress": true
+  },
+  "settings": {
+    "theme": "dark"
+  },
+  "bottomBar": {
+    "copyrightText": "© 2026 Ecsion Test HVAC. All rights reserved.",
+    "privacyPolicyUrl": "/privacy-policy/",
+    "termsUrl": "/terms/"
+  }
+}

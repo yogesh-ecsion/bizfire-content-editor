@@ -1,9 +1,1 @@
-{
-  "id": "web-development-site",
-  "name": "Web Development Site",
-  "version": "1.0.0",
-  "description": "Theme generated from designer mockup for Bizfire Staging.",
-  "author": "Bizfire Studio",
-  "fontFamily": "'Inter', ui-sans-serif, sans-serif",
-  "defaultPageVariant": "web-development-site-main"
-}
+{"colors":{"primary":"#0284c7","secondary":"#0369a1","dark":"#0f172a","light":"#f8fafc"},"fontFamily":"Outfit, sans-serif"}

@@ -1,0 +1,62 @@
+{
+  "eyebrow": {
+    "type": "text",
+    "label": "Eyebrow Text",
+    "default": "FREQUENTLY ASKED QUESTIONS"
+  },
+  "title": {
+    "type": "text",
+    "label": "Section Title",
+    "default": "HVAC Questions, Answered"
+  },
+  "subtitle": {
+    "type": "text",
+    "label": "Section Subtitle",
+    "default": "Helpful Information Before You Book"
+  },
+  "description": {
+    "type": "textarea",
+    "label": "Section Description",
+    "default": "Have questions about heating, air conditioning, repairs, or maintenance? Explore these common questions or contact our team to discuss your specific needs."
+  },
+  "image": {
+    "type": "image",
+    "label": "FAQ Intro Image",
+    "default": {
+      "src": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1000&q=80",
+      "alt": "HVAC technician inspecting indoor mechanical equipment"
+    }
+  },
+  "faqs": {
+    "type": "array",
+    "label": "Frequently Asked Questions",
+    "labelField": "question",
+    "itemSchema": {
+      "question": {
+        "type": "text",
+        "label": "Question",
+        "required": true
+      },
+      "answer": {
+        "type": "textarea",
+        "label": "Answer",
+        "required": true
+      }
+    }
+  },
+  "ctaText": {
+    "type": "text",
+    "label": "CTA Supporting Text",
+    "default": "Still have a question about your heating or cooling system?"
+  },
+  "ctaButtonText": {
+    "type": "text",
+    "label": "CTA Button Text",
+    "default": "Contact Our Team"
+  },
+  "ctaButtonUrl": {
+    "type": "url",
+    "label": "CTA Button Link",
+    "default": "#contact"
+  }
+}

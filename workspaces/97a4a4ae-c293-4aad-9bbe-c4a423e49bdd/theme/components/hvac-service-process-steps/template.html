@@ -1,0 +1,77 @@
+<section class="section hvac-process-section" id="service-process" aria-labelledby="process-title">
+    <div class="container">
+
+        <!-- SECTION HEADER -->
+        <div class="section-header text-center">
+            {{#if eyebrow}}
+            <span class="section-eyebrow">{{eyebrow}}</span>
+            {{/if}}
+
+            {{#if title}}
+            <h2 class="section-title" id="process-title">
+                {{{title}}}
+            </h2>
+            {{/if}}
+
+            {{#if subtitle}}
+            <h3 class="section-subtitle">
+                {{{subtitle}}}
+            </h3>
+            {{/if}}
+
+            {{#if description}}
+            <p class="section-description">
+                {{description}}
+            </p>
+            {{/if}}
+        </div>
+
+        <!-- PROCESS CONTENT -->
+        <div class="section-content">
+            <div class="process-grid">
+                {{#each steps}}
+                <article class="process-step">
+                    {{#if image.src}}
+                    <div class="process-image-wrap">
+                        <img class="process-image"
+                            src="{{image.src}}"
+                            alt="{{image.alt}}" width="600" height="450" loading="lazy">
+                    </div>
+                    {{/if}}
+
+                    <div class="process-step-content">
+                        {{#if stepNumber}}
+                        <span class="process-number" aria-hidden="true">{{stepNumber}}</span>
+                        {{/if}}
+
+                        {{#if title}}
+                        <h3 class="process-title">{{title}}</h3>
+                        {{/if}}
+
+                        {{#if description}}
+                        <p class="process-description">
+                            {{description}}
+                        </p>
+                        {{/if}}
+                    </div>
+                </article>
+                {{/each}}
+            </div>
+
+            <!-- CTA -->
+            {{#if ctaButtonText}}
+            <div class="process-cta">
+                {{#if ctaText}}
+                <p>{{ctaText}}</p>
+                {{/if}}
+
+                <a href="{{ctaButtonUrl}}" class="btn btn-primary">
+                    <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                    {{ctaButtonText}}
+                </a>
+            </div>
+            {{/if}}
+        </div>
+
+    </div>
+</section>

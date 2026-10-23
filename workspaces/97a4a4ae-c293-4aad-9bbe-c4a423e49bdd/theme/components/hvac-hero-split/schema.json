@@ -1,0 +1,72 @@
+{
+  "eyebrow": {
+    "type": "text",
+    "label": "Eyebrow Text",
+    "default": "Trusted HVAC Experts in Princeton, NJ"
+  },
+  "eyebrowIcon": {
+    "type": "text",
+    "label": "Eyebrow Icon (Font Awesome)",
+    "default": "fa-shield-halved"
+  },
+  "title": {
+    "type": "text",
+    "label": "Hero Title",
+    "default": "Reliable Heating & Cooling for <span>Your Home and Business</span>"
+  },
+  "description": {
+    "type": "textarea",
+    "label": "Hero Description",
+    "default": "Stay comfortable in every season with professional HVAC installation, maintenance, and repair services throughout Princeton and Mercer County."
+  },
+  "primaryButtonText": {
+    "type": "text",
+    "label": "Primary Button Text",
+    "default": "Schedule Service"
+  },
+  "primaryButtonUrl": {
+    "type": "url",
+    "label": "Primary Button Link",
+    "default": "#schedule"
+  },
+  "secondaryButtonText": {
+    "type": "text",
+    "label": "Secondary Button Text",
+    "default": "(609) 555-0100"
+  },
+  "secondaryButtonUrl": {
+    "type": "url",
+    "label": "Secondary Button Link",
+    "default": "tel:+16095550100"
+  },
+  "secondaryButtonAriaLabel": {
+    "type": "text",
+    "label": "Secondary Button Accessibility Label",
+    "default": "Call Ecsion Test HVAC at 609-555-0100"
+  },
+  "benefits": {
+    "type": "array",
+    "label": "Trust Benefits",
+    "labelField": "title",
+    "itemSchema": {
+      "icon": {
+        "type": "text",
+        "label": "Font Awesome Icon Class",
+        "default": "fa-circle-check"
+      },
+      "title": {
+        "type": "text",
+        "label": "Benefit Title",
+        "required": true
+      }
+    }
+  },
+  "image": {
+    "type": "image",
+    "label": "Hero Visual Image",
+    "default": {
+      "src": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=85",
+      "alt": "HVAC technician in Princeton NJ servicing a residential heating and air conditioning unit"
+    }
+  }
+}

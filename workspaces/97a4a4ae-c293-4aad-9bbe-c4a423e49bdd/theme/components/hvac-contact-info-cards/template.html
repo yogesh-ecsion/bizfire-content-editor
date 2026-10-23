@@ -1,0 +1,83 @@
+<section class="section hvac-contact-section" id="contact" aria-labelledby="contact-title">
+    <div class="container">
+        <div class="hvac-contact-card">
+
+            <!-- LEFT: CONTENT -->
+            <div class="hvac-contact-content">
+
+                {{#if eyebrow}}
+                <span class="section-eyebrow">{{eyebrow}}</span>
+                {{/if}}
+
+                <h2 class="section-title" id="contact-title">
+                    {{{title}}}
+                </h2>
+
+                {{#if subtitle}}
+                <h3 class="section-subtitle">
+                    {{subtitle}}
+                </h3>
+                {{/if}}
+
+                {{#if description}}
+                <p class="hvac-contact-description">
+                    {{description}}
+                </p>
+                {{/if}}
+
+                {{#if contactOptions}}
+                <div class="hvac-contact-options">
+                    {{#each contactOptions}}
+                    <div class="hvac-contact-option">
+                        {{#if icon}}
+                        <span class="hvac-contact-icon" aria-hidden="true">
+                            <i class="fa-solid {{icon}}"></i>
+                        </span>
+                        {{/if}}
+
+                        <div class="hvac-contact-option-content">
+                            <h3>{{title}}</h3>
+                            <p>{{description}}</p>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+
+                <div class="hvac-contact-actions">
+                    {{#if primaryButtonText}}
+                    <a href="{{primaryButtonUrl}}" class="btn btn-primary">
+                        {{#if primaryButtonIcon}}<i class="fa-solid {{primaryButtonIcon}}" aria-hidden="true"></i>{{/if}}
+                        {{primaryButtonText}}
+                    </a>
+                    {{/if}}
+
+                    {{#if secondaryButtonText}}
+                    <a href="{{secondaryButtonUrl}}" class="btn btn-outline-primary">
+                        {{#if secondaryButtonIcon}}<i class="fa-solid {{secondaryButtonIcon}}" aria-hidden="true"></i>{{/if}}
+                        {{secondaryButtonText}}
+                    </a>
+                    {{/if}}
+                </div>
+
+                {{#if note}}
+                <p class="hvac-contact-note">
+                    {{note}}
+                </p>
+                {{/if}}
+
+            </div>
+
+            <!-- RIGHT: IMAGE -->
+            {{#if image}}
+            <div class="hvac-contact-visual">
+                <img class="hvac-contact-image"
+                    src="{{#if image.src}}{{image.src}}{{else}}{{image}}{{/if}}"
+                    alt="{{#if image.alt}}{{image.alt}}{{else}}{{title}}{{/if}}" width="1000" height="1200"
+                    loading="lazy">
+            </div>
+            {{/if}}
+
+        </div>
+    </div>
+</section>

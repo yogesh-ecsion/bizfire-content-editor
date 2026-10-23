@@ -1,0 +1,131 @@
+/* WHY CHOOSE US — no type overrides */
+.why-choose-section {
+    background: var(--light);
+}
+
+.why-choose-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.why-choose-card {
+    overflow: hidden;
+    height: 100%;
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.why-choose-image-wrap {
+    overflow: hidden;
+    background: var(--secondary-soft);
+}
+
+.why-choose-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 5 / 3;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.why-choose-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+}
+
+.why-choose-card:hover .why-choose-image {
+    transform: scale(1.04);
+}
+
+.why-choose-content {
+    padding: 26px;
+}
+
+.why-choose-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 18px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-radius: var(--radius);
+    font-size: 1.125rem;
+}
+
+.why-choose-title {
+    margin: 0 0 12px;
+    color: var(--dark);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.why-choose-description {
+    margin: 0;
+    color: var(--secondary);
+    line-height: 1.75;
+}
+
+.why-choose-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 36px;
+    padding: 26px 30px;
+    background: var(--primary-soft);
+    border-radius: var(--radius-lg);
+}
+
+.why-choose-cta p {
+    margin: 0;
+    color: var(--dark);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.7;
+}
+
+.why-choose-cta .btn {
+    flex: 0 0 auto;
+    gap: 8px;
+}
+
+@media (max-width: 991.98px) {
+    .why-choose-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 575.98px) {
+    .why-choose-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .why-choose-content {
+        padding: 22px;
+    }
+
+    .why-choose-cta {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 24px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .why-choose-card,
+    .why-choose-image {
+        transition: none;
+    }
+
+    .why-choose-card:hover,
+    .why-choose-card:hover .why-choose-image {
+        transform: none;
+    }
+}

@@ -7,7 +7,6 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   experimental: {
-    instrumentationHook: true,
     externalDir: true,
   },
 };

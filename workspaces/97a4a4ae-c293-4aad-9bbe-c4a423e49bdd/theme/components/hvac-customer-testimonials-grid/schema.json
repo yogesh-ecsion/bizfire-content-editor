@@ -1,0 +1,61 @@
+{
+  "eyebrow": {
+    "type": "text",
+    "label": "Eyebrow Text",
+    "default": "CUSTOMER EXPERIENCES"
+  },
+  "title": {
+    "type": "text",
+    "label": "Section Title",
+    "default": "Trusted HVAC Service Starts with You"
+  },
+  "subtitle": {
+    "type": "text",
+    "label": "Section Subtitle",
+    "default": "Your Comfort and Confidence Matter"
+  },
+  "description": {
+    "type": "textarea",
+    "label": "Section Description",
+    "default": "Choosing an HVAC provider is an important decision. We aim to make every service experience clear, helpful, and focused on your heating and cooling needs."
+  },
+  "testimonials": {
+    "type": "array",
+    "label": "Customer Testimonials",
+    "labelField": "authorName",
+    "itemSchema": {
+      "quote": {
+        "type": "textarea",
+        "label": "Customer Review / Quote",
+        "required": true
+      },
+      "authorName": {
+        "type": "text",
+        "label": "Customer Name",
+        "required": true
+      },
+      "authorLocation": {
+        "type": "text",
+        "label": "Customer Location"
+      },
+      "avatar": {
+        "type": "image",
+        "label": "Customer Photo / Avatar",
+        "default": {
+          "src": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=120",
+          "alt": "Sarah M."
+        }
+      }
+    }
+  },
+  "ctaButtonText": {
+    "type": "text",
+    "label": "CTA Button Text",
+    "default": "Request HVAC Service"
+  },
+  "ctaButtonUrl": {
+    "type": "url",
+    "label": "CTA Button Link",
+    "default": "#schedule"
+  }
+}
