@@ -13,8 +13,6 @@ export default function ImportComponentsModal({
 }) {
   const [stagedComponents, setStagedComponents] = useState([]);
   const [dbComponents, setDbComponents] = useState([]);
-  const [themes, setThemes] = useState([]);
-  const [selectedThemeGuid, setSelectedThemeGuid] = useState('a1000000-0000-0000-0000-000000000001');
   const [isLoadingDb, setIsLoadingDb] = useState(false);
   const [isParsing, setIsParsing] = useState(false);
   const [isIngesting, setIsIngesting] = useState(false);
@@ -36,7 +34,7 @@ export default function ImportComponentsModal({
   const fileInputRef = useRef(null);
   const folderInputRef = useRef(null);
 
-  // 1. Fetch DB components & themes whenever modal opens
+  // 1. Fetch DB components whenever modal opens
   useEffect(() => {
     if (!show) {
       setStagedComponents([]);
@@ -51,13 +49,10 @@ export default function ImportComponentsModal({
     async function fetchDbMetadata() {
       setIsLoadingDb(true);
       try {
-        const res = await fetch(`/api/admin/components?themeGuid=${selectedThemeGuid}`);
+        const res = await fetch('/api/admin/components');
         const data = await res.json();
         if (data.success) {
           setDbComponents(data.components || []);
-          if (data.themes && data.themes.length > 0) {
-            setThemes(data.themes);
-          }
         }
       } catch (err) {
         console.warn('Could not fetch existing DB components:', err.message);
@@ -67,7 +62,7 @@ export default function ImportComponentsModal({
     }
 
     fetchDbMetadata();
-  }, [show, selectedThemeGuid]);
+  }, [show]);
 
   // Set of existing DB component keys for fast conflict lookup
   const existingKeySet = useMemo(() => {
@@ -233,7 +228,7 @@ export default function ImportComponentsModal({
 
     try {
       const payload = {
-        themeGuid: selectedThemeGuid,
+        themeGuid: 'a1000000-0000-0000-0000-000000000001',
         workspaceId,
         components: toIngest.map(c => ({
           key: c.key,
@@ -267,7 +262,7 @@ export default function ImportComponentsModal({
       });
 
       // Refresh DB components list in background
-      const refreshRes = await fetch(`/api/admin/components?themeGuid=${selectedThemeGuid}`);
+      const refreshRes = await fetch('/api/admin/components');
       const refreshData = await refreshRes.json();
       if (refreshData.success) {
         setDbComponents(refreshData.components || []);
@@ -288,38 +283,30 @@ export default function ImportComponentsModal({
     <Modal show={show} onHide={onHide} size="xl" centered backdrop="static">
       <Modal.Header closeButton style={{ borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
         <Modal.Title style={{ fontSize: '18px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span>🧩 Component Library & Ingestion</span>
-          <Badge bg="secondary" style={{ fontSize: '12px', fontWeight: 500 }}>
-            PostgreSQL Sync
+          <span>🧩 Global Component Library</span>
+          <Badge bg="primary-subtle" className="text-primary border border-primary-subtle" style={{ fontSize: '12px', fontWeight: 500 }}>
+            Universal Components
           </Badge>
         </Modal.Title>
       </Modal.Header>
 
       <Modal.Body style={{ padding: '24px', maxHeight: '78vh', overflowY: 'auto' }}>
-        {/* Top Controls: Target Theme & Dropzone */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569' }}>Target Theme:</span>
-            <Form.Select
-              size="sm"
-              value={selectedThemeGuid}
-              onChange={e => setSelectedThemeGuid(e.target.value)}
-              style={{ width: '280px', fontWeight: 500 }}
-              disabled={isLoadingDb || isIngesting}
-            >
-              {themes.map(t => (
-                <option key={t.themeGuid} value={t.themeGuid}>
-                  {t.name} {t.isMaster ? '(Master Theme)' : ''}
-                </option>
-              ))}
-            </Form.Select>
+        {/* Top Controls: Global Library Information */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', background: '#f1f5f9', padding: '10px 16px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b' }}>
+              🌐 Shared Global Repository
+            </span>
+            <span style={{ fontSize: '12px', color: '#64748b' }}>
+              Components are universal and available across every workspace and theme.
+            </span>
           </div>
 
-          <div style={{ fontSize: '12px', color: '#64748b' }}>
+          <div style={{ fontSize: '12px', color: '#334155', fontWeight: 600 }}>
             {isLoadingDb ? (
               <span><Spinner animation="border" size="sm" /> Syncing database metadata...</span>
             ) : (
-              <span><b>{dbComponents.length}</b> components currently registered in database</span>
+              <span><b>{dbComponents.length}</b> global components available</span>
             )}
           </div>
         </div>

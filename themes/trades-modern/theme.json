@@ -1,9 +1,1 @@
-{
-  "id": "trades-modern",
-  "name": "Trades Modern",
-  "version": "1.0.0",
-  "description": "High-conversion, clean theme tailored for home services, HVAC, plumbing, and local trades.",
-  "author": "Bizfire Studio",
-  "fontFamily": "Inter, ui-sans-serif, system-ui, sans-serif",
-  "defaultPageVariant": "service-standard"
-}
+{"colors":{"primary":"#A01922","secondary":"#7D1118","dark":"#1E293B","light":"#F8FAFC"},"fontFamily":"Inter, ui-sans-serif, system-ui, sans-serif"}
