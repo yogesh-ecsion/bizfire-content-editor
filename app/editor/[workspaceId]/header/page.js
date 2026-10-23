@@ -10,11 +10,22 @@ export default async function HeaderEditorPage({ params }) {
 
   try {
     workspace = await DataSource.getWorkspace(workspaceId);
+  } catch (err) {
+    console.error(`Workspace not found "${workspaceId}":`, err.message);
+    notFound();
+  }
+
+  try {
     pages = await DataSource.getPageList(workspaceId);
+  } catch (err) {
+    console.warn(`Could not load pages for workspace "${workspaceId}":`, err.message);
+    pages = [];
+  }
+
+  try {
     header = await DataSource.getHeader(workspaceId);
   } catch (err) {
-    console.error(`Failed to load header data for workspace "${workspaceId}":`, err);
-    notFound();
+    console.warn(`Could not load header for workspace "${workspaceId}":`, err.message);
   }
 
   return (

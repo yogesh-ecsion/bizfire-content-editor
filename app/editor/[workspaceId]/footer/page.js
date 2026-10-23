@@ -10,11 +10,22 @@ export default async function FooterEditorPage({ params }) {
 
   try {
     workspace = await DataSource.getWorkspace(workspaceId);
+  } catch (err) {
+    console.error(`Workspace not found "${workspaceId}":`, err.message);
+    notFound();
+  }
+
+  try {
     pages = await DataSource.getPageList(workspaceId);
+  } catch (err) {
+    console.warn(`Could not load pages for workspace "${workspaceId}":`, err.message);
+    pages = [];
+  }
+
+  try {
     footer = await DataSource.getFooter(workspaceId);
   } catch (err) {
-    console.error(`Failed to load footer data for workspace "${workspaceId}":`, err);
-    notFound();
+    console.warn(`Could not load footer for workspace "${workspaceId}":`, err.message);
   }
 
   return (

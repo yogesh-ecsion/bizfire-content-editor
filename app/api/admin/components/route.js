@@ -14,7 +14,7 @@ const MASTER_THEME_GUID = 'a1000000-0000-0000-0000-000000000001';
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
-    const themeGuid = searchParams.get('themeGuid') || MASTER_THEME_GUID;
+    const themeGuid = searchParams.get('themeGuid');
 
     let existingComponents = [];
     let themes = [];
@@ -22,13 +22,17 @@ export async function GET(request) {
 
     // 1. Try querying PostgreSQL via DataService
     try {
+      const filters = [
+        { Operand: 'eq', UIKey: 'is_deleted', Value: 'false' }
+      ];
+      if (themeGuid) {
+        filters.push({ Operand: 'eq', UIKey: 'theme_guid', Value: themeGuid });
+      }
+
       const compRows = await DataService.selectRows(
         'theme_components',
         'row_guid,component_key,name,category,display_order,theme_guid',
-        [
-          { Operand: 'eq', UIKey: 'is_deleted', Value: 'false' },
-          { Operand: 'eq', UIKey: 'theme_guid', Value: themeGuid }
-        ],
+        filters,
         [{ UIKey: 'display_order', Direction: 'ASC' }],
         '1',
         '500'

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Handlebars from 'handlebars';
 import ImageCropperModal from './ImageCropperModal';
 import ImportComponentsModal from './ImportComponentsModal';
-import ThemeStylingModal from './ThemeStylingModal';
+import ThemeEditorOffcanvas from './themes/ThemeEditorOffcanvas';
 import { compileHeader } from '@/lib/headerCompiler.js';
 import { compileFooter } from '@/lib/footerCompiler.js';
 
@@ -1111,11 +1111,11 @@ ${renderedSections}
                   type="button"
                   className="btn-secondary"
                   onClick={() => setShowThemeModal(true)}
-                  title="Customize Theme & Workspace Styles"
+                  title="Customize Theme in Offcanvas Drawer"
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
                 >
                   <span>🎨</span>
-                  <span>Theme & Styling</span>
+                  <span>Theme: {theme?.name || 'Styling'}</span>
                 </button>
               )}
               {mode === 'workspace' && (compiledHeader || compiledFooter) && (
@@ -1316,24 +1316,29 @@ ${renderedSections}
       />
 
       {showThemeModal && (
-        <ThemeStylingModal
+        <ThemeEditorOffcanvas
           show={showThemeModal}
           onHide={() => setShowThemeModal(false)}
-          workspace={workspace}
-          themeBundle={{
-            theme,
-            styleCss: themeCss,
-            customCss
+          theme={{
+            name: theme?.name,
+            slug: theme?.id || 'trades-modern',
+            css: themeCss,
+            fontFamily: theme?.fontFamily,
+            fontUrl: theme?.fontUrl,
+            themeSettings: theme?.themeSettings,
+            isMaster: Boolean(theme?.isMaster)
           }}
           onSuccess={(updated) => {
-            if (updated?.themeCss !== undefined) {
-              setThemeCss(updated.themeCss);
-            }
-            if (updated?.customCss !== undefined) {
-              setCustomCss(updated.customCss);
+            if (updated?.css) {
+              setThemeCss(updated.css);
             }
             if (updated?.fontUrl) {
-              setTheme(prev => ({ ...prev, fontUrl: updated.fontUrl, fontFamily: updated.fontFamily }));
+              setTheme(prev => ({
+                ...prev,
+                fontUrl: updated.fontUrl,
+                fontFamily: updated.fontFamily,
+                name: updated.name
+              }));
             }
           }}
         />

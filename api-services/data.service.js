@@ -271,31 +271,109 @@ class DataService {
   }
 
   /**
+   * Update active theme assigned to a workspace in user_product_configured
+   * @param {string} workspaceId
+   * @param {string} themeSlug
+   */
+  async updateWorkspaceTheme(workspaceId, themeSlug) {
+    try {
+      const filters = [
+        { Operand: "eq", UIKey: "user_workspace_guid", Value: workspaceId },
+        { Operand: "eq", UIKey: "status",              Value: "configured" },
+      ];
+      const rows = await this.selectRows(
+        "user_product_configured",
+        "row_guid,user_workspace_guid,data_json",
+        filters,
+        [{ UIKey: "id", Direction: "DESC" }],
+        "1",
+        "1"
+      );
+
+      if (rows && rows[0]) {
+        const row = rows[0];
+        const dj = (typeof row.data_json === "string" ? JSON.parse(row.data_json) : row.data_json) || {};
+        dj.themeId = themeSlug;
+        await this.merge([{
+          row_guid: row.row_guid,
+          data_json: dj
+        }], "user_product_configured");
+        return dj;
+      }
+    } catch (err) {
+      console.warn("updateWorkspaceTheme failed:", err.message);
+      throw err;
+    }
+    return null;
+  }
+
+  /**
    * Fetch cloned theme bundle (theme, styleCss, components, pageTemplates) for workspace
    * @param {string} workspaceId Workspace GUID
    */
   async getThemeBundle(workspaceId) {
     try {
-      // 1. Fetch workspace theme (or fallback to master theme if not cloned yet)
-      let themeRows = await this.selectRows(
-        "themes",
-        "row_guid,theme_slug,name,theme_guid,version,font_family,font_url,css,theme_json,default_page_template",
-        [
-          { Operand: "eq", UIKey: "workspace_guid", Value: workspaceId },
-          { Operand: "eq", UIKey: "is_deleted", Value: "false" },
-        ],
-      );
-      let themeRow = themeRows[0];
+      let themeRow = null;
 
+      // 1. Check if workspace has an explicitly assigned themeId
+      try {
+        const ws = await this.getWorkspace(workspaceId);
+        if (ws?.themeId) {
+          const themeRows = await this.selectRows(
+            "themes",
+            "row_guid,theme_slug,name,theme_guid,version,font_family,font_url,css,theme_json,default_page_template",
+            [
+              { Operand: "eq", UIKey: "theme_slug", Value: ws.themeId },
+              { Operand: "eq", UIKey: "is_deleted", Value: "false" },
+            ],
+          );
+          if (themeRows && themeRows[0]) {
+            themeRow = themeRows[0];
+          }
+        }
+      } catch (wsErr) {
+        console.warn("Could not check workspace assigned themeId:", wsErr.message);
+      }
+
+      // 2. Fallback: check workspace_guid
       if (!themeRow) {
-        // Fallback to active master theme
-        themeRows = await this.selectRows(
+        const themeRows = await this.selectRows(
+          "themes",
+          "row_guid,theme_slug,name,theme_guid,version,font_family,font_url,css,theme_json,default_page_template",
+          [
+            { Operand: "eq", UIKey: "workspace_guid", Value: workspaceId },
+            { Operand: "eq", UIKey: "is_deleted", Value: "false" },
+          ],
+        );
+        if (themeRows && themeRows[0]) {
+          themeRow = themeRows[0];
+        }
+      }
+
+      // 3. Fallback: active master theme
+      if (!themeRow) {
+        const themeRows = await this.selectRows(
           "themes",
           "row_guid,theme_slug,name,theme_guid,version,font_family,font_url,css,theme_json,default_page_template",
           [
             { Operand: "eq", UIKey: "is_master", Value: "true" },
             { Operand: "eq", UIKey: "is_deleted", Value: "false" },
           ],
+        );
+        themeRow = themeRows[0];
+      }
+
+      // 4. Fallback: first available non-deleted theme
+      if (!themeRow) {
+        const themeRows = await this.selectRows(
+          "themes",
+          "row_guid,theme_slug,name,theme_guid,version,font_family,font_url,css,theme_json,default_page_template",
+          [
+            { Operand: "eq", UIKey: "is_deleted", Value: "false" },
+          ],
+          [{ UIKey: "id", Direction: "ASC" }],
+          "1",
+          "1"
         );
         themeRow = themeRows[0];
       }

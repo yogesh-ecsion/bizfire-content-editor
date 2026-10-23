@@ -7,7 +7,8 @@ import { Spinner, Alert, ProgressBar } from 'react-bootstrap';
 import AddPageOffcanvas from '../../AddPageOffcanvas';
 import ImportWpPageOffcanvas from '../../ImportWpPageOffcanvas';
 import ImportComponentsModal from '../../ImportComponentsModal';
-import ThemeStylingModal from '../../ThemeStylingModal';
+import ThemeEditorOffcanvas from '../../themes/ThemeEditorOffcanvas';
+import WorkspaceSidebar from './WorkspaceSidebar';
 
 export default function WorkspacePageList({
   workspace,
@@ -27,6 +28,53 @@ export default function WorkspacePageList({
   const [isImportDrawerOpen, setIsImportDrawerOpen] = useState(false);
   const [isComponentModalOpen, setIsComponentModalOpen] = useState(false);
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+  const [activeThemeSlug, setActiveThemeSlug] = useState(workspace.themeId || themeBundle.theme?.id || 'trades-modern');
+  const [availableThemes, setAvailableThemes] = useState([]);
+  const [isChangingTheme, setIsChangingTheme] = useState(false);
+
+  useEffect(() => {
+    async function loadThemes() {
+      try {
+        const res = await fetch('/api/admin/themes');
+        const data = await res.json();
+        if (data.success && data.themes) {
+          setAvailableThemes(data.themes);
+        }
+      } catch (err) {
+        console.warn('Could not load themes for dropdown:', err);
+      }
+    }
+    loadThemes();
+  }, []);
+
+  async function handleThemeChange(e) {
+    const newSlug = e.target.value;
+    setActiveThemeSlug(newSlug);
+    setIsChangingTheme(true);
+    try {
+      const res = await fetch(`/api/workspace/${workspace.workspaceId}/theme`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ themeSlug: newSlug })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to update theme');
+      }
+      setPublishAlert({
+        type: 'success',
+        message: `Workspace theme switched to "${data.theme?.name || newSlug}". Reloading styles...`
+      });
+      router.refresh();
+    } catch (err) {
+      setPublishAlert({
+        type: 'danger',
+        message: `Failed to change theme: ${err.message}`
+      });
+    } finally {
+      setIsChangingTheme(false);
+    }
+  }
 
   // Filters State
   const [searchQuery, setSearchQuery] = useState('');
@@ -141,9 +189,30 @@ export default function WorkspacePageList({
     };
   }, [isPublishing, workspace.workspaceId]);
 
-  function getPageKey(page) {
-    return page.rowGuid || String(page.postId);
+  function getPageKey(page, index) {
+    if (!page) return `page_${index ?? 0}`;
+    return (
+      page.rowGuid ||
+      (page.postId && Number(page.postId) > 0 ? `post_${page.postId}` : null) ||
+      (page.slug ? `slug_${page.slug}` : null) ||
+      `page_${index ?? 0}`
+    );
   }
+
+  // Deduplicate incoming pages by unique key to guarantee zero key collision errors
+  const uniquePages = useMemo(() => {
+    const seen = new Set();
+    return pages.filter((p, idx) => {
+      const key =
+        p.rowGuid ||
+        (p.postId && Number(p.postId) > 0 ? `post_${p.postId}` : null) ||
+        p.slug ||
+        `p_${idx}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }, [pages]);
 
   function getPageStatus(page) {
     if (!page.lastPublishedAt) {
@@ -197,7 +266,7 @@ export default function WorkspacePageList({
 
   // Filter and sort pages
   const filteredAndSortedPages = useMemo(() => {
-    let result = [...pages];
+    let result = [...uniquePages];
 
     // Text search (ID, slug, title, rowGuid)
     const q = searchQuery.toLowerCase().trim();
@@ -272,7 +341,7 @@ export default function WorkspacePageList({
 
   // Selection calculations
   const visibleKeys = useMemo(() => {
-    return filteredAndSortedPages.map(getPageKey);
+    return filteredAndSortedPages.map((p, idx) => getPageKey(p, idx));
   }, [filteredAndSortedPages]);
 
   const selectedVisibleCount = useMemo(() => {
@@ -546,155 +615,119 @@ export default function WorkspacePageList({
   }
 
   function handleBulkPublish() {
-    const selectedList = pages.filter(p => selectedKeys.has(getPageKey(p)));
+    const selectedList = filteredAndSortedPages.filter((p, idx) => selectedKeys.has(getPageKey(p, idx)));
     if (selectedList.length === 0) return;
     handlePublishPages(selectedList);
   }
 
-  const existingPostIds = new Set(pages.map(p => Number(p.postId)).filter(Boolean));
+  const existingPostIds = new Set(uniquePages.map(p => Number(p.postId)).filter(Boolean));
 
   return (
-    <div className="workspace-dashboard">
-      {/* Top Header */}
-      <header className="ws-topbar">
-        <div className="ws-topbar-left">
-          <Link href="/" className="ws-brand-link" title="Theme Playground">
-            <div className="brand-mark">B</div>
-            <span>Bizfire</span>
-          </Link>
-          <span className="ws-nav-separator">/</span>
-          <div className="ws-client-title">
-            <strong>{workspace.clientName}</strong>
-            <span className="ws-id-pill">{workspace.workspaceId}</span>
-          </div>
-        </div>
+    <div className="ws-layout-wrapper">
+      {/* 1. Dedicated Workspace Modular Sidebar */}
+      <WorkspaceSidebar
+        workspace={workspace}
+        pages={uniquePages}
+        activeThemeSlug={activeThemeSlug}
+        availableThemes={availableThemes}
+        isChangingTheme={isChangingTheme}
+        isPublishing={isPublishing}
+        onThemeChange={handleThemeChange}
+        onOpenAddPage={() => setIsAddPageDrawerOpen(true)}
+        onOpenComponentLibrary={() => setIsComponentModalOpen(true)}
+        onOpenImportDrawer={() => setIsImportDrawerOpen(true)}
+      />
 
-        <div className="ws-topbar-right">
-          <Link
-            href={`/editor/${workspace.workspaceId}/header`}
-            className="btn btn-outline-primary btn-sm"
-            style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '5px' }}
-            title="Edit Site Header & Navigation"
-          >
-            <span>🧭</span> Site Header & Menu
-          </Link>
-          <Link
-            href={`/editor/${workspace.workspaceId}/footer`}
-            className="btn btn-outline-secondary btn-sm"
-            style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '5px' }}
-            title="Edit Site Footer & Multi-Column Navigation"
-          >
-            <span>🦶</span> Site Footer
-          </Link>
-          {workspace.wpSiteUrl && (
-            <a
-              href={workspace.wpSiteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ws-ext-link"
+      {/* 2. Main Workspace Panel */}
+      <div className="ws-main-panel">
+        <header className="ws-topbar">
+          <div className="ws-topbar-left">
+            <span style={{ fontSize: '15px', fontWeight: 700, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>📄</span> Workspace Pages Dashboard
+            </span>
+            <span className="badge bg-primary-subtle text-primary border border-primary-subtle" style={{ fontSize: '11px', fontWeight: 600 }}>
+              {filteredAndSortedPages.length} displayed
+            </span>
+          </div>
+
+          <div className="ws-topbar-right">
+            <button
+              type="button"
+              className="btn btn-outline-secondary btn-sm"
+              disabled={isPublishing}
+              onClick={() => setIsImportDrawerOpen(true)}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}
             >
-              WordPress Site ↗
-            </a>
-          )}
-          <Link href="/" className="btn-secondary">
-            Playground ↗
-          </Link>
-        </div>
-      </header>
+              <span>⤓</span> Import from WP
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary btn-sm"
+              disabled={isPublishing}
+              onClick={() => setIsAddPageDrawerOpen(true)}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontWeight: 600 }}
+            >
+              <span>➕</span> Add New Page
+            </button>
+          </div>
+        </header>
 
-      {/* Main Container */}
-      <main className="ws-main-content">
-        {/* Workspace Overview Cards */}
-        <div className="ws-overview-cards">
-          <div className="ws-card">
-            <span className="ws-card-label">Client Name</span>
-            <strong className="ws-card-value">{workspace.clientName}</strong>
+        {/* Main Container */}
+        <main className="ws-main-content">
+          {/* Workspace Overview Cards */}
+          <div className="ws-overview-cards">
+            <div className="ws-card">
+              <span className="ws-card-label">Client Name</span>
+              <strong className="ws-card-value">{workspace.clientName}</strong>
+            </div>
+            <div className="ws-card">
+              <span className="ws-card-label">Workspace Active Theme</span>
+              <strong className="ws-card-value">{themeBundle.theme?.name || activeThemeSlug}</strong>
+              <small className="ws-card-sub">
+                {themeBundle.components?.length || 0} components · {themeBundle.pageTemplates?.length || 0} templates
+              </small>
+            </div>
+            <div className="ws-card">
+              <span className="ws-card-label">Total Pages</span>
+              <strong className="ws-card-value">{uniquePages.length}</strong>
+              <small className="ws-card-sub">
+                {uniquePages.filter(p => !!p.lastPublishedAt).length} published to WordPress
+              </small>
+            </div>
+            <div className="ws-card">
+              <span className="ws-card-label">Target WordPress Site</span>
+              <strong className="ws-card-value ws-truncate" title={workspace.wpSiteUrl}>
+                {workspace.wpSiteUrl ? workspace.wpSiteUrl.replace(/^https?:\/\//, '') : 'None configured'}
+              </strong>
+            </div>
           </div>
-          <div className="ws-card">
-            <span className="ws-card-label">Workspace Theme Clone</span>
-            <strong className="ws-card-value">{themeBundle.theme?.name || workspace.themeId}</strong>
-            <small className="ws-card-sub">
-              {themeBundle.components?.length || 0} components · {themeBundle.pageTemplates?.length || 0} templates
-            </small>
-          </div>
-          <div className="ws-card">
-            <span className="ws-card-label">Total Pages</span>
-            <strong className="ws-card-value">{pages.length}</strong>
-            <small className="ws-card-sub">
-              {pages.filter(p => !!p.lastPublishedAt).length} published to WordPress
-            </small>
-          </div>
-          <div className="ws-card">
-            <span className="ws-card-label">Target WordPress Site</span>
-            <strong className="ws-card-value ws-truncate" title={workspace.wpSiteUrl}>
-              {workspace.wpSiteUrl ? workspace.wpSiteUrl.replace(/^https?:\/\//, '') : 'None configured'}
-            </strong>
-          </div>
-        </div>
 
-        {/* Page List Section */}
-        <section className="ws-table-container">
-          <div className="ws-table-header">
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <h2>Workspace Pages</h2>
-                <span className="badge bg-light text-secondary border" style={{ fontSize: '12px', fontWeight: '500' }}>
-                  {filteredAndSortedPages.length}{pages.length !== filteredAndSortedPages.length ? ` of ${pages.length}` : ''}
-                </span>
+          {/* Page List Section */}
+          <section className="ws-table-container">
+            <div className="ws-table-header">
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <h2 style={{ fontSize: '18px', fontWeight: 700, margin: 0, color: '#0f172a' }}>Client Pages</h2>
+                  <span className="badge bg-light text-secondary border" style={{ fontSize: '12px', fontWeight: '500' }}>
+                    {filteredAndSortedPages.length}{uniquePages.length !== filteredAndSortedPages.length ? ` of ${uniquePages.length}` : ''}
+                  </span>
+                </div>
+                <p style={{ margin: '4px 0 0 0', color: '#64748b', fontSize: '13px' }}>
+                  Manage, sort, and publish component-driven pages for this client.
+                </p>
               </div>
-              <p>Manage, sort, and publish component-driven pages for this client.</p>
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  disabled={isPublishing}
+                  onClick={() => setIsAddPageDrawerOpen(true)}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontWeight: 600 }}
+                >
+                  <span>+</span> Add Page
+                </button>
+              </div>
             </div>
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
-              <Link
-                href={`/editor/${workspace.workspaceId}/header`}
-                className="btn btn-outline-secondary"
-                style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
-                title="Configure Site Header and Navigation Menu"
-              >
-                <span>🧭</span> Site Header & Menu
-              </Link>
-              <Link
-                href={`/editor/${workspace.workspaceId}/footer`}
-                className="btn btn-outline-secondary"
-                style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
-                title="Configure Site Footer and Multi-Column Navigation"
-              >
-                <span>🦶</span> Site Footer
-              </Link>
-              <button
-                type="button"
-                className="btn btn-outline-secondary"
-                disabled={isPublishing}
-                onClick={() => setIsThemeModalOpen(true)}
-              >
-                🎨 Theme & Styling
-              </button>
-              <button
-                type="button"
-                className="btn btn-outline-secondary"
-                disabled={isPublishing}
-                onClick={() => setIsComponentModalOpen(true)}
-              >
-                🧩 Component Library
-              </button>
-              <button
-                type="button"
-                className="btn btn-outline-primary"
-                disabled={isPublishing}
-                onClick={() => setIsImportDrawerOpen(true)}
-              >
-                Import from WordPress ⤓
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                disabled={isPublishing}
-                onClick={() => setIsAddPageDrawerOpen(true)}
-              >
-                + Add Page
-              </button>
-            </div>
-          </div>
 
           {/* Table Filters & Bulk Actions Toolbar */}
           {pages.length > 0 && (
@@ -990,8 +1023,8 @@ export default function WorkspacePageList({
                     </td>
                   </tr>
                 ) : (
-                  filteredAndSortedPages.map(page => {
-                    const pageKey = getPageKey(page);
+                  filteredAndSortedPages.map((page, pageIdx) => {
+                    const pageKey = getPageKey(page, pageIdx);
                     const isSelected = selectedKeys.has(pageKey);
                     const isThisPublishing = publishingKeys.has(pageKey);
                     const targetIdentifier = page.rowGuid || page.postId;
@@ -1092,6 +1125,7 @@ export default function WorkspacePageList({
           )}
         </section>
       </main>
+      </div>
 
       {/* Import from WordPress Offcanvas Drawer */}
       <ImportWpPageOffcanvas
@@ -1123,12 +1157,19 @@ export default function WorkspacePageList({
         }}
       />
 
-      {/* Theme & Styling Modal */}
-      <ThemeStylingModal
+      {/* Theme Editor Offcanvas Drawer */}
+      <ThemeEditorOffcanvas
         show={isThemeModalOpen}
         onHide={() => setIsThemeModalOpen(false)}
-        workspace={workspace}
-        themeBundle={themeBundle}
+        theme={{
+          name: themeBundle.theme?.name,
+          slug: activeThemeSlug,
+          css: themeBundle.styleCss,
+          fontFamily: themeBundle.theme?.fontFamily,
+          fontUrl: themeBundle.theme?.fontUrl,
+          themeSettings: themeBundle.theme?.themeSettings,
+          isMaster: Boolean(themeBundle.theme?.isMaster)
+        }}
         onSuccess={() => {
           router.refresh();
         }}
