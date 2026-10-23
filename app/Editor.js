@@ -9,6 +9,7 @@ import ComponentPickerModal from './ComponentPickerModal';
 import ThemeEditorOffcanvas from './themes/ThemeEditorOffcanvas';
 import { compileHeader } from '@/lib/headerCompiler.js';
 import { compileFooter } from '@/lib/footerCompiler.js';
+import PreviewCanvasFrame from './PreviewCanvasFrame';
 
 function generateUniqueId(prefix = 'id') {
   if (typeof crypto !== 'undefined' && crypto.randomUUID) {
@@ -527,6 +528,7 @@ export default function Editor({
   const leftPanelRef = useRef(null);
   const editorPanelRef = useRef(null);
   const previewCanvasRef = useRef(null);
+  const previewIframeRef = useRef(null);
 
   const selectComponent = useCallback((instanceId, source = 'tree') => {
     if (!instanceId) return;
@@ -538,7 +540,8 @@ export default function Editor({
     }
 
     if (source === 'tree') {
-      const compEl = previewCanvasRef.current?.querySelector(`[data-instance-id="${instanceId}"]`);
+      const iframeDoc = previewIframeRef.current?.contentDocument || previewIframeRef.current?.contentWindow?.document;
+      const compEl = iframeDoc?.querySelector(`[data-instance-id="${instanceId}"]`) || previewCanvasRef.current?.querySelector(`[data-instance-id="${instanceId}"]`);
       if (compEl) {
         compEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
@@ -1868,21 +1871,14 @@ ${renderedSections}
             ref={previewCanvasRef}
             className={`preview-viewport-scroll-container ${viewportMode !== 'desktop' ? 'is-framed' : ''}`}
           >
-            <div className={`preview-canvas page-preview preview-canvas--${viewportMode}`}>
-            {/* Inject Active Theme Google Font & CSS into preview */}
-            {theme?.fontUrl && (
-              <link rel="stylesheet" href={theme.fontUrl} />
-            )}
-            {/* Layer 1: Master Theme Baseline */}
-            <style id="live-theme-styles" dangerouslySetInnerHTML={{ __html: themeCss }} />
-            {/* Layer 2: Deduplicated Scoped Component CSS */}
-            {liveComponentCss ? (
-              <style id="live-component-styles" dangerouslySetInnerHTML={{ __html: liveComponentCss }} />
-            ) : null}
-            {/* Layer 3: Workspace Custom Overrides (Cascades Last) */}
-            {customCss ? (
-              <style id="live-workspace-custom-styles" dangerouslySetInnerHTML={{ __html: customCss }} />
-            ) : null}
+            <PreviewCanvasFrame
+              theme={theme}
+              themeCss={themeCss}
+              liveComponentCss={liveComponentCss}
+              customCss={customCss}
+              viewportMode={viewportMode}
+              iframeRef={previewIframeRef}
+            >
 
             {mode === 'workspace' && (
               showHeaderFooterPreview && compiledHeader ? (
@@ -2127,7 +2123,7 @@ ${renderedSections}
                 </div>
               )
             )}
-            </div>
+            </PreviewCanvasFrame>
           </div>
 
           {/* Floating Exit Button when in Full View Preview Mode */}
