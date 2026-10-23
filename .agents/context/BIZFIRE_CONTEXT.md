@@ -182,6 +182,95 @@ When in doubt: use array. It gives the client the ability to add items later.
 
 ---
 
+## Component Variations & Category Standard Handlebars Keys (MANDATORY)
+
+In Bizfire:
+- **Category** defines the functional component family (e.g. `Hero`, `Header`, `Services`, `Testimonials`, `FAQ`, `CTA`, `Footer`).
+- **Component Entry** represents an individual **Layout Variation** within that category (e.g. `hvac-hero-split`, `hvac-hero-full-02`).
+- When a user swaps layout variations in the Content Studio, the editor non-destructively merges existing user copy onto the new layout defaults.
+
+> **CRITICAL RULE:** All variations belonging to the same Category MUST use the exact same Handlebars keys for identical content elements. Do not invent arbitrary field names per layout.
+>
+> If a variation introduces a unique layout-specific field (e.g. `videoUrl`), add it cleanly—it will stay dormant when swapped to variations that do not use it.
+
+### Standard Category Key Dictionary
+
+#### 1. Category: `Hero`
+| Handlebars Key | Type | Description / Usage |
+| :--- | :--- | :--- |
+| `eyebrow` | text | Optional top badge / kicker text |
+| `eyebrowIcon` | text | Font Awesome icon class (e.g. `fa-shield-halved`) |
+| `title` | text | Section headline (`{{{title}}}` if HTML formatting like `<span>` or `<br>` is present) |
+| `description` | textarea | Lead intro paragraph |
+| `primaryButtonText` | text | Primary action button label (e.g. `Schedule Service`) |
+| `primaryButtonUrl` | url | Destination for primary action button |
+| `primaryButtonIcon` | text | Font Awesome icon class (e.g. `fa-arrow-right`) |
+| `phoneText` | text | Visible phone number / call label (e.g. `(609) 555-0100`) |
+| `phoneUrl` | text | Tel link (e.g. `tel:+16095550100`) |
+| `phoneIcon` | text | Font Awesome icon class (e.g. `fa-phone`) |
+| `image` | image | Main hero image object: `{ "src": "...", "alt": "..." }` |
+| `trustItems` | array | Trust bullets / badges: `[{ "_id": "...", "icon": "fa-circle-check", "text": "..." }]` |
+
+#### 2. Category: `Header`
+| Handlebars Key | Type | Description / Usage |
+| :--- | :--- | :--- |
+| `topbarLocation` | text | Service area / location notification text |
+| `topbarEmergencyText` | text | Emergency dispatch notification text |
+| `phoneText` | text | Main phone display string |
+| `phoneUrl` | text | Tel link (`tel:+1...`) |
+| `brandName` | text | Company / site name text |
+| `brandTagline` | text | Subtitle / slogan text below brand name |
+| `brandLogo` | image | `{ "src": "/assets/img/logo.png", "alt": "..." }` |
+| `navLinks` | array | Main navigation items: `[{ "_id": "...", "label": "...", "url": "..." }]` |
+| `ctaButtonText` | text | Primary action button label |
+| `ctaButtonUrl` | url | Primary action link |
+
+#### 3. Category: `Services` / `Features`
+| Handlebars Key | Type | Description / Usage |
+| :--- | :--- | :--- |
+| `eyebrow` | text | Optional section kicker |
+| `title` | text | Section headline (`{{{title}}}`) |
+| `description` | textarea | Section intro / supporting copy |
+| `items` | array | Service cards: `[{ "_id": "...", "title": "...", "desc": "...", "icon": "fa-...", "url": "...", "image": {...} }]` |
+
+#### 4. Category: `Testimonials`
+| Handlebars Key | Type | Description / Usage |
+| :--- | :--- | :--- |
+| `eyebrow` | text | Section kicker |
+| `title` | text | Section headline (`{{{title}}}`) |
+| `description` | textarea | Section intro copy |
+| `items` | array | Review cards: `[{ "_id": "...", "name": "...", "location": "...", "quote": "...", "rating": 5, "initial": "J", "avatar": {...} }]` |
+
+#### 5. Category: `CTA` / `Banner`
+| Handlebars Key | Type | Description / Usage |
+| :--- | :--- | :--- |
+| `eyebrow` | text | Section kicker |
+| `title` | text | Banner headline (`{{{title}}}`) |
+| `description` | textarea | Banner descriptive paragraph |
+| `primaryButtonText` | text | Action button label |
+| `primaryButtonUrl` | url | Action button URL |
+| `phoneText` | text | Optional phone display text |
+| `phoneUrl` | text | Optional phone tel URL |
+
+#### 6. Category: `FAQ`
+| Handlebars Key | Type | Description / Usage |
+| :--- | :--- | :--- |
+| `eyebrow` | text | Section kicker |
+| `title` | text | Section headline (`{{{title}}}`) |
+| `description` | textarea | Section intro paragraph |
+| `items` | array | Q&A items: `[{ "_id": "...", "question": "...", "answer": "..." }]` |
+
+#### 7. Category: `Footer`
+| Handlebars Key | Type | Description / Usage |
+| :--- | :--- | :--- |
+| `brandName` | text | Company / footer brand |
+| `brandDescription` | textarea | Short about summary |
+| `copyright` | text | Full copyright statement |
+| `navColumns` | array | Grouped footer columns: `[{ "_id": "...", "heading": "...", "links": [{ "label": "...", "url": "..." }] }]` |
+| `socialLinks` | array | Social icons: `[{ "_id": "...", "platform": "facebook", "url": "..." }]` |
+
+---
+
 ## WordPress KSES Safety Rules (Non-Negotiable)
 
 1. NO raw `<svg>` in templates — use Font Awesome `<i class="fa-solid fa-..."></i>`.
@@ -215,6 +304,7 @@ When in doubt: use array. It gives the client the ability to add items later.
 - Do NOT run Cheerio parsing scripts or manual file assembly.
 - Do NOT write `<svg>` inside any Handlebars template.
 - Do NOT add CSS inside component `style.css` unless truly component-unique.
-- Do NOT fabricate field names — derive everything from the actual HTML source.
+- Do NOT invent arbitrary field names — strictly adhere to the Category Standard Handlebars Key Dictionary above, mapping real values from the HTML source to the standard keys.
 - Do NOT mention `compileHeader`, `HeaderEditor`, `compileFooter`, or any internal Next.js API
   in prompts sent to a designer environment. Those are internal studio implementation details.
+

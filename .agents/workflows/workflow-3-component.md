@@ -50,10 +50,15 @@ State your decision and reasoning before writing any files.
 
 ---
 
-## Step 3 — Plan Fields
+## Step 3 — Plan Fields (Standardized to Category Dictionary)
+
+Consult the **Category Standard Handlebars Key Dictionary** in `BIZFIRE_CONTEXT.md` for `[COMPONENT_CATEGORY]`.
+Map the extracted HTML elements directly to the standardized keys for this category (e.g. `title`, `description`, `primaryButtonText`, `phoneText`, `phoneUrl`, `image`, `trustItems`).
+
+> **CRITICAL:** Do NOT invent arbitrary field names. Strictly adhere to the standardized category keys from `BIZFIRE_CONTEXT.md`. This ensures that this component can be seamlessly swapped with any sibling layout variation in the studio editor without losing user edits.
 
 List every field that will be editable. For each field record:
-- Field name (camelCase key)
+- Standard Field Name (from `BIZFIRE_CONTEXT.md` category dictionary)
 - Type: `text`, `textarea`, `image`, `url`, `array`
 - Whether it is optional (should be wrapped in `{{#if}}`)
 - The actual text value from the HTML to use as the default
