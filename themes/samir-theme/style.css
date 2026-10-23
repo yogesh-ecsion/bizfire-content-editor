@@ -1,12 +1,3 @@
-/* ── Design Tokens ── */
-:root {
-  --theme-primary: #0284c7;
-  --theme-secondary: #0369a1;
-  --theme-dark: #0f172a;
-  --theme-light: #f8fafc;
-  --theme-font: Outfit, sans-serif;
-}
-
 :root {
       /* BRAND COLORS */
       --primary: #0F766E;

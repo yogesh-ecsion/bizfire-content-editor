@@ -3,6 +3,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { NextResponse } from 'next/server';
 import DataService from '@/api-services/data.service';
+import { stripLegacyThemeTokens } from '@/lib/themeTokens';
 
 function slugify(text) {
   return String(text || '')
@@ -127,7 +128,7 @@ export async function POST(request) {
       version: '1.0.0',
       font_family: fontFamily || 'Outfit, sans-serif',
       font_url: fontUrl || '',
-      css: css || '',
+      css: stripLegacyThemeTokens(css || ''),
       theme_json: themeJson,
       default_page_template: defaultPageTemplate || 'service-standard',
       is_master: Boolean(isMaster),

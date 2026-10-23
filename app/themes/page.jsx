@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Card, Button, Badge, Spinner, Alert, Tabs, Tab, Form } from 'react-bootstrap';
 import ThemeEditorOffcanvas from './ThemeEditorOffcanvas';
+import { extractTokensFromCss } from '@/lib/themeTokens';
 
 function slugify(text) {
   return String(text || '')
@@ -311,11 +312,13 @@ export default function ThemesManagementPage() {
               /* Themes Grid */
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '20px' }}>
                 {filteredThemes.map((t) => {
+                  const parsed = extractTokensFromCss(t.css);
                   const colors = t.themeSettings?.colors || {};
-                  const primary = colors.primary || '#A01922';
-                  const secondary = colors.secondary || '#7D1118';
-                  const dark = colors.dark || '#1E293B';
-                  const light = colors.light || '#F8FAFC';
+                  const primary = parsed.primary || colors.primary || '#0F766E';
+                  const secondary = parsed.secondary || colors.secondary || '#64748B';
+                  const dark = parsed.dark || colors.dark || '#18313B';
+                  const light = parsed.light || colors.light || '#F4FAFA';
+                  const fontDisplay = (parsed.fontSans || t.fontFamily || 'Outfit').replace(/['"]/g, '').split(',')[0].trim();
 
                   return (
                     <Card
@@ -362,7 +365,7 @@ export default function ThemesManagementPage() {
                         {/* Metadata badges */}
                         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '18px' }}>
                           <span style={{ fontSize: '11px', background: '#f1f5f9', color: '#475569', padding: '3px 8px', borderRadius: '4px', fontWeight: 600 }}>
-                            Font: {t.fontFamily ? t.fontFamily.split(',')[0] : 'Outfit'}
+                            Font: {fontDisplay}
                           </span>
                           <span style={{ fontSize: '11px', background: '#f1f5f9', color: '#475569', padding: '3px 8px', borderRadius: '4px', fontWeight: 600 }}>
                             CSS: {(t.cssLength / 1024).toFixed(1)} KB

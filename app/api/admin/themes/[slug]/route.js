@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { NextResponse } from 'next/server';
 import DataService from '@/api-services/data.service';
+import { stripLegacyThemeTokens } from '@/lib/themeTokens';
 
 /**
  * GET /api/admin/themes/[slug]
@@ -104,7 +105,7 @@ export async function PUT(request, { params }) {
       name: name !== undefined ? name.trim() : current.name,
       font_family: fontFamily !== undefined ? fontFamily : current.font_family,
       font_url: fontUrl !== undefined ? fontUrl : current.font_url,
-      css: css !== undefined ? css : current.css,
+      css: css !== undefined ? stripLegacyThemeTokens(css) : current.css,
       theme_json: themeJson,
       default_page_template: defaultPageTemplate !== undefined ? defaultPageTemplate : current.default_page_template,
       is_master: isMaster !== undefined ? Boolean(isMaster) : current.is_master,
@@ -119,8 +120,8 @@ export async function PUT(request, { params }) {
       if (!fs.existsSync(themeDir)) {
         fs.mkdirSync(themeDir, { recursive: true });
       }
-      if (css !== undefined) {
-        fs.writeFileSync(path.join(themeDir, 'style.css'), css || '', 'utf8');
+      if (payload.css !== undefined) {
+        fs.writeFileSync(path.join(themeDir, 'style.css'), payload.css || '', 'utf8');
       }
       fs.writeFileSync(path.join(themeDir, 'theme.json'), themeJson || '{}', 'utf8');
     } catch (fsErr) {
