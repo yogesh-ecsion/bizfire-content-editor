@@ -19,6 +19,7 @@
 # Environment variables
 .env*
 !.env.example
+.npmrc
 
 # Debug logs
 npm-debug.log*
@@ -53,3 +54,4 @@ Thumbs.db
 /public/uploads/*
 !/public/uploads/.gitkeep
 .agent_temp/
+logs/

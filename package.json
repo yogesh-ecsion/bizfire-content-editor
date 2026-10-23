@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@mukul-escion/request-flow": "^0.8.0",
     "axios": "^1.20.0",
     "bootstrap": "^5.3.8",
     "handlebars": "^4.7.8",

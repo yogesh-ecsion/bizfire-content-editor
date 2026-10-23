@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Handlebars from 'handlebars';
 import ImageCropperModal from './ImageCropperModal';
 import ImportComponentsModal from './ImportComponentsModal';
+import ComponentPickerModal from './ComponentPickerModal';
 import ThemeEditorOffcanvas from './themes/ThemeEditorOffcanvas';
 import { compileHeader } from '@/lib/headerCompiler.js';
 import { compileFooter } from '@/lib/footerCompiler.js';
@@ -167,10 +168,175 @@ function ImageField({ name, config, value, onChange }) {
   );
 }
 
+// Collapsible Array Field Engine
+function ArrayField({ name, config, value, onChange }) {
+  const rawItems = Array.isArray(value) ? value : [];
+  const items = sanitizeArrayItems(rawItems);
+  const itemSchema = config.itemSchema || { text: { type: 'text', label: 'Item' } };
+  const isComplex = typeof itemSchema === 'object' && !itemSchema.type;
+
+  // Manage expanded items: if <= 2 items, expand all; if > 2, expand first item
+  const [expandedIds, setExpandedIds] = useState(() => {
+    if (items.length <= 2) {
+      return new Set(items.map(it => it._id));
+    }
+    return new Set(items[0] ? [items[0]._id] : []);
+  });
+
+  function toggleExpand(id) {
+    setExpandedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  }
+
+  function expandAll() {
+    setExpandedIds(new Set(items.map(it => it._id)));
+  }
+
+  function collapseAll() {
+    setExpandedIds(new Set());
+  }
+
+  function addItem() {
+    const newItem = isComplex ? emptyObjectFromSchema(itemSchema) : '';
+    const newId = generateUniqueId('itm');
+    const itemWithId = typeof newItem === 'object'
+      ? { _id: newId, ...newItem }
+      : newItem;
+    // Auto-expand the newly added item
+    setExpandedIds(prev => new Set([...prev, newId]));
+    onChange([...items, itemWithId], true);
+  }
+
+  function updateItem(targetId, key, val) {
+    const next = items.map(item => {
+      if (item._id !== targetId) return item;
+      return isComplex ? { ...item, [key]: val } : val;
+    });
+    onChange(next, false);
+  }
+
+  function removeItem(targetId) {
+    onChange(items.filter(item => item._id !== targetId), true);
+  }
+
+  function moveItem(index, dir) {
+    const targetIndex = index + dir;
+    if (targetIndex < 0 || targetIndex >= items.length) return;
+    const next = [...items];
+    [next[index], next[targetIndex]] = [next[targetIndex], next[index]];
+    onChange(next, true);
+  }
+
+  return (
+    <fieldset className="editor-field editor-field--array">
+      <legend>
+        <div className="array-legend-wrap">
+          <span>{config.label || name} <small>({items.length})</small></span>
+          {items.length > 1 && (
+            <div className="array-legend-actions">
+              <button type="button" className="btn-array-toggle-all" onClick={expandAll} title="Expand all items">
+                Expand All
+              </button>
+              <span className="dot-sep" style={{ color: '#cbd5e1' }}>·</span>
+              <button type="button" className="btn-array-toggle-all" onClick={collapseAll} title="Collapse all items">
+                Collapse All
+              </button>
+            </div>
+          )}
+        </div>
+      </legend>
+      <div className="array-items-list">
+        {items.map((item, idx) => {
+          const stableKey = item._id || `item_${idx}`;
+          const badgeTitle = getItemBadgeTitle(item, config, idx);
+          const isExpanded = expandedIds.has(item._id);
+
+          return (
+            <div
+              key={stableKey}
+              className={`array-item-card ${isExpanded ? 'is-expanded' : 'is-collapsed'}`}
+            >
+              <div
+                className="array-item-header"
+                onClick={() => toggleExpand(item._id)}
+                title="Click to toggle expand/collapse"
+              >
+                <div className="array-item-toggle-wrap">
+                  <span className="array-item-chevron">▶</span>
+                  <span className="array-item-badge">#{idx + 1} {badgeTitle}</span>
+                </div>
+                <div className="array-item-actions" onClick={e => e.stopPropagation()}>
+                  <button
+                    type="button"
+                    onClick={() => moveItem(idx, -1)}
+                    disabled={idx === 0}
+                    title="Move up"
+                  >
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => moveItem(idx, 1)}
+                    disabled={idx === items.length - 1}
+                    title="Move down"
+                  >
+                    ↓
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-remove"
+                    onClick={() => removeItem(item._id)}
+                    title="Remove item"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+
+              {isExpanded && (
+                <div className="array-item-fields">
+                  {isComplex ? (
+                    Object.entries(itemSchema).map(([fieldKey, fieldConf]) => (
+                      <GenericField
+                        key={`${stableKey}_${fieldKey}`}
+                        name={fieldKey}
+                        config={fieldConf}
+                        value={item?.[fieldKey]}
+                        onChange={(val, isDisc) => updateItem(item._id, fieldKey, val)}
+                      />
+                    ))
+                  ) : (
+                    <GenericField
+                      name={`item_${idx}`}
+                      config={itemSchema}
+                      value={item}
+                      onChange={(val, isDisc) => updateItem(item._id, null, val)}
+                    />
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <button type="button" className="add-array-item-btn" onClick={addItem}>
+        + Add {config.itemLabel || 'Item'}
+      </button>
+    </fieldset>
+  );
+}
+
 // 100% Generic Schema-to-Form Field Engine
 function GenericField({ name, config, value, onChange }) {
   if (config.type === 'image') {
-    return <ImageField name={name} config={config} value={value} onChange={onChange} />;
+    return <ImageField name={name} config={config} value={value} onChange={val => onChange(val, true)} />;
   }
 
   if (config.type === 'textarea') {
@@ -181,7 +347,7 @@ function GenericField({ name, config, value, onChange }) {
           rows={config.rows || 3}
           value={value || ''}
           required={!!config.required}
-          onChange={e => onChange(e.target.value)}
+          onChange={e => onChange(e.target.value, false)}
         />
       </label>
     );
@@ -195,7 +361,7 @@ function GenericField({ name, config, value, onChange }) {
         <select
           value={value ?? config.default ?? ''}
           required={!!config.required}
-          onChange={e => onChange(e.target.value)}
+          onChange={e => onChange(e.target.value, true)}
         >
           {options.map((opt, i) => {
             const val = typeof opt === 'object' ? opt.value : opt;
@@ -213,7 +379,7 @@ function GenericField({ name, config, value, onChange }) {
         <input
           type="checkbox"
           checked={!!value}
-          onChange={e => onChange(e.target.checked)}
+          onChange={e => onChange(e.target.checked, true)}
         />
         <span style={{ fontWeight: 500 }}>{config.label || name}</span>
       </label>
@@ -221,109 +387,7 @@ function GenericField({ name, config, value, onChange }) {
   }
 
   if (config.type === 'array' || config.type === 'list') {
-    const rawItems = Array.isArray(value) ? value : [];
-    const items = sanitizeArrayItems(rawItems);
-    const itemSchema = config.itemSchema || { text: { type: 'text', label: 'Item' } };
-    const isComplex = typeof itemSchema === 'object' && !itemSchema.type;
-
-    function addItem() {
-      const newItem = isComplex ? emptyObjectFromSchema(itemSchema) : '';
-      const itemWithId = typeof newItem === 'object'
-        ? { _id: generateUniqueId('itm'), ...newItem }
-        : newItem;
-      onChange([...items, itemWithId]);
-    }
-
-    function updateItem(targetId, key, val) {
-      const next = items.map(item => {
-        if (item._id !== targetId) return item;
-        return isComplex ? { ...item, [key]: val } : val;
-      });
-      onChange(next);
-    }
-
-    function removeItem(targetId) {
-      onChange(items.filter(item => item._id !== targetId));
-    }
-
-    function moveItem(index, dir) {
-      const targetIndex = index + dir;
-      if (targetIndex < 0 || targetIndex >= items.length) return;
-      const next = [...items];
-      [next[index], next[targetIndex]] = [next[targetIndex], next[index]];
-      onChange(next);
-    }
-
-    return (
-      <fieldset className="editor-field editor-field--array">
-        <legend>
-          <span>{config.label || name} <small>({items.length})</small></span>
-        </legend>
-        <div className="array-items-list">
-          {items.map((item, idx) => {
-            const stableKey = item._id || `item_${idx}`;
-            const badgeTitle = getItemBadgeTitle(item, config, idx);
-
-            return (
-              <div key={stableKey} className="array-item-card">
-                <div className="array-item-header">
-                  <span className="array-item-badge">#{idx + 1} {badgeTitle}</span>
-                  <div className="row-actions">
-                    <button
-                      type="button"
-                      onClick={() => moveItem(idx, -1)}
-                      disabled={idx === 0}
-                      title="Move up"
-                    >
-                      ↑
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => moveItem(idx, 1)}
-                      disabled={idx === items.length - 1}
-                      title="Move down"
-                    >
-                      ↓
-                    </button>
-                    <button
-                      type="button"
-                      className="btn-remove"
-                      onClick={() => removeItem(item._id)}
-                      title="Remove item"
-                    >
-                      ×
-                    </button>
-                  </div>
-                </div>
-                <div className="array-item-fields">
-                  {isComplex ? (
-                    Object.entries(itemSchema).map(([fieldKey, fieldConf]) => (
-                      <GenericField
-                        key={fieldKey}
-                        name={fieldKey}
-                        config={fieldConf}
-                        value={item?.[fieldKey]}
-                        onChange={val => updateItem(item._id, fieldKey, val)}
-                      />
-                    ))
-                  ) : (
-                    <GenericField
-                      name={`item_${idx}`}
-                      config={itemSchema}
-                      value={item}
-                      onChange={val => updateItem(item._id, null, val)}
-                    />
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <button type="button" className="add-array-item-btn" onClick={addItem}>
-          + Add {config.itemLabel || 'Item'}
-        </button>
-      </fieldset>
-    );
+    return <ArrayField name={name} config={config} value={value} onChange={onChange} />;
   }
 
   return (
@@ -333,7 +397,7 @@ function GenericField({ name, config, value, onChange }) {
         type={config.type === 'number' ? 'number' : 'text'}
         value={value || ''}
         required={!!config.required}
-        onChange={e => onChange(e.target.value)}
+        onChange={e => onChange(e.target.value, false)}
       />
     </label>
   );
@@ -423,6 +487,68 @@ export default function Editor({
 
   const [isLoadingTheme, setIsLoadingTheme] = useState(false);
   const [exportSuccess, setExportSuccess] = useState(false);
+  const [viewportMode, setViewportMode] = useState('desktop'); // 'desktop' | 'tablet' | 'mobile'
+  const [isPreviewFullView, setIsPreviewFullView] = useState(false);
+
+  // Escape key exits Full View Preview
+  useEffect(() => {
+    function handleEscape(e) {
+      if (e.key === 'Escape' && isPreviewFullView) {
+        setIsPreviewFullView(false);
+      }
+    }
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [isPreviewFullView]);
+
+  // Phase 2: Component Picker & Drag-and-Drop state
+  const [isComponentPickerOpen, setIsComponentPickerOpen] = useState(false);
+  const [draggedInstanceId, setDraggedInstanceId] = useState(null);
+  const [dragOverInstanceId, setDragOverInstanceId] = useState(null);
+  const [dropPosition, setDropPosition] = useState(null); // 'before' | 'after'
+
+  // Phase 3: Undo / Redo History Stack
+  const [historyPast, setHistoryPast] = useState([]);
+  const [historyFuture, setHistoryFuture] = useState([]);
+  const pageRef = useRef(page);
+  pageRef.current = page;
+  const historyDebounceRef = useRef(null);
+
+  // Phase 3: Inspector Search & Category Tabs
+  const [fieldSearch, setFieldSearch] = useState('');
+  const [activeInspectorTab, setActiveInspectorTab] = useState('all');
+
+  // Reset inspector search & tab when selected component changes
+  useEffect(() => {
+    setFieldSearch('');
+    setActiveInspectorTab('all');
+  }, [selectedId]);
+
+  const leftPanelRef = useRef(null);
+  const editorPanelRef = useRef(null);
+  const previewCanvasRef = useRef(null);
+
+  const selectComponent = useCallback((instanceId, source = 'tree') => {
+    if (!instanceId) return;
+    setSelectedId(instanceId);
+
+    // Smooth scroll inspector form to top so fields are immediately accessible
+    if (editorPanelRef.current) {
+      editorPanelRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    if (source === 'tree') {
+      const compEl = previewCanvasRef.current?.querySelector(`[data-instance-id="${instanceId}"]`);
+      if (compEl) {
+        compEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    } else if (source === 'canvas') {
+      const treeRow = leftPanelRef.current?.querySelector(`[data-instance-id="${instanceId}"]`);
+      if (treeRow) {
+        treeRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  }, []);
 
   const library = useMemo(() => Object.fromEntries(components.map(c => [c.id, c])), [components]);
 
@@ -606,8 +732,175 @@ export default function Editor({
     }
   }
 
-  function updateField(key, value) {
+  // Phase 3: History recording methods
+  const recordDiscreteAction = useCallback(() => {
+    if (historyDebounceRef.current) {
+      clearTimeout(historyDebounceRef.current.timer);
+      historyDebounceRef.current = null;
+    }
+    setHistoryPast(prev => [...prev.slice(-29), structuredClone(pageRef.current)]);
+    setHistoryFuture([]);
+  }, []);
+
+  const recordDebouncedChange = useCallback(() => {
+    if (!historyDebounceRef.current) {
+      const snapshot = structuredClone(pageRef.current);
+      const timer = setTimeout(() => {
+        if (historyDebounceRef.current) {
+          setHistoryPast(prev => [...prev.slice(-29), historyDebounceRef.current.snapshot]);
+          setHistoryFuture([]);
+          historyDebounceRef.current = null;
+        }
+      }, 700);
+      historyDebounceRef.current = { snapshot, timer };
+    } else {
+      clearTimeout(historyDebounceRef.current.timer);
+      historyDebounceRef.current.timer = setTimeout(() => {
+        if (historyDebounceRef.current) {
+          setHistoryPast(prev => [...prev.slice(-29), historyDebounceRef.current.snapshot]);
+          setHistoryFuture([]);
+          historyDebounceRef.current = null;
+        }
+      }, 700);
+    }
+  }, []);
+
+  const undo = useCallback(() => {
+    let currentPast = historyPast;
+    if (historyDebounceRef.current) {
+      clearTimeout(historyDebounceRef.current.timer);
+      currentPast = [...historyPast.slice(-29), historyDebounceRef.current.snapshot];
+      historyDebounceRef.current = null;
+      setHistoryPast(currentPast);
+    }
+    if (currentPast.length === 0) return;
+
+    const previousState = currentPast[currentPast.length - 1];
+    setHistoryPast(currentPast.slice(0, -1));
+    setHistoryFuture(prev => [structuredClone(pageRef.current), ...prev]);
+    setPage(previousState);
     setIsDirty(true);
+
+    if (previousState.length > 0 && !previousState.some(x => x.instanceId === selectedId)) {
+      setSelectedId(previousState[0].instanceId);
+    }
+  }, [historyPast, selectedId]);
+
+  const redo = useCallback(() => {
+    if (historyDebounceRef.current) {
+      clearTimeout(historyDebounceRef.current.timer);
+      historyDebounceRef.current = null;
+    }
+    if (historyFuture.length === 0) return;
+
+    const nextState = historyFuture[0];
+    setHistoryFuture(prev => prev.slice(1));
+    setHistoryPast(prev => [...prev.slice(-29), structuredClone(pageRef.current)]);
+    setPage(nextState);
+    setIsDirty(true);
+
+    if (nextState.length > 0 && !nextState.some(x => x.instanceId === selectedId)) {
+      setSelectedId(nextState[0].instanceId);
+    }
+  }, [historyFuture, selectedId]);
+
+  // Global Keyboard shortcuts for Undo (Ctrl+Z) and Redo (Ctrl+Y / Ctrl+Shift+Z)
+  useEffect(() => {
+    function handleHistoryKey(e) {
+      const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+      const modifier = isMac ? e.metaKey : e.ctrlKey;
+      if (!modifier) return;
+
+      const activeTag = document.activeElement?.tagName?.toLowerCase();
+      const isInputActive = activeTag === 'input' || activeTag === 'textarea';
+
+      if (e.key === 'z' || e.key === 'Z') {
+        if (e.shiftKey) {
+          if (!isInputActive) {
+            e.preventDefault();
+            redo();
+          }
+        } else {
+          if (!isInputActive) {
+            e.preventDefault();
+            undo();
+          }
+        }
+      } else if (e.key === 'y' || e.key === 'Y') {
+        if (!isInputActive) {
+          e.preventDefault();
+          redo();
+        }
+      }
+    }
+    window.addEventListener('keydown', handleHistoryKey);
+    return () => window.removeEventListener('keydown', handleHistoryKey);
+  }, [undo, redo]);
+
+  // Phase 3: Categorized Inspector Schema Fields & Tabs
+  const schemaEntries = useMemo(() => {
+    if (!selectedDef?.schema) return [];
+    return Object.entries(selectedDef.schema);
+  }, [selectedDef]);
+
+  const categorizedFields = useMemo(() => {
+    const content = [];
+    const media = [];
+    const style = [];
+
+    schemaEntries.forEach(([name, config]) => {
+      const isMedia = config.type === 'image' ||
+        /image|photo|icon|avatar|logo|bgimage|thumbnail/i.test(name) ||
+        /image|photo|icon|logo/i.test(config.label || '');
+
+      const isStyle = config.type === 'select' ||
+        config.type === 'boolean' ||
+        config.type === 'checkbox' ||
+        /color|bg|theme|columns|variant|align|spacing|style|layout|is_?dark|show/i.test(name) ||
+        /color|style|layout|alignment|theme/i.test(config.label || '');
+
+      if (isMedia) {
+        media.push([name, config]);
+      } else if (isStyle) {
+        style.push([name, config]);
+      } else {
+        content.push([name, config]);
+      }
+    });
+
+    return { content, media, style };
+  }, [schemaEntries]);
+
+  const displayedFields = useMemo(() => {
+    const q = fieldSearch.toLowerCase().trim();
+    let base = schemaEntries;
+    if (activeInspectorTab === 'content') base = categorizedFields.content;
+    else if (activeInspectorTab === 'media') base = categorizedFields.media;
+    else if (activeInspectorTab === 'style') base = categorizedFields.style;
+
+    if (!q) return base;
+    return base.filter(([name, config]) => {
+      const labelMatch = (config.label || '').toLowerCase().includes(q);
+      const nameMatch = name.toLowerCase().includes(q);
+      return labelMatch || nameMatch;
+    });
+  }, [schemaEntries, categorizedFields, activeInspectorTab, fieldSearch]);
+
+  const showInspectorTabs = useMemo(() => {
+    let count = 0;
+    if (categorizedFields.content.length > 0) count++;
+    if (categorizedFields.media.length > 0) count++;
+    if (categorizedFields.style.length > 0) count++;
+    return count >= 2;
+  }, [categorizedFields]);
+
+  function updateField(key, value, isDiscrete = false) {
+    setIsDirty(true);
+    if (isDiscrete) {
+      recordDiscreteAction();
+    } else {
+      recordDebouncedChange();
+    }
     setPage(p => p.map(x => x.instanceId === selectedId ? {
       ...x,
       content: { ...x.content, [key]: value }
@@ -615,6 +908,7 @@ export default function Editor({
   }
 
   function moveSection(id, direction) {
+    recordDiscreteAction();
     setIsDirty(true);
     setPage(p => {
       const arr = [...p];
@@ -624,31 +918,150 @@ export default function Editor({
       [arr[i], arr[j]] = [arr[j], arr[i]];
       return arr;
     });
+    setSelectedId(id);
+    setTimeout(() => {
+      selectComponent(id, 'tree');
+    }, 40);
   }
 
   function removeSection(id) {
+    recordDiscreteAction();
     setIsDirty(true);
     setPage(p => {
       const next = p.filter(x => x.instanceId !== id);
       if (id === selectedId) {
-        setSelectedId(next[0]?.instanceId || '');
+        const nextId = next[0]?.instanceId || '';
+        setSelectedId(nextId);
+        if (nextId) {
+          setTimeout(() => selectComponent(nextId, 'tree'), 40);
+        }
       }
       return next;
     });
   }
 
-  function addComponent(type) {
+  function toggleSectionVisibility(id) {
+    recordDiscreteAction();
+    setIsDirty(true);
+    setPage(p => p.map(x => x.instanceId === id ? { ...x, hidden: !x.hidden } : x));
+  }
+
+  function duplicateSection(id) {
+    recordDiscreteAction();
+    setIsDirty(true);
+    const targetIdx = page.findIndex(x => x.instanceId === id);
+    if (targetIdx === -1) return;
+    const target = page[targetIdx];
+    const newInstanceId = generateUniqueId('inst');
+    const cloned = {
+      ...structuredClone(target),
+      instanceId: newInstanceId
+    };
+    const next = [...page];
+    next.splice(targetIdx + 1, 0, cloned);
+    setPage(next);
+    setSelectedId(newInstanceId);
+    setTimeout(() => {
+      selectComponent(newInstanceId, 'tree');
+    }, 50);
+  }
+
+  function addComponent(type, position = 'bottom') {
+    recordDiscreteAction();
     setIsDirty(true);
     const compDef = library[type];
     if (!compDef) return;
     const instanceId = generateUniqueId('inst');
     const content = compDef.defaults ? structuredClone(compDef.defaults) : emptyObjectFromSchema(compDef.schema);
-    setPage(p => [...p, { instanceId, type, content }]);
+    const newItem = { instanceId, type, content, hidden: false };
+
+    setPage(p => {
+      if (position === 'after_selected' && selectedId) {
+        const curIdx = p.findIndex(x => x.instanceId === selectedId);
+        if (curIdx !== -1) {
+          const next = [...p];
+          next.splice(curIdx + 1, 0, newItem);
+          return next;
+        }
+      }
+      return [...p, newItem];
+    });
+
     setSelectedId(instanceId);
+    setTimeout(() => {
+      selectComponent(instanceId, 'tree');
+    }, 60);
   }
+
+  // HTML5 Drag-and-Drop Reordering Handlers
+  const handleDragStart = (e, instanceId) => {
+    setDraggedInstanceId(instanceId);
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', instanceId);
+  };
+
+  const handleDragOver = (e, instanceId) => {
+    e.preventDefault();
+    if (draggedInstanceId === instanceId) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const midY = rect.top + rect.height / 2;
+    const pos = e.clientY < midY ? 'before' : 'after';
+    setDragOverInstanceId(instanceId);
+    setDropPosition(pos);
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDragLeave = (e, instanceId) => {
+    if (dragOverInstanceId === instanceId) {
+      setDragOverInstanceId(null);
+      setDropPosition(null);
+    }
+  };
+
+  const handleDrop = (e, targetInstanceId) => {
+    e.preventDefault();
+    if (!draggedInstanceId || draggedInstanceId === targetInstanceId) {
+      setDraggedInstanceId(null);
+      setDragOverInstanceId(null);
+      setDropPosition(null);
+      return;
+    }
+    recordDiscreteAction();
+    setIsDirty(true);
+    const fromId = draggedInstanceId;
+    const pos = dropPosition;
+
+    setPage(prevPage => {
+      const fromIdx = prevPage.findIndex(x => x.instanceId === fromId);
+      if (fromIdx === -1) return prevPage;
+      const next = [...prevPage];
+      const [moved] = next.splice(fromIdx, 1);
+      let toIdx = next.findIndex(x => x.instanceId === targetInstanceId);
+      if (toIdx === -1) return prevPage;
+      if (pos === 'after') {
+        toIdx += 1;
+      }
+      next.splice(toIdx, 0, moved);
+      return next;
+    });
+
+    setDraggedInstanceId(null);
+    setDragOverInstanceId(null);
+    setDropPosition(null);
+    setTimeout(() => {
+      selectComponent(fromId, 'tree');
+    }, 40);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedInstanceId(null);
+    setDragOverInstanceId(null);
+    setDropPosition(null);
+  };
 
   // Load a complete Page Template skeleton
   function loadTemplate(templateId) {
+    recordDiscreteAction();
     setIsDirty(true);
     const template = pageTemplates.find(t => t.id === templateId);
     if (!template) return;
@@ -691,32 +1104,36 @@ export default function Editor({
   // Backward compatibility alias
   const saveAsPageVariant = saveAsTemplate;
 
-  // Generate complete, self-contained, high-performance HTML
+  // Generate complete, self-contained, high-performance HTML (excluding hidden sections)
   function generateFullHtml() {
-    const renderedSections = page.map(item => {
-      const def = library[item.type];
-      if (!def) return '';
-      try {
-        return Handlebars.compile(def.template)(item.content);
-      } catch (err) {
-        console.error('Handlebars compile error:', err);
-        return '';
-      }
-    }).join('\n\n');
+    const renderedSections = page
+      .filter(item => !item.hidden)
+      .map(item => {
+        const def = library[item.type];
+        if (!def) return '';
+        try {
+          return Handlebars.compile(def.template)(item.content);
+        } catch (err) {
+          console.error('Handlebars compile error:', err);
+          return '';
+        }
+      }).join('\n\n');
 
-    // Deduplicate Layer 2 component styles
+    // Deduplicate Layer 2 component styles for active visible sections
     const usedTypes = new Set();
     const componentCssList = [];
-    page.forEach(item => {
-      if (!usedTypes.has(item.type)) {
-        usedTypes.add(item.type);
-        const def = library[item.type];
-        const css = def?.css || def?.style_css || '';
-        if (css && css.trim()) {
-          componentCssList.push(`/* ── Component: ${item.type} ── */\n${css.trim()}`);
+    page
+      .filter(item => !item.hidden)
+      .forEach(item => {
+        if (!usedTypes.has(item.type)) {
+          usedTypes.add(item.type);
+          const def = library[item.type];
+          const css = def?.css || def?.style_css || '';
+          if (css && css.trim()) {
+            componentCssList.push(`/* ── Component: ${item.type} ── */\n${css.trim()}`);
+          }
         }
-      }
-    });
+      });
 
     const combinedComponentCss = componentCssList.join('\n\n');
 
@@ -814,6 +1231,46 @@ ${renderedSections}
             </div>
 
             <div className="header-actions">
+              {/* Full View Preview Toggle */}
+              <button
+                type="button"
+                className={`btn-full-preview-header ${isPreviewFullView ? 'is-active' : ''}`}
+                onClick={() => setIsPreviewFullView(v => !v)}
+                title={isPreviewFullView ? "Exit Full View (Show Sidebars) [Esc]" : "Full View Preview (Hide Sidebars)"}
+              >
+                {isPreviewFullView ? '◨ Split View' : '⛶ Full View'}
+              </button>
+
+              {/* History Undo / Redo */}
+              <div className="history-btn-group" role="group" aria-label="Undo and Redo">
+                <button
+                  type="button"
+                  className="btn-history-action"
+                  onClick={undo}
+                  disabled={historyPast.length === 0}
+                  title="Undo (Ctrl+Z / Cmd+Z)"
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 7v6h6" />
+                    <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13" />
+                  </svg>
+                  <span>Undo</span>
+                </button>
+                <button
+                  type="button"
+                  className="btn-history-action"
+                  onClick={redo}
+                  disabled={historyFuture.length === 0}
+                  title="Redo (Ctrl+Y / Cmd+Shift+Z)"
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 7v6h-6" />
+                    <path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7" />
+                  </svg>
+                  <span>Redo</span>
+                </button>
+              </div>
+
               {/* Publish / Saved Status Badge */}
               {!lastPublished ? (
                 <span className="status-badge badge-draft" title="This page has never been published to WordPress">
@@ -895,6 +1352,46 @@ ${renderedSections}
             </div>
 
             <div className="header-actions">
+              {/* Full View Preview Toggle */}
+              <button
+                type="button"
+                className={`btn-full-preview-header ${isPreviewFullView ? 'is-active' : ''}`}
+                onClick={() => setIsPreviewFullView(v => !v)}
+                title={isPreviewFullView ? "Exit Full View (Show Sidebars) [Esc]" : "Full View Preview (Hide Sidebars)"}
+              >
+                {isPreviewFullView ? '◨ Split View' : '⛶ Full View'}
+              </button>
+
+              {/* History Undo / Redo */}
+              <div className="history-btn-group" role="group" aria-label="Undo and Redo">
+                <button
+                  type="button"
+                  className="btn-history-action"
+                  onClick={undo}
+                  disabled={historyPast.length === 0}
+                  title="Undo (Ctrl+Z / Cmd+Z)"
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 7v6h6" />
+                    <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13" />
+                  </svg>
+                  <span>Undo</span>
+                </button>
+                <button
+                  type="button"
+                  className="btn-history-action"
+                  onClick={redo}
+                  disabled={historyFuture.length === 0}
+                  title="Redo (Ctrl+Y / Cmd+Shift+Z)"
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 7v6h-6" />
+                    <path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7" />
+                  </svg>
+                  <span>Redo</span>
+                </button>
+              </div>
+
               {availableThemes.length > 1 ? (
                 <div className="theme-switcher-box">
                   <label htmlFor="theme-select" className="theme-switcher-label">ACTIVE THEME:</label>
@@ -939,9 +1436,9 @@ ${renderedSections}
         )}
       </header>
 
-      <div className="page-editor-grid">
+      <div className={`page-editor-grid ${isPreviewFullView ? 'is-full-preview' : ''}`}>
         {/* Left Sidebar: Page Composition & Template Selector */}
-        <aside className="component-list-panel">
+        <aside ref={leftPanelRef} className="component-list-panel">
           {pageTemplates.length > 0 && (
             <div className="variant-selector-box">
               <label>PAGE TEMPLATE</label>
@@ -962,20 +1459,45 @@ ${renderedSections}
               {page.map((item, idx) => {
                 const def = library[item.type];
                 const isSelected = item.instanceId === selectedId;
+                const isDragging = item.instanceId === draggedInstanceId;
+                const isDragOver = item.instanceId === dragOverInstanceId;
 
                 return (
                   <div
                     key={item.instanceId}
-                    className={`component-row ${isSelected ? 'is-selected' : ''}`}
-                    onClick={() => setSelectedId(item.instanceId)}
+                    data-instance-id={item.instanceId}
+                    draggable={true}
+                    onDragStart={e => handleDragStart(e, item.instanceId)}
+                    onDragOver={e => handleDragOver(e, item.instanceId)}
+                    onDragLeave={e => handleDragLeave(e, item.instanceId)}
+                    onDrop={e => handleDrop(e, item.instanceId)}
+                    onDragEnd={handleDragEnd}
+                    className={`component-row ${isSelected ? 'is-selected' : ''} ${item.hidden ? 'is-hidden' : ''} ${isDragging ? 'is-dragging' : ''} ${isDragOver ? (dropPosition === 'before' ? 'drop-indicator-before' : 'drop-indicator-after') : ''}`}
+                    onClick={() => selectComponent(item.instanceId, 'tree')}
                   >
+                    <div className="component-row-drag-handle" title="Drag to reorder section">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="9" cy="5" r="1.5" />
+                        <circle cx="9" cy="12" r="1.5" />
+                        <circle cx="9" cy="19" r="1.5" />
+                        <circle cx="15" cy="5" r="1.5" />
+                        <circle cx="15" cy="12" r="1.5" />
+                        <circle cx="15" cy="19" r="1.5" />
+                      </svg>
+                    </div>
+
                     <div className="component-row-info">
-                      <small>SECTION {idx + 1}</small>
+                      <div className="component-row-meta">
+                        <small>SECTION {idx + 1}</small>
+                        {item.hidden && <span className="badge-hidden">Hidden</span>}
+                      </div>
                       <strong>{def?.name || item.type}</strong>
                     </div>
+
                     <div className="row-actions">
                       <button
                         type="button"
+                        className="btn-row-action"
                         onClick={e => { e.stopPropagation(); moveSection(item.instanceId, -1); }}
                         disabled={idx === 0}
                         title="Move section up"
@@ -984,6 +1506,7 @@ ${renderedSections}
                       </button>
                       <button
                         type="button"
+                        className="btn-row-action"
                         onClick={e => { e.stopPropagation(); moveSection(item.instanceId, 1); }}
                         disabled={idx === page.length - 1}
                         title="Move section down"
@@ -992,6 +1515,36 @@ ${renderedSections}
                       </button>
                       <button
                         type="button"
+                        className={`btn-row-action ${item.hidden ? 'is-hidden-active' : ''}`}
+                        onClick={e => { e.stopPropagation(); toggleSectionVisibility(item.instanceId); }}
+                        title={item.hidden ? "Unhide section" : "Hide section from page"}
+                      >
+                        {item.hidden ? (
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                            <line x1="1" y1="1" x2="23" y2="23" />
+                          </svg>
+                        ) : (
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-row-action"
+                        onClick={e => { e.stopPropagation(); duplicateSection(item.instanceId); }}
+                        title="Duplicate section"
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </svg>
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-row-action btn-danger"
                         onClick={e => { e.stopPropagation(); removeSection(item.instanceId); }}
                         title="Remove section"
                       >
@@ -1005,39 +1558,37 @@ ${renderedSections}
           </div>
 
           <div className="add-component-box">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-              <label style={{ margin: 0 }}>+ ADD COMPONENT</label>
+            <button
+              type="button"
+              className="btn-add-component-trigger"
+              onClick={() => setIsComponentPickerOpen(true)}
+              title="Open Component Library Catalog"
+            >
+              <span style={{ fontSize: '15px' }}>＋</span>
+              <span>Add Component to Page</span>
+            </button>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
               <button
                 type="button"
                 onClick={() => setIsImportModalOpen(true)}
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#2563eb',
+                  color: '#64748b',
                   fontSize: '11px',
                   fontWeight: 600,
                   cursor: 'pointer',
-                  padding: 0
+                  padding: '2px 4px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px'
                 }}
                 title="Import or upload components to library"
               >
-                🧩 Import
+                <span>🧩</span>
+                <span>Import to Library</span>
               </button>
             </div>
-            <select
-              defaultValue=""
-              onChange={e => {
-                if (e.target.value) {
-                  addComponent(e.target.value);
-                  e.target.value = '';
-                }
-              }}
-            >
-              <option value="" disabled>Choose component from library…</option>
-              {components.map(c => (
-                <option key={c.id} value={c.id}>{c.name} ({c.category})</option>
-              ))}
-            </select>
           </div>
 
           <div className="sidebar-tools-box">
@@ -1053,25 +1604,116 @@ ${renderedSections}
         </aside>
 
         {/* Center Sidebar: Generic Schema Form Engine with Component-Not-Found safety */}
-        <aside className="editor-panel">
+        <aside ref={editorPanelRef} className="editor-panel">
           {selected ? (
             selectedDef ? (
               <>
                 <div className="panel-heading">
-                  <p className="panel-kicker">{selectedDef.category || 'COMPONENT'}</p>
-                  <h1>{selectedDef.name}</h1>
+                  <div className="panel-heading-header">
+                    <div>
+                      <p className="panel-kicker">{selectedDef.category || 'COMPONENT'}</p>
+                      <h1>{selectedDef.name}</h1>
+                    </div>
+                    <span className="panel-field-count-badge">
+                      {schemaEntries.length} {schemaEntries.length === 1 ? 'field' : 'fields'}
+                    </span>
+                  </div>
                   <span>Inferred from <code>{selectedDef.id}/schema.json</code></span>
+
+                  {schemaEntries.length >= 3 && (
+                    <div className="inspector-search-wrap">
+                      <span className="inspector-search-icon">🔍</span>
+                      <input
+                        type="text"
+                        className="inspector-search-input"
+                        placeholder="Filter fields (e.g. title, image)..."
+                        value={fieldSearch}
+                        onChange={e => setFieldSearch(e.target.value)}
+                      />
+                      {fieldSearch && (
+                        <button
+                          type="button"
+                          className="inspector-search-clear"
+                          onClick={() => setFieldSearch('')}
+                          title="Clear search"
+                        >
+                          ×
+                        </button>
+                      )}
+                    </div>
+                  )}
+
+                  {!fieldSearch && showInspectorTabs && (
+                    <div className="inspector-tabs" role="tablist">
+                      <button
+                        type="button"
+                        role="tab"
+                        aria-selected={activeInspectorTab === 'all'}
+                        className={`inspector-tab ${activeInspectorTab === 'all' ? 'is-active' : ''}`}
+                        onClick={() => setActiveInspectorTab('all')}
+                      >
+                        All ({schemaEntries.length})
+                      </button>
+                      {categorizedFields.content.length > 0 && (
+                        <button
+                          type="button"
+                          role="tab"
+                          aria-selected={activeInspectorTab === 'content'}
+                          className={`inspector-tab ${activeInspectorTab === 'content' ? 'is-active' : ''}`}
+                          onClick={() => setActiveInspectorTab('content')}
+                        >
+                          📝 Content ({categorizedFields.content.length})
+                        </button>
+                      )}
+                      {categorizedFields.media.length > 0 && (
+                        <button
+                          type="button"
+                          role="tab"
+                          aria-selected={activeInspectorTab === 'media'}
+                          className={`inspector-tab ${activeInspectorTab === 'media' ? 'is-active' : ''}`}
+                          onClick={() => setActiveInspectorTab('media')}
+                        >
+                          🖼 Media ({categorizedFields.media.length})
+                        </button>
+                      )}
+                      {categorizedFields.style.length > 0 && (
+                        <button
+                          type="button"
+                          role="tab"
+                          aria-selected={activeInspectorTab === 'style'}
+                          className={`inspector-tab ${activeInspectorTab === 'style' ? 'is-active' : ''}`}
+                          onClick={() => setActiveInspectorTab('style')}
+                        >
+                          ⚙ Style ({categorizedFields.style.length})
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
+
                 <div className="fields">
-                  {Object.entries(selectedDef.schema).map(([name, config]) => (
-                    <GenericField
-                      key={name}
-                      name={name}
-                      config={config}
-                      value={selected.content?.[name]}
-                      onChange={v => updateField(name, v)}
-                    />
-                  ))}
+                  {displayedFields.length === 0 ? (
+                    <div className="inspector-empty-filter">
+                      <p>No fields found matching "{fieldSearch}"</p>
+                      <button
+                        type="button"
+                        className="btn-secondary btn-sm"
+                        onClick={() => { setFieldSearch(''); setActiveInspectorTab('all'); }}
+                      >
+                        Reset search filter
+                      </button>
+                    </div>
+                  ) : (
+                    displayedFields.map(([name, config]) => (
+                      <GenericField
+                        key={name}
+                        name={name}
+                        config={config}
+                        value={selected.content?.[name]}
+                        onChange={(v, isDisc) => updateField(name, v, isDisc)}
+                      />
+                    ))
+                  )}
                 </div>
               </>
             ) : (
@@ -1097,15 +1739,86 @@ ${renderedSections}
         {/* Right Panel: Live Handlebars Preview Styled by Active Theme */}
         <section className="preview-panel">
           <div className="preview-toolbar">
-            <div>
+            <div className="preview-toolbar-meta">
               <strong>{mode === 'workspace' ? 'Workspace Page Preview' : 'Live Page Preview'}</strong>
-              <span>
+              <span className="preview-meta-caption">
                 {mode === 'workspace'
                   ? `Rendered with ${theme?.name || 'cloned theme'} style.css`
                   : 'pure Handlebars + active theme style.css'}
               </span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+
+            {/* Device Viewport Mode Switcher */}
+            <div className="viewport-switcher" role="group" aria-label="Device Viewport Switcher">
+              <button
+                type="button"
+                className={`viewport-btn ${viewportMode === 'desktop' ? 'is-active' : ''}`}
+                onClick={() => setViewportMode('desktop')}
+                title="Desktop View (Full Width)"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                  <line x1="8" y1="21" x2="16" y2="21" />
+                  <line x1="12" y1="17" x2="12" y2="21" />
+                </svg>
+                <span>Desktop</span>
+              </button>
+              <button
+                type="button"
+                className={`viewport-btn ${viewportMode === 'tablet' ? 'is-active' : ''}`}
+                onClick={() => setViewportMode('tablet')}
+                title="Tablet View (768px)"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
+                  <line x1="12" y1="18" x2="12.01" y2="18" />
+                </svg>
+                <span>Tablet</span>
+              </button>
+              <button
+                type="button"
+                className={`viewport-btn ${viewportMode === 'mobile' ? 'is-active' : ''}`}
+                onClick={() => setViewportMode('mobile')}
+                title="Mobile View (375px)"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                  <line x1="12" y1="18" x2="12.01" y2="18" />
+                </svg>
+                <span>Mobile</span>
+              </button>
+            </div>
+
+            {/* Full View Preview Toggle in Canvas Toolbar */}
+            <button
+              type="button"
+              className={`btn-preview-mode-toggle ${isPreviewFullView ? 'is-active' : ''}`}
+              onClick={() => setIsPreviewFullView(v => !v)}
+              title={isPreviewFullView ? "Exit Full View (Show Sidebars) [Esc]" : "Full View Preview (Hide Sidebars)"}
+            >
+              {isPreviewFullView ? (
+                <>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <path d="M9 3v18" />
+                    <path d="M15 3v18" />
+                  </svg>
+                  <span>Exit Full View</span>
+                </>
+              ) : (
+                <>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 3 21 3 21 9" />
+                    <polyline points="9 21 3 21 3 15" />
+                    <line x1="21" y1="3" x2="14" y2="10" />
+                    <line x1="3" y1="21" x2="10" y2="14" />
+                  </svg>
+                  <span>Full View</span>
+                </>
+              )}
+            </button>
+
+            <div className="preview-toolbar-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               {mode === 'workspace' && (
                 <button
                   type="button"
@@ -1151,7 +1864,11 @@ ${renderedSections}
             </div>
           </div>
 
-          <div className="preview-canvas page-preview">
+          <div
+            ref={previewCanvasRef}
+            className={`preview-viewport-scroll-container ${viewportMode !== 'desktop' ? 'is-framed' : ''}`}
+          >
+            <div className={`preview-canvas page-preview preview-canvas--${viewportMode}`}>
             {/* Inject Active Theme Google Font & CSS into preview */}
             {theme?.fontUrl && (
               <link rel="stylesheet" href={theme.fontUrl} />
@@ -1218,16 +1935,55 @@ ${renderedSections}
               )
             )}
 
-            {page.map(item => {
+            {page.map((item, idx) => {
               const def = library[item.type];
               const isSelected = item.instanceId === selectedId;
+
+              if (item.hidden) {
+                return (
+                  <div
+                    key={item.instanceId}
+                    data-instance-id={item.instanceId}
+                    className={`preview-component preview-component--hidden ${isSelected ? 'is-selected' : ''}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      selectComponent(item.instanceId, 'canvas');
+                    }}
+                  >
+                    <div className="preview-hidden-banner">
+                      <div className="preview-hidden-banner-info">
+                        <span className="hidden-icon">👁️‍🗨️</span>
+                        <div>
+                          <strong>{def?.name || item.type} (Hidden)</strong>
+                          <small>This section is hidden and will not appear on published page</small>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        className="btn-unhide-section"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleSectionVisibility(item.instanceId);
+                        }}
+                      >
+                        Unhide Section
+                      </button>
+                    </div>
+                  </div>
+                );
+              }
 
               if (!def) {
                 return (
                   <div
                     key={item.instanceId}
+                    data-instance-id={item.instanceId}
                     className={`preview-component preview-component-missing ${isSelected ? 'is-selected' : ''}`}
-                    onClick={() => setSelectedId(item.instanceId)}
+                    onClick={(e) => {
+                      const linkOrBtn = e.target.closest('a, button');
+                      if (linkOrBtn) e.preventDefault();
+                      selectComponent(item.instanceId, 'canvas');
+                    }}
                   >
                     <span>⚠️ Component <code>{item.type}</code> not found in active theme</span>
                   </div>
@@ -1239,10 +1995,91 @@ ${renderedSections}
               return (
                 <div
                   key={item.instanceId}
+                  data-instance-id={item.instanceId}
                   className={`preview-component ${isSelected ? 'is-selected' : ''}`}
-                  onClick={() => setSelectedId(item.instanceId)}
-                  dangerouslySetInnerHTML={{ __html: html }}
-                />
+                  onClick={(e) => {
+                    const linkOrBtn = e.target.closest('a, button');
+                    if (linkOrBtn) e.preventDefault();
+                    selectComponent(item.instanceId, 'canvas');
+                  }}
+                >
+                  {isSelected && (
+                    <div className="preview-floating-toolbar" onClick={e => e.stopPropagation()}>
+                      <div className="preview-floating-title">
+                        <span className="preview-floating-index">#{idx + 1}</span>
+                        <span className="preview-floating-name">{def.name}</span>
+                      </div>
+
+                      <div className="preview-floating-divider" />
+
+                      <div className="preview-floating-actions">
+                        <button
+                          type="button"
+                          className="btn-floating-action"
+                          disabled={idx === 0}
+                          onClick={(e) => { e.stopPropagation(); moveSection(item.instanceId, -1); }}
+                          title="Move section up"
+                        >
+                          ↑
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-floating-action"
+                          disabled={idx === page.length - 1}
+                          onClick={(e) => { e.stopPropagation(); moveSection(item.instanceId, 1); }}
+                          title="Move section down"
+                        >
+                          ↓
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-floating-action"
+                          onClick={(e) => { e.stopPropagation(); duplicateSection(item.instanceId); }}
+                          title="Duplicate section"
+                        >
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                          </svg>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-floating-action"
+                          onClick={(e) => { e.stopPropagation(); toggleSectionVisibility(item.instanceId); }}
+                          title="Hide section from page"
+                        >
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-floating-action btn-floating-add"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setIsComponentPickerOpen(true);
+                          }}
+                          title="Insert new component below"
+                        >
+                          ＋ Add Below
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-floating-action btn-floating-danger"
+                          onClick={(e) => { e.stopPropagation(); removeSection(item.instanceId); }}
+                          title="Remove section"
+                        >
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  <div className="preview-component-content" dangerouslySetInnerHTML={{ __html: html }} />
+                </div>
               );
             })}
 
@@ -1290,7 +2127,23 @@ ${renderedSections}
                 </div>
               )
             )}
+            </div>
           </div>
+
+          {/* Floating Exit Button when in Full View Preview Mode */}
+          {isPreviewFullView && (
+            <div
+              className="full-view-exit-badge"
+              onClick={() => setIsPreviewFullView(false)}
+              title="Click to exit full view (or press Esc)"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+              <span>Exit Full View (Esc)</span>
+            </div>
+          )}
         </section>
       </div>
 
@@ -1313,6 +2166,17 @@ ${renderedSections}
             console.warn('Failed to reload components in editor:', err);
           }
         }}
+      />
+
+      <ComponentPickerModal
+        isOpen={isComponentPickerOpen}
+        onClose={() => setIsComponentPickerOpen(false)}
+        components={components}
+        onSelectComponent={(type, position) => {
+          addComponent(type, position);
+        }}
+        selectedSectionIndex={page.findIndex(x => x.instanceId === selectedId)}
+        totalSections={page.length}
       />
 
       {showThemeModal && (
