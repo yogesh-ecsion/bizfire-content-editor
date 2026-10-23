@@ -4,6 +4,55 @@ import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { compileHeader } from '@/lib/headerCompiler.js';
 
+const HEADER_VARIATIONS = [
+  {
+    id: 'split-topbar',
+    name: 'Split with Topbar',
+    description: 'Topbar announcement with phone, left logo, center navigation, and right CTA button.',
+    svg: `<svg viewBox="0 0 120 70" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="70" rx="4" fill="#0f172a" />
+      <rect x="6" y="8" width="108" height="8" rx="2" fill="#1e293b" />
+      <rect x="10" y="11" width="30" height="2" rx="1" fill="#64748b" />
+      <rect x="80" y="11" width="30" height="2" rx="1" fill="#38bdf8" />
+      <rect x="6" y="20" width="108" height="26" rx="2" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <rect x="12" y="28" width="22" height="10" rx="2" fill="#0284c7" />
+      <rect x="42" y="31" width="12" height="4" rx="1" fill="#94a3b8" />
+      <rect x="58" y="31" width="12" height="4" rx="1" fill="#94a3b8" />
+      <rect x="74" y="31" width="12" height="4" rx="1" fill="#94a3b8" />
+      <rect x="92" y="28" width="18" height="10" rx="2" fill="#38bdf8" />
+    </svg>`
+  },
+  {
+    id: 'centered-nav',
+    name: 'Centered Branding & Nav',
+    description: 'Logo centered at the top, primary navigation centered below with phone and CTA action buttons.',
+    svg: `<svg viewBox="0 0 120 70" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="70" rx="4" fill="#0f172a" />
+      <rect x="48" y="12" width="24" height="12" rx="2" fill="#0284c7" />
+      <rect x="14" y="16" width="20" height="4" rx="1" fill="#64748b" />
+      <rect x="86" y="16" width="20" height="4" rx="1" fill="#38bdf8" />
+      <rect x="6" y="32" width="108" height="18" rx="2" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <rect x="24" y="39" width="14" height="4" rx="1" fill="#94a3b8" />
+      <rect x="44" y="39" width="14" height="4" rx="1" fill="#94a3b8" />
+      <rect x="64" y="39" width="14" height="4" rx="1" fill="#94a3b8" />
+      <rect x="84" y="39" width="14" height="4" rx="1" fill="#94a3b8" />
+    </svg>`
+  },
+  {
+    id: 'minimal-inline',
+    name: 'Minimal Clean (Single Row)',
+    description: 'Streamlined single-row header without topbar, brand logo left and inline navigation right.',
+    svg: `<svg viewBox="0 0 120 70" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="70" rx="4" fill="#0f172a" />
+      <rect x="6" y="20" width="108" height="30" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+      <rect x="12" y="29" width="28" height="12" rx="2" fill="#0284c7" />
+      <rect x="48" y="33" width="14" height="4" rx="1" fill="#94a3b8" />
+      <rect x="66" y="33" width="14" height="4" rx="1" fill="#94a3b8" />
+      <rect x="84" y="29" width="24" height="12" rx="2" fill="#38bdf8" />
+    </svg>`
+  }
+];
+
 export default function HeaderEditor({ workspace, initialPages = [], initialHeader }) {
   // Ensure robust defaults
   const [headerData, setHeaderData] = useState(() => {
@@ -31,6 +80,7 @@ export default function HeaderEditor({ workspace, initialPages = [], initialHead
         showTopBar: initialHeader?.settings?.showTopBar !== false,
         topBarText: initialHeader?.settings?.topBarText || 'Proudly Serving Local Homeowners & Businesses',
       },
+      layoutVariation: initialHeader?.layoutVariation || 'split-topbar',
       items: Array.isArray(initialHeader?.items) && initialHeader.items.length > 0
         ? initialHeader.items
         : [
@@ -453,6 +503,22 @@ export default function HeaderEditor({ workspace, initialPages = [], initialHead
           >
             <button
               type="button"
+              className={`btn btn-sm ${activeTab === 'layouts' ? 'btn-white text-primary border-bottom-0' : 'btn-link text-muted'}`}
+              style={{
+                borderRadius: '6px 6px 0 0',
+                fontWeight: activeTab === 'layouts' ? '600' : '500',
+                border: activeTab === 'layouts' ? '1px solid #e2e8f0' : 'none',
+                backgroundColor: activeTab === 'layouts' ? '#ffffff' : 'transparent',
+                textDecoration: 'none',
+                fontSize: '13px',
+                padding: '6px 12px',
+              }}
+              onClick={() => setActiveTab('layouts')}
+            >
+              🎨 Layouts
+            </button>
+            <button
+              type="button"
               className={`btn btn-sm ${activeTab === 'links' ? 'btn-white text-primary border-bottom-0' : 'btn-link text-muted'}`}
               style={{
                 borderRadius: '6px 6px 0 0',
@@ -519,6 +585,75 @@ export default function HeaderEditor({ workspace, initialPages = [], initialHead
 
           {/* Tab Content */}
           <div style={{ padding: '20px', flex: 1 }}>
+            {/* TAB 0: LAYOUT VARIATIONS */}
+            {activeTab === 'layouts' && (
+              <div>
+                <div style={{ marginBottom: '16px' }}>
+                  <h5 style={{ margin: 0, fontSize: '15px', fontWeight: '700', color: '#0f172a' }}>
+                    Header Layout Variations
+                  </h5>
+                  <small className="text-muted">Choose a visual style. Your navigation links, branding, and contact details are 100% preserved.</small>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '12px' }}>
+                  {HEADER_VARIATIONS.map(variant => {
+                    const isActive = (headerData.layoutVariation || 'split-topbar') === variant.id;
+                    return (
+                      <div
+                        key={variant.id}
+                        onClick={() => {
+                          setHeaderData(prev => {
+                            const nextSettings = { ...prev.settings };
+                            if (variant.id === 'minimal-inline') {
+                              nextSettings.showTopBar = false;
+                            } else {
+                              nextSettings.showTopBar = true;
+                            }
+                            return {
+                              ...prev,
+                              layoutVariation: variant.id,
+                              settings: nextSettings
+                            };
+                          });
+                          setAlert({ type: 'success', message: `Swapped to "${variant.name}". Your content was preserved!` });
+                          setTimeout(() => setAlert(null), 3000);
+                        }}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '14px',
+                          padding: '12px',
+                          background: isActive ? '#f0fdfa' : '#ffffff',
+                          border: isActive ? '2px solid #0284c7' : '1px solid #e2e8f0',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s ease',
+                          boxShadow: isActive ? '0 2px 8px rgba(2, 132, 199, 0.15)' : 'none'
+                        }}
+                      >
+                        <div
+                          style={{ width: '100px', height: '58px', borderRadius: '4px', overflow: 'hidden', flexShrink: 0, background: '#0f172a' }}
+                          dangerouslySetInnerHTML={{ __html: variant.svg }}
+                        />
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
+                            <strong style={{ fontSize: '13px', color: '#0f172a' }}>{variant.name}</strong>
+                            {isActive && (
+                              <span style={{ fontSize: '10px', background: '#0284c7', color: '#fff', padding: '1px 6px', borderRadius: '999px', fontWeight: 600 }}>
+                                Active
+                              </span>
+                            )}
+                          </div>
+                          <p style={{ fontSize: '11px', color: '#64748b', margin: 0, lineHeight: 1.35 }}>
+                            {variant.description}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
             {/* TAB 1: NAVIGATION MENU TREE */}
             {activeTab === 'links' && (
               <div>
